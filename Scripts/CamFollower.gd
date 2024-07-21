@@ -11,7 +11,7 @@ extends Camera2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#offsetY = position.y - target.position.y
-	print_debug(offsetY)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

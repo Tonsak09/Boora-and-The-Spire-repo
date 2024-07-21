@@ -59,12 +59,11 @@ func Movement(delta):
 		var threshVar = thresholdCurve.sample(diff.length() / threshold) 
 		
 		var target = position + dir * vel * delta * threshVar
-		var test = Vector2(
+		target = Vector2(
 			clamp(target.x, containerRect.position.x, containerRect.position.x + containerRect.size.x), 
 			clamp(target.y, containerRect.position.y, containerRect.position.y + containerRect.size.y))
-		print_debug(test)
 		
-		position = test
+		position = target
 		
 	else:
 		speedLerp = clamp(speedLerp - speedDownRate * delta, 0, 1)

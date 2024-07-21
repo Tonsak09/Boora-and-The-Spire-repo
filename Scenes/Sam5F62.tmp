@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=27 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
@@ -13,7 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://d1ppabnfq1g6c" path="res://Textures/ShelvesVert.png" id="10_bnmwc"]
 [ext_resource type="Texture2D" uid="uid://gn2hhuu1pw3t" path="res://Textures/Book.png" id="11_qosd4"]
 [ext_resource type="Script" path="res://Scripts/Collectible.gd" id="12_j0obi"]
+[ext_resource type="Texture2D" uid="uid://dxsasvpt6ar7f" path="res://Textures/Cystal.png" id="12_lnpjr"]
 [ext_resource type="Texture2D" uid="uid://co3glheceuupb" path="res://Textures/Dice.png" id="13_r2cay"]
+[ext_resource type="Texture2D" uid="uid://hy5osb1e6yvr" path="res://Textures/Potion.png" id="14_l58p0"]
+[ext_resource type="Texture2D" uid="uid://cxfgm3ai4rk0b" path="res://Textures/RockGolem.png" id="15_s3nnt"]
+[ext_resource type="Texture2D" uid="uid://bygiioak2fjfl" path="res://Textures/Mushroom.png" id="18_e40bp"]
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -45,18 +49,8 @@ point_count = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_pv872"]
 radius = 16.0312
 
-[sub_resource type="Curve" id="Curve_okceo"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhrbh"]
 size = Vector2(33, 73.5)
-
-[sub_resource type="Curve" id="Curve_hcntm"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_giq5t"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -97,10 +91,10 @@ visTimeCurve = SubResource("Curve_nttq8")
 visWobbleRange = Vector2(1, 1.1)
 visWobbleCurve = SubResource("Curve_4ajs1")
 
-[node name="Inventory" type="Area2D" parent="Boora"]
+[node name="Area2D" type="Area2D" parent="Boora"]
 script = ExtResource("6_cr2bj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boora/Inventory"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boora/Area2D"]
 shape = SubResource("CircleShape2D_pv872")
 
 [node name="WizardChill" type="Sprite2D" parent="."]
@@ -134,29 +128,40 @@ texture = ExtResource("10_bnmwc")
 position = Vector2(-340, -1047)
 texture = ExtResource("11_qosd4")
 offset = Vector2(0, -50)
-
-[node name="Area2D" type="Area2D" parent="Book"]
 script = ExtResource("12_j0obi")
 itemType = 5
-absorbTime = 0.3
-absorbCurve = SubResource("Curve_okceo")
+
+[node name="Area2D" type="Area2D" parent="Book"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D"]
 position = Vector2(-0.5, 11.25)
 shape = SubResource("RectangleShape2D_bhrbh")
 
-[node name="Dice" type="Sprite2D" parent="."]
-position = Vector2(402, -1209)
-texture = ExtResource("13_r2cay")
-offset = Vector2(0, -50)
+[node name="Cystal" type="Sprite2D" parent="."]
+position = Vector2(404, -1121)
+texture = ExtResource("12_lnpjr")
+script = ExtResource("12_j0obi")
+itemType = 1
 
-[node name="Area2D" type="Area2D" parent="Dice"]
+[node name="Dice" type="Sprite2D" parent="."]
+position = Vector2(407, -1259)
+texture = ExtResource("13_r2cay")
 script = ExtResource("12_j0obi")
 itemType = 2
-absorbTime = 0.3
-absorbCurve = SubResource("Curve_hcntm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dice/Area2D"]
-shape = SubResource("RectangleShape2D_giq5t")
+[node name="Potion" type="Sprite2D" parent="."]
+position = Vector2(-397, -593)
+texture = ExtResource("14_l58p0")
+script = ExtResource("12_j0obi")
+itemType = 4
 
-[connection signal="area_entered" from="Boora/Inventory" to="Boora/Inventory" method="_on_area_entered"]
+[node name="RockGolem" type="Sprite2D" parent="."]
+position = Vector2(-312, -1476)
+texture = ExtResource("15_s3nnt")
+script = ExtResource("12_j0obi")
+
+[node name="Mushroom" type="Sprite2D" parent="."]
+position = Vector2(-306, -1231)
+texture = ExtResource("18_e40bp")
+
+[connection signal="area_entered" from="Boora/Area2D" to="Boora/Area2D" method="_on_area_entered"]
