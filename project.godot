@@ -17,8 +17,8 @@ config/icon="res://Textures/icon.svg"
 
 [display]
 
-window/size/viewport_width=648
-window/size/viewport_height=1152
+window/size/viewport_width=576
+window/size/viewport_height=1024
 window/size/resizable=false
 window/handheld/orientation=1
 
@@ -26,3 +26,4 @@ window/handheld/orientation=1
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.294118, 0.305882, 0.282353, 1)

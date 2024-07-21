@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
 [ext_resource type="Shader" uid="uid://c8xulx435ubrn" path="res://Shaders/BooraShade.tres" id="1_o3p4r"]
-[ext_resource type="Script" path="res://Scenes/VisualController.gd" id="3_3rhbo"]
+[ext_resource type="Script" path="res://Scripts/VisualController.gd" id="3_3rhbo"]
 [ext_resource type="Texture2D" uid="uid://3kmu01rvqgf" path="res://Textures/Spire BG.png" id="4_nqjia"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]
 [ext_resource type="Texture2D" uid="uid://dsht22kf10enj" path="res://Textures/CauldronBack.png" id="7_lottx"]
@@ -47,7 +47,7 @@ offset = Vector2(0, -2800)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(0, -1000)
-zoom = Vector2(0.47, 0.47)
+zoom = Vector2(0.38, 0.38)
 script = ExtResource("1_jo5dm")
 target = NodePath("../Boora")
 speed = 800.0
@@ -70,6 +70,8 @@ speedCurve = SubResource("Curve_fe7c4")
 happyRange = 10.0
 threshold = 40.0
 thresholdCurve = SubResource("Curve_lo4hw")
+bodyRect = Rect2(0, 0, 20, 20)
+containerRect = Rect2(0, -2546.5, 1000, 4850)
 visTimeScale = 1.0
 visTimeCurve = SubResource("Curve_nttq8")
 visWobbleRange = Vector2(1, 1.1)

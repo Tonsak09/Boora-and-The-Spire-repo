@@ -9,6 +9,9 @@ extends Sprite2D
 @export var threshold : float
 @export var thresholdCurve : Curve
 
+@export var bodyRect : Rect2
+@export var containerRect : Rect2
+
 @export var visTimeScale : float
 @export var visTimeCurve : Curve
 
@@ -23,6 +26,8 @@ var speedLerp : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	containerRect.position.x -= containerRect.size.x / 2.0
+	containerRect.position.y -= containerRect.size.y / 2.0
 	pass # Replace with function body.
 
 
@@ -33,6 +38,7 @@ func _process(delta):
 	material.set_shader_parameter("VisTime", visTime)
 	material.set_shader_parameter("SizeScaler", lerp(visWobbleRange.x, visWobbleRange.y, visWobbleCurve.sample(speedLerp)))
 	
+	bodyRect.position = position
 	Movement(delta)
 	
 
@@ -49,9 +55,16 @@ func Movement(delta):
 	if diff.length() > happyRange:
 		dir = diff.normalized()
 		
+		# Slower closer to center 
 		var threshVar = thresholdCurve.sample(diff.length() / threshold) 
-		print_debug(threshVar)
 		
-		position += dir * vel * delta * threshVar
+		var target = position + dir * vel * delta * threshVar
+		var test = Vector2(
+			clamp(target.x, containerRect.position.x, containerRect.position.x + containerRect.size.x), 
+			clamp(target.y, containerRect.position.y, containerRect.position.y + containerRect.size.y))
+		print_debug(test)
+		
+		position = test
+		
 	else:
 		speedLerp = clamp(speedLerp - speedDownRate * delta, 0, 1)
