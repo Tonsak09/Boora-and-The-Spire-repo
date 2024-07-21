@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=15 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
@@ -11,10 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dpn85knuurllt" path="res://Textures/Shelves.png" id="9_puqg4"]
 [ext_resource type="Texture2D" uid="uid://d1ppabnfq1g6c" path="res://Textures/ShelvesVert.png" id="10_bnmwc"]
 
-[sub_resource type="Curve" id="Curve_x43gp"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
-point_count = 2
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p37ti"]
 shader = ExtResource("1_o3p4r")
 shader_parameter/ColorParameter = Color(0, 0, 0, 1)
@@ -24,10 +20,6 @@ shader_parameter/SizeScaler = 1.0
 
 [sub_resource type="Curve" id="Curve_fe7c4"]
 _data = [Vector2(0, 0), 0.0, 2.12539, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_lo4hw"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_nttq8"]
@@ -50,12 +42,7 @@ position = Vector2(0, -1000)
 zoom = Vector2(0.47, 0.47)
 script = ExtResource("1_jo5dm")
 target = NodePath("../Boora")
-speed = 500.0
-disTillMove = 50.0
-maxDis = 300.0
-maxDisCurve = SubResource("Curve_x43gp")
-vertContraints = Vector2(-3947, -1000)
-offsetY = -300.0
+vertContraints = Vector2(-1000, -3947)
 
 [node name="Boora" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_p37ti")
@@ -68,8 +55,6 @@ speedUpRate = 1.0
 speedDownRate = 3.0
 speedCurve = SubResource("Curve_fe7c4")
 happyRange = 10.0
-threshold = 40.0
-thresholdCurve = SubResource("Curve_lo4hw")
 visTimeScale = 1.0
 visTimeCurve = SubResource("Curve_nttq8")
 visWobbleRange = Vector2(1, 1.1)

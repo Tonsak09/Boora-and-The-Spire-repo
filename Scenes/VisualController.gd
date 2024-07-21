@@ -5,10 +5,21 @@ extends Sprite2D
 @export var speedDownRate : float
 @export var speedCurve : Curve
 
-
 @export var happyRange : float
+@export var threshold : float
+@export var thresholdCurve : Curve
 
+@export var visTimeScale : float
+@export var visTimeCurve : Curve
+
+@export var visWobbleRange : Vector2
+@export var visWobbleCurve : Curve
+
+
+var visTime : Vector2
+var dir : Vector2
 var speedLerp : float
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +28,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	material.set_shader_parameter("TimeScale", 1.0)
+	visTime += delta * dir * (visTimeScale * visTimeCurve.sample(speedLerp))
+	
+	material.set_shader_parameter("VisTime", visTime)
+	material.set_shader_parameter("SizeScaler", lerp(visWobbleRange.x, visWobbleRange.y, visWobbleCurve.sample(speedLerp)))
+	
 	Movement(delta)
 	
 
@@ -32,4 +47,11 @@ func Movement(delta):
 	var vel = speedCurve.sample(speedLerp) * speed;
 	
 	if diff.length() > happyRange:
-			position += diff.normalized() * vel * delta
+		dir = diff.normalized()
+		
+		var threshVar = thresholdCurve.sample(diff.length() / threshold) 
+		print_debug(threshVar)
+		
+		position += dir * vel * delta * threshVar
+	else:
+		speedLerp = clamp(speedLerp - speedDownRate * delta, 0, 1)
