@@ -8,6 +8,7 @@ extends Sprite2D
 @export var castTexture : Texture
 @export var hand : Node2D
 
+
 @export var ShoppingLists : Array[Array]
 
 var currList : int # Index for list in ShoppingLists

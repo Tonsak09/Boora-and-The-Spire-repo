@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=34 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
@@ -7,7 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://3kmu01rvqgf" path="res://Textures/Spire BG.png" id="4_nqjia"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]
 [ext_resource type="Script" path="res://Scripts/Inventory.gd" id="6_cr2bj"]
+[ext_resource type="Texture2D" uid="uid://bq6xh6g8x06aq" path="res://Textures/EyeA.png" id="6_gnmrq"]
+[ext_resource type="Script" path="res://Scripts/EyeRoot.gd" id="6_tm8eb"]
 [ext_resource type="Texture2D" uid="uid://dsht22kf10enj" path="res://Textures/CauldronBack.png" id="7_lottx"]
+[ext_resource type="Texture2D" uid="uid://ojx3anj522a" path="res://Textures/EyeB.png" id="7_x1216"]
 [ext_resource type="Texture2D" uid="uid://6y8eselso5yw" path="res://Textures/CauldronFront.png" id="8_34rap"]
 [ext_resource type="Texture2D" uid="uid://dpn85knuurllt" path="res://Textures/Shelves.png" id="9_puqg4"]
 [ext_resource type="Texture2D" uid="uid://d1ppabnfq1g6c" path="res://Textures/ShelvesVert.png" id="10_bnmwc"]
@@ -104,6 +107,21 @@ visTimeScale = 1.0
 visTimeCurve = SubResource("Curve_nttq8")
 visWobbleRange = Vector2(1, 1.1)
 visWobbleCurve = SubResource("Curve_4ajs1")
+
+[node name="EyeRoot" type="Node2D" parent="Boora"]
+scale = Vector2(1, 1)
+script = ExtResource("6_tm8eb")
+
+[node name="EyeA" type="Sprite2D" parent="Boora/EyeRoot"]
+position = Vector2(-6, -4.4)
+rotation = -0.39968
+scale = Vector2(0.105, 0.105)
+texture = ExtResource("6_gnmrq")
+
+[node name="EyeB" type="Sprite2D" parent="Boora/EyeRoot"]
+position = Vector2(8.6, -7.4)
+scale = Vector2(0.105, 0.105)
+texture = ExtResource("7_x1216")
 
 [node name="Inventory" type="Area2D" parent="Boora"]
 script = ExtResource("6_cr2bj")

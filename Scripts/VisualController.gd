@@ -40,7 +40,6 @@ func _process(delta):
 	
 	bodyRect.position = position
 	Movement(delta)
-	
 
 func Movement(delta):
 	# Mouse in viewport coordinates.
