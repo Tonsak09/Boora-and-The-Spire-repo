@@ -19,7 +19,7 @@ func _process(delta):
 	
 	if(abs((target.position.y + offsetY) - position.y) >= disTillMove):
 		var dis = abs((target.position.y + offsetY) - position.y)
-		var lerp = maxDisCurve.sample(dis / maxDis)
-		var vel = speed * lerp
+		var l = maxDisCurve.sample(dis / maxDis)
+		var vel = speed * l
 		
 		position.y = clamp( move_toward(position.y, target.position.y + offsetY, delta * vel), vertContraints.x, vertContraints.y)
