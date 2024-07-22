@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=31 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
@@ -15,7 +15,9 @@
 [ext_resource type="Script" path="res://Scripts/Collectible.gd" id="12_j0obi"]
 [ext_resource type="Texture2D" uid="uid://co3glheceuupb" path="res://Textures/Dice.png" id="13_r2cay"]
 [ext_resource type="Script" path="res://Scripts/Wizard.gd" id="15_a2ub1"]
+[ext_resource type="Texture2D" uid="uid://d4jbqa1ashcw3" path="res://Textures/Wizard_cast.png" id="16_ehh23"]
 [ext_resource type="Texture2D" uid="uid://bs13kb5wfk16t" path="res://Textures/SpeechBG.png" id="16_jx0wd"]
+[ext_resource type="Texture2D" uid="uid://co1kbdow37cme" path="res://Textures/Hand.png" id="17_4ijdu"]
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -141,7 +143,7 @@ offset = Vector2(0, -50)
 
 [node name="Area2D" type="Area2D" parent="Dice"]
 script = ExtResource("12_j0obi")
-itemType = 2
+itemType = 1
 absorbTime = 0.3
 absorbCurve = SubResource("Curve_hcntm")
 
@@ -166,7 +168,7 @@ texture = ExtResource("10_bnmwc")
 position = Vector2(412, -1210)
 texture = ExtResource("10_bnmwc")
 
-[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "cauldron", "shopLabel")]
+[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "cauldron", "shopLabel", "hand")]
 position = Vector2(384, -102)
 texture = ExtResource("6_708dw")
 script = ExtResource("15_a2ub1")
@@ -174,7 +176,9 @@ Inventory = NodePath("../Boora/Inventory")
 cauldron = NodePath("../Cauldron/CauldronTarget")
 rangeToPull = 150.0
 shopLabel = NodePath("../SpeechBg/Label")
-ShoppingLists = Array[Array]([[0, 0, 0, 0]])
+castTexture = ExtResource("16_ehh23")
+hand = NodePath("../Hand")
+ShoppingLists = Array[Array]([[0, 1]])
 
 [node name="SpeechBg" type="Sprite2D" parent="."]
 position = Vector2(333, -368)
@@ -187,5 +191,11 @@ offset_right = 157.0
 offset_bottom = 81.0
 text = "test"
 label_settings = SubResource("LabelSettings_rbel8")
+
+[node name="Hand" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-17, -23)
+rotation = -0.240855
+texture = ExtResource("17_4ijdu")
 
 [connection signal="area_entered" from="Boora/Inventory" to="Boora/Inventory" method="_on_area_entered"]
