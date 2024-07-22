@@ -1,9 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=48 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
 [ext_resource type="Shader" uid="uid://c8xulx435ubrn" path="res://Shaders/BooraShade.tres" id="1_o3p4r"]
 [ext_resource type="Script" path="res://Scripts/VisualController.gd" id="3_3rhbo"]
+[ext_resource type="Shader" uid="uid://yop32ie2ny2" path="res://Shaders/Colored.tres" id="4_3c85f"]
+[ext_resource type="Texture2D" uid="uid://cdpjcehp0pree" path="res://Textures/Square.png" id="4_3n5cx"]
 [ext_resource type="Texture2D" uid="uid://3kmu01rvqgf" path="res://Textures/Spire BG.png" id="4_nqjia"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]
 [ext_resource type="Script" path="res://Scripts/Inventory.gd" id="6_cr2bj"]
@@ -14,17 +16,33 @@
 [ext_resource type="Texture2D" uid="uid://6y8eselso5yw" path="res://Textures/CauldronFront.png" id="8_34rap"]
 [ext_resource type="Texture2D" uid="uid://dpn85knuurllt" path="res://Textures/Shelves.png" id="9_puqg4"]
 [ext_resource type="Texture2D" uid="uid://d1ppabnfq1g6c" path="res://Textures/ShelvesVert.png" id="10_bnmwc"]
+[ext_resource type="AudioStream" uid="uid://d2s5c51n1yuup" path="res://Audio/Music/sb_cobalt_pianoonly.mp3" id="10_g3scv"]
+[ext_resource type="Script" path="res://Scripts/InventoryUI.gd" id="11_pd56u"]
 [ext_resource type="Texture2D" uid="uid://gn2hhuu1pw3t" path="res://Textures/Book.png" id="11_qosd4"]
+[ext_resource type="Texture2D" uid="uid://c6sl7umujsqpf" path="res://Textures/InventoryUIBG.png" id="11_vlul6"]
 [ext_resource type="Script" path="res://Scripts/Collectible.gd" id="12_j0obi"]
 [ext_resource type="Texture2D" uid="uid://co3glheceuupb" path="res://Textures/Dice.png" id="13_r2cay"]
+[ext_resource type="AudioStream" uid="uid://bbmf0l8yurhh6" path="res://Audio/Pullout/Pullout.wav" id="14_v1vki"]
 [ext_resource type="Script" path="res://Scripts/Wizard.gd" id="15_a2ub1"]
+[ext_resource type="AudioStream" uid="uid://dh5b2ia6nus0h" path="res://Audio/Pullout/Pullout1.wav" id="15_qbhjk"]
+[ext_resource type="AudioStream" uid="uid://ykh51ma5xffu" path="res://Audio/Pullout/Pullout2.wav" id="16_ctu7j"]
 [ext_resource type="Texture2D" uid="uid://d4jbqa1ashcw3" path="res://Textures/Wizard_cast.png" id="16_ehh23"]
 [ext_resource type="Texture2D" uid="uid://bs13kb5wfk16t" path="res://Textures/SpeechBG.png" id="16_jx0wd"]
 [ext_resource type="Texture2D" uid="uid://co1kbdow37cme" path="res://Textures/Hand.png" id="17_4ijdu"]
+[ext_resource type="AudioStream" uid="uid://dr7k6sf3johyu" path="res://Audio/Pullout/Pullout4.wav" id="17_ofqxm"]
+[ext_resource type="AudioStream" uid="uid://bwbiv3dutdmqa" path="res://Audio/Pullout/Pullout5.wav" id="18_r6sft"]
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="Curve" id="Curve_83mwl"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_awlci"]
+shader = ExtResource("4_3c85f")
+shader_parameter/Color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p37ti"]
 shader = ExtResource("1_o3p4r")
@@ -49,6 +67,10 @@ point_count = 2
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Gradient" id="Gradient_2ha8c"]
+offsets = PackedFloat32Array(0, 0.339506, 0.62963, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.275625, 0.656354, 0.590078, 1, 0.805209, 0.535868, 0.771012, 1, 0.93603, 0.253281, 0.350684, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pv872"]
 radius = 16.0312
 
@@ -58,6 +80,20 @@ point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhrbh"]
 size = Vector2(33, 73.5)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0kxvr"]
+playback_mode = 1
+streams_count = 5
+stream_0/stream = ExtResource("14_v1vki")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("15_qbhjk")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("16_ctu7j")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("17_ofqxm")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("18_r6sft")
+stream_4/weight = 1.0
 
 [sub_resource type="Curve" id="Curve_hcntm"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -77,8 +113,8 @@ texture = ExtResource("4_nqjia")
 offset = Vector2(0, -2800)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(0, -1000)
-zoom = Vector2(0.38, 0.38)
+position = Vector2(0, -1200)
+zoom = Vector2(0.26, 0.26)
 script = ExtResource("1_jo5dm")
 target = NodePath("../Boora")
 speed = 800.0
@@ -87,6 +123,25 @@ maxDis = 300.0
 maxDisCurve = SubResource("Curve_x43gp")
 vertContraints = Vector2(-3947, -1000)
 offsetY = -300.0
+
+[node name="InventoryUI" type="Node2D" parent="." node_paths=PackedStringArray("targetFollow")]
+position = Vector2(-164, -296)
+scale = Vector2(5, 5)
+script = ExtResource("11_pd56u")
+targetFollow = NodePath("../Boora")
+targetRadius = 150.0
+speed = 1000.0
+disThreshold = 100.0
+disThreshCurve = SubResource("Curve_83mwl")
+
+[node name="InvenFill" type="Sprite2D" parent="InventoryUI"]
+material = SubResource("ShaderMaterial_awlci")
+scale = Vector2(0.032, 0.032)
+texture = ExtResource("4_3n5cx")
+
+[node name="InventoryUibg" type="Sprite2D" parent="InventoryUI"]
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("11_vlul6")
 
 [node name="Boora" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_p37ti")
@@ -108,9 +163,9 @@ visTimeCurve = SubResource("Curve_nttq8")
 visWobbleRange = Vector2(1, 1.1)
 visWobbleCurve = SubResource("Curve_4ajs1")
 
-[node name="EyeRoot" type="Node2D" parent="Boora"]
-scale = Vector2(1, 1)
+[node name="EyeRoot" type="Node2D" parent="Boora" node_paths=PackedStringArray("controller")]
 script = ExtResource("6_tm8eb")
+controller = NodePath("..")
 
 [node name="EyeA" type="Sprite2D" parent="Boora/EyeRoot"]
 position = Vector2(-6, -4.4)
@@ -123,12 +178,20 @@ position = Vector2(8.6, -7.4)
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("7_x1216")
 
-[node name="Inventory" type="Area2D" parent="Boora"]
+[node name="Inventory" type="Area2D" parent="Boora" node_paths=PackedStringArray("invenFill")]
 script = ExtResource("6_cr2bj")
-maxCapacity = 1
+maxCapacity = 3
+invenFill = NodePath("../../InventoryUI/InvenFill")
+invenGrad = SubResource("Gradient_2ha8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boora/Inventory"]
 shape = SubResource("CircleShape2D_pv872")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Boora"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Boora"]
+stream = ExtResource("10_g3scv")
+autoplay = true
 
 [node name="CauldronBack" type="Sprite2D" parent="."]
 position = Vector2(171, -39)
@@ -140,33 +203,97 @@ position = Vector2(171, -39)
 [node name="CauldronTarget" type="Node2D" parent="Cauldron"]
 position = Vector2(0, 146)
 
-[node name="Book" type="Sprite2D" parent="."]
+[node name="ItemsParent" type="Node2D" parent="."]
+
+[node name="Book" type="Sprite2D" parent="ItemsParent"]
 position = Vector2(-340, -1047)
 texture = ExtResource("11_qosd4")
 offset = Vector2(0, -50)
 
-[node name="Area2D" type="Area2D" parent="Book"]
+[node name="Area2D" type="Area2D" parent="ItemsParent/Book" node_paths=PackedStringArray("audio")]
 script = ExtResource("12_j0obi")
 absorbTime = 0.3
 absorbCurve = SubResource("Curve_okceo")
+audio = NodePath("../AudioStreamPlayer2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsParent/Book/Area2D"]
 position = Vector2(-0.5, 11.25)
 shape = SubResource("RectangleShape2D_bhrbh")
 
-[node name="Dice" type="Sprite2D" parent="."]
-position = Vector2(402, -1209)
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ItemsParent/Book"]
+stream = SubResource("AudioStreamRandomizer_0kxvr")
+
+[node name="Dice" type="Sprite2D" parent="ItemsParent"]
+position = Vector2(303, -1196)
 texture = ExtResource("13_r2cay")
 offset = Vector2(0, -50)
 
-[node name="Area2D" type="Area2D" parent="Dice"]
+[node name="Area2D" type="Area2D" parent="ItemsParent/Dice" node_paths=PackedStringArray("audio")]
 script = ExtResource("12_j0obi")
 itemType = 1
 absorbTime = 0.3
 absorbCurve = SubResource("Curve_hcntm")
+audio = NodePath("../AudioStreamPlayer2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dice/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsParent/Dice/Area2D"]
 shape = SubResource("RectangleShape2D_giq5t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ItemsParent/Dice"]
+stream = SubResource("AudioStreamRandomizer_0kxvr")
+
+[node name="Dice2" type="Sprite2D" parent="ItemsParent"]
+position = Vector2(299, -1058)
+texture = ExtResource("13_r2cay")
+offset = Vector2(0, -50)
+
+[node name="Area2D" type="Area2D" parent="ItemsParent/Dice2" node_paths=PackedStringArray("audio")]
+script = ExtResource("12_j0obi")
+itemType = 1
+absorbTime = 0.3
+absorbCurve = SubResource("Curve_hcntm")
+audio = NodePath("../../Dice/AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsParent/Dice2/Area2D"]
+shape = SubResource("RectangleShape2D_giq5t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ItemsParent/Dice2"]
+stream = SubResource("AudioStreamRandomizer_0kxvr")
+
+[node name="Dice3" type="Sprite2D" parent="ItemsParent"]
+position = Vector2(292, -1349)
+texture = ExtResource("13_r2cay")
+offset = Vector2(0, -50)
+
+[node name="Area2D" type="Area2D" parent="ItemsParent/Dice3" node_paths=PackedStringArray("audio")]
+script = ExtResource("12_j0obi")
+itemType = 1
+absorbTime = 0.3
+absorbCurve = SubResource("Curve_hcntm")
+audio = NodePath("../../Dice/AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsParent/Dice3/Area2D"]
+shape = SubResource("RectangleShape2D_giq5t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ItemsParent/Dice3"]
+stream = SubResource("AudioStreamRandomizer_0kxvr")
+
+[node name="Dice4" type="Sprite2D" parent="ItemsParent"]
+position = Vector2(-292, -1349)
+texture = ExtResource("13_r2cay")
+offset = Vector2(0, -50)
+
+[node name="Area2D" type="Area2D" parent="ItemsParent/Dice4" node_paths=PackedStringArray("audio")]
+script = ExtResource("12_j0obi")
+itemType = 1
+absorbTime = 0.3
+absorbCurve = SubResource("Curve_hcntm")
+audio = NodePath("../../Dice/AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsParent/Dice4/Area2D"]
+shape = SubResource("RectangleShape2D_giq5t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ItemsParent/Dice4"]
+stream = SubResource("AudioStreamRandomizer_0kxvr")
 
 [node name="CauldronFront" type="Sprite2D" parent="."]
 position = Vector2(171, -39)
@@ -174,16 +301,32 @@ texture = ExtResource("8_34rap")
 
 [node name="ShelvesFolder" type="Node2D" parent="."]
 
+[node name="Shelves3" type="Sprite2D" parent="ShelvesFolder"]
+position = Vector2(12, -3915)
+texture = ExtResource("9_puqg4")
+
+[node name="Shelves2" type="Sprite2D" parent="ShelvesFolder"]
+position = Vector2(0, -2335)
+texture = ExtResource("9_puqg4")
+
 [node name="Shelves" type="Sprite2D" parent="ShelvesFolder"]
-position = Vector2(-359, -599)
+position = Vector2(0, -2752)
 texture = ExtResource("9_puqg4")
 
 [node name="ShelvesVert" type="Sprite2D" parent="ShelvesFolder"]
-position = Vector2(-305, -1189)
+position = Vector2(-300, -1200)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert2" type="Sprite2D" parent="ShelvesFolder"]
-position = Vector2(412, -1210)
+position = Vector2(300, -1200)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert3" type="Sprite2D" parent="ShelvesFolder"]
+position = Vector2(-300, -1750)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert4" type="Sprite2D" parent="ShelvesFolder"]
+position = Vector2(300, -1750)
 texture = ExtResource("10_bnmwc")
 
 [node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "cauldron", "shopLabel", "hand")]
@@ -196,7 +339,7 @@ rangeToPull = 150.0
 shopLabel = NodePath("../SpeechBg/Label")
 castTexture = ExtResource("16_ehh23")
 hand = NodePath("../Hand")
-ShoppingLists = Array[Array]([[0, 1]])
+ShoppingLists = Array[Array]([[0, 1], [1, 2, 3]])
 
 [node name="SpeechBg" type="Sprite2D" parent="."]
 position = Vector2(333, -368)

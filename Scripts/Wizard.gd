@@ -26,17 +26,22 @@ func _process(delta):
 			item.StartAbsorb(cauldron) # Animate to cauldron 
 			currShoppingList[item.itemType] = currShoppingList[item.itemType] - 1
 			var index = typeToCharIndex[item.itemType]
-			if index != -1:
+			if index != -1 && currShoppingList[item.itemType] + 1 > 0:
 				shopLabel.text[index] = str(int(shopLabel.text[index + 2]) - currShoppingList[item.itemType]) 
-				shopListTotal -= 1
+				shopListTotal = max(shopListTotal - 1, 0)
 		Inventory.items = [] # Clear inventory 
 		
 		# Check if shopping list is complete 
-		print_debug(shopListTotal)
 		if(shopListTotal == 0):
-			hand.visible = true;
-			texture = castTexture;
-			shopLabel.text = "Thanks"
+			
+			currList += 1
+			
+			if currList >= ShoppingLists.size(): # End game? 
+				hand.visible = true;
+				texture = castTexture;
+				shopLabel.text = "Thanks"
+			else: # Next list 
+				GenerateShoppingListInternal()
 
 
 func GenerateShoppingListInternal():

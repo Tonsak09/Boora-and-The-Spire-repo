@@ -4,6 +4,8 @@ extends Area2D
 @export var absorbTime : float 
 @export var absorbCurve : Curve
 
+@export var audio : AudioStreamPlayer2D
+
 var isAbsorbing : bool 
 var timer : float 
 
@@ -16,6 +18,7 @@ func _init():
 	timer = 0
 
 func StartAbsorb (target : Node2D):
+	audio.play()
 	self.target = target
 	startPos = get_parent().global_position
 	
