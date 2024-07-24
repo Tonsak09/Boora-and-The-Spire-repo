@@ -26,9 +26,11 @@ func _process(delta):
 			item.StartAbsorb(cauldron) # Animate to cauldron 
 			currShoppingList[item.itemType] = currShoppingList[item.itemType] - 1
 			var index = typeToCharIndex[item.itemType]
-			if index != -1 && currShoppingList[item.itemType] + 1 > 0:
+			if index != -1 && currShoppingList[item.itemType] + 1 > 0: # Does item exist on shpping list 
 				shopLabel.text[index] = str(int(shopLabel.text[index + 2]) - currShoppingList[item.itemType]) 
 				shopListTotal = max(shopListTotal - 1, 0)
+			else:
+				item.Reset()
 		Inventory.items = [] # Clear inventory 
 		
 		# Check if shopping list is complete 

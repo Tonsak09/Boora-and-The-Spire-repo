@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
 [ext_resource type="Shader" uid="uid://c8xulx435ubrn" path="res://Shaders/BooraShade.tres" id="1_o3p4r"]
 [ext_resource type="Script" path="res://Scripts/VisualController.gd" id="3_3rhbo"]
-[ext_resource type="Shader" uid="uid://yop32ie2ny2" path="res://Shaders/Colored.tres" id="4_3c85f"]
+[ext_resource type="Shader" uid="uid://csn4wra21irbj" path="res://Shaders/Colored.tres" id="4_3c85f"]
 [ext_resource type="Texture2D" uid="uid://cdpjcehp0pree" path="res://Textures/Square.png" id="4_3n5cx"]
 [ext_resource type="Texture2D" uid="uid://3kmu01rvqgf" path="res://Textures/Spire BG.png" id="4_nqjia"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]

@@ -10,12 +10,16 @@ var isAbsorbing : bool
 var timer : float 
 
 var target : Node2D
-var startPos : Vector2
+var startPos : Vector2 # Start for animation interp 
 
-
+var origin : Vector2
 
 func _init():
 	timer = 0
+	
+	
+func _ready():
+	origin = get_parent().global_position
 
 func StartAbsorb (target : Node2D):
 	audio.play()
@@ -26,9 +30,14 @@ func StartAbsorb (target : Node2D):
 	timer = 0
 	
 	monitorable = false
+	
+func Reset():
+	isAbsorbing = false
+	timer = 0
+	get_parent().global_position = origin;
+	monitorable = true
 
 func _process(delta):
-	
 	if isAbsorbing:
 		timer += delta
 		var lerp = clamp(timer / absorbTime, 0, 1) 
