@@ -26,6 +26,7 @@ func _process(delta):
 			item.StartAbsorb(cauldron) # Animate to cauldron 
 			currShoppingList[item.itemType] = currShoppingList[item.itemType] - 1
 			var index = typeToCharIndex[item.itemType]
+			print_debug(currShoppingList[item.itemType])
 			if index != -1 && currShoppingList[item.itemType] + 1 > 0: # Does item exist on shpping list 
 				shopLabel.text[index] = str(int(shopLabel.text[index + 2]) - currShoppingList[item.itemType]) 
 				shopListTotal = max(shopListTotal - 1, 0)
@@ -66,6 +67,7 @@ func GenerateShoppingListInternal():
 	var counter = 0
 	for item in currShoppingList: # Add to list 
 		if item == 0:
+			counter += 1
 			continue
 		typeToCharIndex[counter] = shopLabel.text.length()
 		shopLabel.text += "0/" + str(item) + " " + str(Types.CollectType.find_key(counter)) + "\n"

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://7xronm0euu3o"]
+
+[ext_resource type="Shader" uid="uid://cdnfw8sl5ivu3" path="res://Shaders/Collectible.tres" id="1_sft7b"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_sft7b")
+shader_parameter/Offset = Vector2(0, -0.33)
+shader_parameter/Radius = 1.0

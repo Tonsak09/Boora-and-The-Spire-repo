@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=3 uid="uid://blw0n7w1lrq4y"]
+
+[ext_resource type="Texture2D" uid="uid://cxfgm3ai4rk0b" path="res://Textures/RockGolem.png" id="1_jnqsk"]
+[ext_resource type="Script" path="res://Scripts/Collectible.gd" id="2_353pe"]
+[ext_resource type="AudioStream" uid="uid://bbmf0l8yurhh6" path="res://Audio/Pullout/Pullout.wav" id="3_4wv5s"]
+[ext_resource type="AudioStream" uid="uid://dh5b2ia6nus0h" path="res://Audio/Pullout/Pullout1.wav" id="4_m31vu"]
+[ext_resource type="AudioStream" uid="uid://ykh51ma5xffu" path="res://Audio/Pullout/Pullout2.wav" id="5_6aw41"]
+[ext_resource type="AudioStream" uid="uid://dr7k6sf3johyu" path="res://Audio/Pullout/Pullout4.wav" id="6_rehrm"]
+[ext_resource type="AudioStream" uid="uid://bwbiv3dutdmqa" path="res://Audio/Pullout/Pullout5.wav" id="7_7ac8t"]
+
+[sub_resource type="Curve" id="Curve_okceo"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xa5gd"]
+size = Vector2(100, 66)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0kxvr"]
+playback_mode = 1
+streams_count = 5
+stream_0/stream = ExtResource("3_4wv5s")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_m31vu")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_6aw41")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("6_rehrm")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("7_7ac8t")
+stream_4/weight = 1.0
+
+[node name="Rock Golem" type="Sprite2D"]
+position = Vector2(291, -1439)
+texture = ExtResource("1_jnqsk")
+offset = Vector2(0, -50)
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
+script = ExtResource("2_353pe")
+absorbTime = 0.3
+absorbCurve = SubResource("Curve_okceo")
+audio = NodePath("../AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-3, 8)
+shape = SubResource("RectangleShape2D_xa5gd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0kxvr")

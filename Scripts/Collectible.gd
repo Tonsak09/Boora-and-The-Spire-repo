@@ -30,7 +30,7 @@ func StartAbsorb (target : Node2D):
 	timer = 0
 	
 	monitorable = false
-	
+
 func Reset():
 	isAbsorbing = false
 	timer = 0
@@ -42,3 +42,4 @@ func _process(delta):
 		timer += delta
 		var lerp = clamp(timer / absorbTime, 0, 1) 
 		get_parent().global_position = lerp(startPos, target.global_position, lerp) 
+
