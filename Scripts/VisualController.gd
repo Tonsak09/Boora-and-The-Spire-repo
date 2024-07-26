@@ -25,8 +25,9 @@ var speedLerp : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	containerRect.position.x -= containerRect.size.x / 2.0
-	containerRect.position.y -= containerRect.size.y / 2.0
+	SetContainer(containerRect)
+	#containerRect.position.x -= containerRect.size.x / 2.0
+	#containerRect.position.y -= containerRect.size.y / 2.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -63,3 +64,9 @@ func Movement(delta):
 		
 	else:
 		speedLerp = clamp(speedLerp - speedDownRate * delta, 0, 1)
+
+func SetContainer(container : Rect2):
+	containerRect.position.x = container.position.x - container.size.x / 2.0
+	containerRect.position.y = container.position.y - container.size.y / 2.0
+	
+	containerRect.size = container.size

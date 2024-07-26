@@ -1,13 +1,19 @@
-[gd_scene load_steps=53 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=64 format=3 uid="uid://bpqe01fd77dlr"]
 
+[ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
 [ext_resource type="Shader" uid="uid://c8xulx435ubrn" path="res://Shaders/BooraShade.tres" id="1_o3p4r"]
+[ext_resource type="Texture2D" uid="uid://cbolgjp8617ie" path="res://Textures/BG/SpireBG_ColorSplatter.png" id="2_uqmlr"]
 [ext_resource type="Script" path="res://Scripts/VisualController.gd" id="3_3rhbo"]
+[ext_resource type="Texture2D" uid="uid://dwrt0dpxf1lvl" path="res://Textures/BG/SpireBG_LineWithHidden.png" id="3_54k2k"]
 [ext_resource type="Shader" uid="uid://csn4wra21irbj" path="res://Shaders/Colored.tres" id="4_3c85f"]
 [ext_resource type="PackedScene" uid="uid://d2d4fj46hbg6h" path="res://Prefabs/CollectionCircle.tscn" id="4_3e34h"]
 [ext_resource type="Texture2D" uid="uid://cdpjcehp0pree" path="res://Textures/Square.png" id="4_3n5cx"]
-[ext_resource type="Texture2D" uid="uid://3kmu01rvqgf" path="res://Textures/Spire BG.png" id="4_nqjia"]
+[ext_resource type="Shader" uid="uid://cv111g0i1u2ae" path="res://Shaders/PathCover.tres" id="4_7hl40"]
+[ext_resource type="Texture2D" uid="uid://ba57ii3ndduy5" path="res://Textures/BG/SpireBG_HiddenCoverRiddle.png" id="4_j2eu4"]
+[ext_resource type="Script" path="res://Scripts/CoverHiddenPath.gd" id="5_dk4pg"]
+[ext_resource type="Texture2D" uid="uid://71qasc3h2psg" path="res://Textures/BG/SpireBG_HiddenCoverLightning.png" id="5_mee71"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]
 [ext_resource type="Script" path="res://Scripts/Inventory.gd" id="6_cr2bj"]
 [ext_resource type="Texture2D" uid="uid://bq6xh6g8x06aq" path="res://Textures/EyeA.png" id="6_gnmrq"]
@@ -24,12 +30,14 @@
 [ext_resource type="PackedScene" uid="uid://co3ywbx7x8oeb" path="res://Prefabs/mushroom.tscn" id="11_koneu"]
 [ext_resource type="Script" path="res://Scripts/InventoryUI.gd" id="11_pd56u"]
 [ext_resource type="Texture2D" uid="uid://c6sl7umujsqpf" path="res://Textures/InventoryUIBG.png" id="11_vlul6"]
+[ext_resource type="Script" path="res://Scripts/RoomConnector.gd" id="12_gdmuw"]
 [ext_resource type="PackedScene" uid="uid://d7ihts1mgxrl" path="res://Prefabs/bottle.tscn" id="12_sav4g"]
 [ext_resource type="PackedScene" uid="uid://blw0n7w1lrq4y" path="res://Prefabs/rock_golem.tscn" id="13_p7ug6"]
 [ext_resource type="Script" path="res://Scripts/Wizard.gd" id="15_a2ub1"]
 [ext_resource type="Texture2D" uid="uid://d4jbqa1ashcw3" path="res://Textures/Wizard_cast.png" id="16_ehh23"]
 [ext_resource type="Texture2D" uid="uid://bs13kb5wfk16t" path="res://Textures/SpeechBG.png" id="16_jx0wd"]
 [ext_resource type="Texture2D" uid="uid://co1kbdow37cme" path="res://Textures/Hand.png" id="17_4ijdu"]
+[ext_resource type="Texture2D" uid="uid://el0kgwrghcl6" path="res://Textures/BG/RiddleBG.png" id="18_0801g"]
 [ext_resource type="AudioStream" uid="uid://bj01q710gj3uf" path="res://Audio/Wizrd Chap/wblip4.mp3" id="29_33lwh"]
 [ext_resource type="AudioStream" uid="uid://baieiqadsisch" path="res://Audio/Wizrd Chap/wblip5.mp3" id="30_257kc"]
 [ext_resource type="AudioStream" uid="uid://cxkgtwn160r8k" path="res://Audio/Wizrd Chap/wblip6.mp3" id="31_tbhbn"]
@@ -40,6 +48,13 @@
 [ext_resource type="AudioStream" uid="uid://cs7y5qxkedadu" path="res://Audio/Wizrd Chap/wblip13.mp3" id="36_tr33w"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7p4k"]
+shader = ExtResource("4_7hl40")
+shader_parameter/Alpha = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_esgkd"]
+radius = 266.88
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -110,15 +125,171 @@ stream_9/weight = 1.0
 font_size = 36
 font_color = Color(0.207843, 0.207843, 0.207843, 1)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5cs4"]
+size = Vector2(1185, 2548)
 
-[node name="SpireBg" type="Sprite2D" parent="."]
+[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "introRoom", "riddleRoom")]
+script = ExtResource("1_4ei66")
+cam = NodePath("AlwaysActive/Camera2D")
+Boora = NodePath("AlwaysActive/Boora")
+introRoom = [NodePath("IntroBack"), NodePath("IntroFront")]
+introCamContraints = Vector2(-3947, -1000)
+introBooraRect = Rect2(0, -2546.5, 1000, 4850)
+riddleRoom = [NodePath("RiddleRoom")]
+riddleCamContraints = Vector2(-3947, -3800)
+riddleBooraRect = Rect2(0, -3915, 1185, 2548)
+
+[node name="IntroBack" type="Node2D" parent="."]
+
+[node name="SpireBg" type="Sprite2D" parent="IntroBack"]
 position = Vector2(0, 274)
-texture = ExtResource("4_nqjia")
+texture = ExtResource("2_uqmlr")
 offset = Vector2(0, -2800)
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(0, -1200)
+[node name="LinesWithPath" type="Sprite2D" parent="IntroBack/SpireBg"]
+texture = ExtResource("3_54k2k")
+offset = Vector2(0, -2800)
+
+[node name="RiddleCover" type="Sprite2D" parent="IntroBack/SpireBg" node_paths=PackedStringArray("sprite")]
+material = SubResource("ShaderMaterial_g7p4k")
+texture = ExtResource("4_j2eu4")
+offset = Vector2(0, -2800)
+script = ExtResource("5_dk4pg")
+sprite = NodePath(".")
+animateSpeed = 2.0
+
+[node name="Area2D" type="Area2D" parent="IntroBack/SpireBg/RiddleCover"]
+position = Vector2(-534, -3469)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IntroBack/SpireBg/RiddleCover/Area2D"]
+shape = SubResource("CircleShape2D_esgkd")
+
+[node name="LightningCover" type="Sprite2D" parent="IntroBack/SpireBg"]
+texture = ExtResource("5_mee71")
+offset = Vector2(0, -2800)
+
+[node name="CauldronBack" type="Sprite2D" parent="IntroBack"]
+position = Vector2(171, -39)
+texture = ExtResource("7_lottx")
+
+[node name="Cauldron" type="Node2D" parent="IntroBack"]
+position = Vector2(171, -39)
+
+[node name="CauldronTarget" type="Node2D" parent="IntroBack/Cauldron"]
+position = Vector2(0, 146)
+
+[node name="ItemsParent" type="Node2D" parent="IntroBack"]
+
+[node name="Book" parent="IntroBack/ItemsParent" instance=ExtResource("8_a6jq7")]
+position = Vector2(-338, -1058)
+
+[node name="Dice" parent="IntroBack/ItemsParent" instance=ExtResource("9_ytf70")]
+
+[node name="Crystal" parent="IntroBack/ItemsParent" instance=ExtResource("10_5bxhk")]
+
+[node name="Mushroom" parent="IntroBack/ItemsParent" instance=ExtResource("11_koneu")]
+
+[node name="Bottle" parent="IntroBack/ItemsParent" instance=ExtResource("12_sav4g")]
+
+[node name="Rock Golem" parent="IntroBack/ItemsParent" instance=ExtResource("13_p7ug6")]
+
+[node name="Rock Golem2" parent="IntroBack/ItemsParent" instance=ExtResource("13_p7ug6")]
+position = Vector2(31, -2701)
+
+[node name="Crystal2" parent="IntroBack/ItemsParent" instance=ExtResource("10_5bxhk")]
+position = Vector2(27, -2290)
+
+[node name="Bottle2" parent="IntroBack/ItemsParent" instance=ExtResource("12_sav4g")]
+position = Vector2(101, -3866)
+
+[node name="Book2" parent="IntroBack/ItemsParent" instance=ExtResource("8_a6jq7")]
+position = Vector2(-22, -3864)
+
+[node name="CauldronFront" type="Sprite2D" parent="IntroBack"]
+position = Vector2(171, -39)
+texture = ExtResource("8_34rap")
+
+[node name="ToRiddleRoom" parent="IntroBack" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+visible = false
+position = Vector2(-590, -3189)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+roomToload = 1
+posToMove = NodePath("TPPosition")
+
+[node name="TPPosition" type="Node2D" parent="IntroBack/ToRiddleRoom"]
+position = Vector2(964, -144)
+
+[node name="CollectionCircle" parent="IntroBack" instance=ExtResource("4_3e34h")]
+position = Vector2(383, -656)
+
+[node name="CircleContinueDialogue" parent="IntroBack" instance=ExtResource("4_3e34h")]
+position = Vector2(384, -656.001)
+collision_layer = 0
+collision_mask = 2
+metadata/CollType = "CollContinue"
+
+[node name="RiddleRoom" type="Node2D" parent="."]
+position = Vector2(-2462, 0)
+
+[node name="RiddleBg" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(0, -3906)
+texture = ExtResource("18_0801g")
+
+[node name="ShelvesVert" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(-410, -4000)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert2" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(-410, -4500)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert3" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(-410, -5000)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert4" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(340, -5000)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert5" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(340, -4500)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert6" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(340, -4000)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert7" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(-410, -3500)
+texture = ExtResource("10_bnmwc")
+
+[node name="Shelves" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(374, -2802)
+texture = ExtResource("9_puqg4")
+
+[node name="CollectionCircle" parent="RiddleRoom" instance=ExtResource("4_3e34h")]
+position = Vector2(-8, -2775)
+
+[node name="ToIntroRoom" parent="RiddleRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+position = Vector2(575, -3331)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+posToMove = NodePath("TpPoint")
+
+[node name="TpPoint" type="Node2D" parent="RiddleRoom/ToIntroRoom"]
+position = Vector2(-842, 33)
+
+[node name="AlwaysActive" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="AlwaysActive" node_paths=PackedStringArray("target")]
+position = Vector2(0, -1244.28)
 zoom = Vector2(0.335, 0.335)
 script = ExtResource("1_jo5dm")
 target = NodePath("../Boora")
@@ -129,59 +300,7 @@ maxDisCurve = SubResource("Curve_x43gp")
 vertContraints = Vector2(-3947, -1000)
 offsetY = -300.0
 
-[node name="CauldronBack" type="Sprite2D" parent="."]
-position = Vector2(171, -39)
-texture = ExtResource("7_lottx")
-
-[node name="Cauldron" type="Node2D" parent="."]
-position = Vector2(171, -39)
-
-[node name="CauldronTarget" type="Node2D" parent="Cauldron"]
-position = Vector2(0, 146)
-
-[node name="ItemsParent" type="Node2D" parent="."]
-
-[node name="Book" parent="ItemsParent" instance=ExtResource("8_a6jq7")]
-position = Vector2(-338, -1058)
-
-[node name="Dice" parent="ItemsParent" instance=ExtResource("9_ytf70")]
-
-[node name="Crystal" parent="ItemsParent" instance=ExtResource("10_5bxhk")]
-
-[node name="Mushroom" parent="ItemsParent" instance=ExtResource("11_koneu")]
-
-[node name="Bottle" parent="ItemsParent" instance=ExtResource("12_sav4g")]
-
-[node name="Rock Golem" parent="ItemsParent" instance=ExtResource("13_p7ug6")]
-
-[node name="Rock Golem2" parent="ItemsParent" instance=ExtResource("13_p7ug6")]
-position = Vector2(31, -2701)
-
-[node name="Crystal2" parent="ItemsParent" instance=ExtResource("10_5bxhk")]
-position = Vector2(27, -2290)
-
-[node name="Bottle2" parent="ItemsParent" instance=ExtResource("12_sav4g")]
-position = Vector2(101, -3866)
-
-[node name="Book2" parent="ItemsParent" instance=ExtResource("8_a6jq7")]
-position = Vector2(-22, -3864)
-
-[node name="CauldronFront" type="Sprite2D" parent="."]
-position = Vector2(171, -39)
-texture = ExtResource("8_34rap")
-
-[node name="CollectionCircle" parent="." instance=ExtResource("4_3e34h")]
-position = Vector2(383, -656)
-scale = Vector2(1, 1)
-
-[node name="CircleContinueDialogue" parent="." instance=ExtResource("4_3e34h")]
-position = Vector2(384, -656.001)
-scale = Vector2(1, 1)
-collision_layer = 0
-collision_mask = 2
-metadata/CollType = "CollContinue"
-
-[node name="InventoryUI" type="Node2D" parent="." node_paths=PackedStringArray("targetFollow")]
+[node name="InventoryUI" type="Node2D" parent="AlwaysActive" node_paths=PackedStringArray("targetFollow")]
 position = Vector2(2.99997, -727)
 scale = Vector2(5, 5)
 script = ExtResource("11_pd56u")
@@ -191,16 +310,17 @@ speed = 1000.0
 disThreshold = 100.0
 disThreshCurve = SubResource("Curve_83mwl")
 
-[node name="InvenFill" type="Sprite2D" parent="InventoryUI"]
+[node name="InvenFill" type="Sprite2D" parent="AlwaysActive/InventoryUI"]
 material = SubResource("ShaderMaterial_awlci")
 scale = Vector2(0.032, 0.032)
 texture = ExtResource("4_3n5cx")
 
-[node name="InventoryUibg" type="Sprite2D" parent="InventoryUI"]
+[node name="InventoryUibg" type="Sprite2D" parent="AlwaysActive/InventoryUI"]
 scale = Vector2(0.325, 0.325)
 texture = ExtResource("11_vlul6")
 
-[node name="Boora" type="Sprite2D" parent="."]
+[node name="Boora" type="Sprite2D" parent="AlwaysActive"]
+visibility_layer = 2
 material = SubResource("ShaderMaterial_p37ti")
 position = Vector2(0, -728)
 scale = Vector2(5, 5)
@@ -220,74 +340,76 @@ visTimeCurve = SubResource("Curve_nttq8")
 visWobbleRange = Vector2(1, 1.1)
 visWobbleCurve = SubResource("Curve_4ajs1")
 
-[node name="EyeRoot" type="Node2D" parent="Boora" node_paths=PackedStringArray("controller")]
+[node name="EyeRoot" type="Node2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("controller")]
 script = ExtResource("6_tm8eb")
 controller = NodePath("..")
 
-[node name="EyeA" type="Sprite2D" parent="Boora/EyeRoot"]
+[node name="EyeA" type="Sprite2D" parent="AlwaysActive/Boora/EyeRoot"]
 position = Vector2(-6, -4.4)
 rotation = -0.39968
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("6_gnmrq")
 
-[node name="EyeB" type="Sprite2D" parent="Boora/EyeRoot"]
+[node name="EyeB" type="Sprite2D" parent="AlwaysActive/Boora/EyeRoot"]
 position = Vector2(8.6, -7.4)
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("7_x1216")
 
-[node name="Inventory" type="Area2D" parent="Boora" node_paths=PackedStringArray("invenFill")]
+[node name="Inventory" type="Area2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("invenFill")]
 collision_layer = 3
 script = ExtResource("6_cr2bj")
 maxCapacity = 3
 invenFill = NodePath("../../InventoryUI/InvenFill")
 invenGrad = SubResource("Gradient_2ha8c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boora/Inventory"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlwaysActive/Boora/Inventory"]
 shape = SubResource("CircleShape2D_pv872")
 
-[node name="AudioListener2D" type="AudioListener2D" parent="Boora"]
+[node name="AudioListener2D" type="AudioListener2D" parent="AlwaysActive/Boora"]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Boora"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AlwaysActive/Boora"]
 stream = ExtResource("10_g3scv")
 autoplay = true
 
-[node name="ShelvesFolder" type="Node2D" parent="."]
+[node name="IntroFront" type="Node2D" parent="."]
 
-[node name="Shelves3" type="Sprite2D" parent="ShelvesFolder"]
+[node name="ShelvesFolder" type="Node2D" parent="IntroFront"]
+
+[node name="Shelves3" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(12, -3915)
 texture = ExtResource("9_puqg4")
 
-[node name="Shelves2" type="Sprite2D" parent="ShelvesFolder"]
+[node name="Shelves2" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(0, -2335)
 texture = ExtResource("9_puqg4")
 
-[node name="Shelves" type="Sprite2D" parent="ShelvesFolder"]
+[node name="Shelves" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(0, -2752)
 texture = ExtResource("9_puqg4")
 
-[node name="ShelvesVert" type="Sprite2D" parent="ShelvesFolder"]
+[node name="ShelvesVert" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(-300, -1200)
 texture = ExtResource("10_bnmwc")
 
-[node name="ShelvesVert2" type="Sprite2D" parent="ShelvesFolder"]
+[node name="ShelvesVert2" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(300, -1200)
 texture = ExtResource("10_bnmwc")
 
-[node name="ShelvesVert3" type="Sprite2D" parent="ShelvesFolder"]
+[node name="ShelvesVert3" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(-300, -1750)
 texture = ExtResource("10_bnmwc")
 
-[node name="ShelvesVert4" type="Sprite2D" parent="ShelvesFolder"]
+[node name="ShelvesVert4" type="Sprite2D" parent="IntroFront/ShelvesFolder"]
 position = Vector2(300, -1750)
 texture = ExtResource("10_bnmwc")
 
-[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "continueCircle", "cauldron", "shopLabel", "hand", "dialogueAudio")]
+[node name="WizardChill" type="Sprite2D" parent="IntroFront" node_paths=PackedStringArray("Inventory", "continueCircle", "cauldron", "shopLabel", "hand", "dialogueAudio")]
 position = Vector2(384, -102)
 texture = ExtResource("6_708dw")
 script = ExtResource("15_a2ub1")
-Inventory = NodePath("../Boora/Inventory")
-continueCircle = NodePath("../CircleContinueDialogue")
-cauldron = NodePath("../Cauldron/CauldronTarget")
+Inventory = NodePath("../../AlwaysActive/Boora/Inventory")
+continueCircle = NodePath("../../IntroBack/CircleContinueDialogue")
+cauldron = NodePath("../../IntroBack/Cauldron/CauldronTarget")
 rangeToPull = 150.0
 shopLabel = NodePath("../SpeechBg/Label")
 castTexture = ExtResource("16_ehh23")
@@ -296,15 +418,15 @@ dialogueAudio = NodePath("AudioStreamPlayer2D")
 introDialogue = Array[String](["Hold left click to the circle above me!", "I have a shopping list I need some help with ", "Just bring the following items back here"])
 ShoppingLists = Array[Array]([[0, 1], [1, 2, 3]])
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WizardChill"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="IntroFront/WizardChill"]
 stream = SubResource("AudioStreamRandomizer_u8ka0")
 
-[node name="SpeechBg" type="Sprite2D" parent="."]
+[node name="SpeechBg" type="Sprite2D" parent="IntroFront"]
 position = Vector2(384, -403)
 scale = Vector2(1.3625, 1.22375)
 texture = ExtResource("16_jx0wd")
 
-[node name="Label" type="Label" parent="SpeechBg"]
+[node name="Label" type="Label" parent="IntroFront/SpeechBg"]
 offset_left = -156.0
 offset_top = -79.0
 offset_right = 157.0
@@ -313,13 +435,24 @@ text = "Hold left click to the circle above me!"
 label_settings = SubResource("LabelSettings_rbel8")
 autowrap_mode = 2
 
-[node name="Hand" type="Sprite2D" parent="."]
+[node name="Hand" type="Sprite2D" parent="IntroFront"]
 visible = false
 position = Vector2(12, 82)
 rotation = -0.481711
-scale = Vector2(1, 1)
 texture = ExtResource("17_4ijdu")
 
-[connection signal="area_entered" from="CollectionCircle" to="WizardChill" method="OnInvetoryCollection"]
-[connection signal="area_entered" from="CircleContinueDialogue" to="WizardChill" method="OnContinueDialogue"]
-[connection signal="area_entered" from="Boora/Inventory" to="Boora/Inventory" method="_on_area_entered"]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -3915)
+shape = SubResource("RectangleShape2D_x5cs4")
+
+[connection signal="area_entered" from="IntroBack/SpireBg/RiddleCover/Area2D" to="IntroBack/SpireBg/RiddleCover" method="ShowPath"]
+[connection signal="area_exited" from="IntroBack/SpireBg/RiddleCover/Area2D" to="IntroBack/SpireBg/RiddleCover" method="HidePath"]
+[connection signal="area_entered" from="IntroBack/ToRiddleRoom" to="IntroBack/ToRiddleRoom" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="IntroBack/CollectionCircle" to="IntroFront/WizardChill" method="OnInvetoryCollection"]
+[connection signal="area_entered" from="IntroBack/CircleContinueDialogue" to="IntroFront/WizardChill" method="OnContinueDialogue"]
+[connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="AlwaysActive/Boora/Inventory" to="AlwaysActive/Boora/Inventory" method="_on_area_entered"]

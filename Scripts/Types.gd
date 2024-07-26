@@ -1,1 +1,3 @@
+extends Node
+
 enum CollectType {ROCK_GOLEM, CRYSTAL, DICE, MUSHROOM, BOTTLE, BOOK, CANDLE, LIGHTBULB}
