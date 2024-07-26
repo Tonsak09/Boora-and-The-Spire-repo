@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cfwrmobrfcdhi"
+path="res://.godot/imported/wblip12.mp3-ca3595c187f94844a1d6b46d3e73ed1e.mp3str"
+
+[deps]
+
+source_file="res://Audio/Wizrd Chap/wblip12.mp3"
+dest_files=["res://.godot/imported/wblip12.mp3-ca3595c187f94844a1d6b46d3e73ed1e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

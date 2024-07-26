@@ -9,6 +9,7 @@ extends Sprite2D
 @export var castTexture : Texture
 @export var hand : Node2D
 
+@export var dialogueAudio : AudioStreamPlayer2D
 @export var introDialogue : Array[String]
 @export var ShoppingLists : Array[Array]
 
@@ -73,6 +74,7 @@ func OnContinueDialogue(area):
 		continueCircle.queue_free()
 	else:
 		shopLabel.text = introDialogue[introIndex]
+		dialogueAudio.play()
 
 func GenerateShoppingListInternal():
 	var rawList = ShoppingLists[currList]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7wipw7736pao"
-path="res://.godot/imported/RockGolem.png-0d2e07dea73649f3da8976f0c57023f2.ctex"
+uid="uid://douasdphxqq2l"
+path="res://.godot/imported/Crown.png-98560f0bff84712d052ad6a7dc0527ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/RockGolem.png"
-dest_files=["res://.godot/imported/RockGolem.png-0d2e07dea73649f3da8976f0c57023f2.ctex"]
+source_file="res://Textures/Crown.png"
+dest_files=["res://.godot/imported/Crown.png-98560f0bff84712d052ad6a7dc0527ad.ctex"]
 
 [params]
 

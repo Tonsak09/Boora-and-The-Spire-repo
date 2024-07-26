@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxkgtwn160r8k"
+path="res://.godot/imported/wblip6.mp3-bbd0561af55407d9c84d50d0ccbfb572.mp3str"
+
+[deps]
+
+source_file="res://Audio/Wizrd Chap/wblip6.mp3"
+dest_files=["res://.godot/imported/wblip6.mp3-bbd0561af55407d9c84d50d0ccbfb572.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

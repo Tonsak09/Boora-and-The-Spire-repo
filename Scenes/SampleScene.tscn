@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=53 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
@@ -30,6 +30,16 @@
 [ext_resource type="Texture2D" uid="uid://d4jbqa1ashcw3" path="res://Textures/Wizard_cast.png" id="16_ehh23"]
 [ext_resource type="Texture2D" uid="uid://bs13kb5wfk16t" path="res://Textures/SpeechBG.png" id="16_jx0wd"]
 [ext_resource type="Texture2D" uid="uid://co1kbdow37cme" path="res://Textures/Hand.png" id="17_4ijdu"]
+[ext_resource type="AudioStream" uid="uid://bj01q710gj3uf" path="res://Audio/Wizrd Chap/wblip4.mp3" id="29_33lwh"]
+[ext_resource type="AudioStream" uid="uid://baieiqadsisch" path="res://Audio/Wizrd Chap/wblip5.mp3" id="30_257kc"]
+[ext_resource type="AudioStream" uid="uid://cxkgtwn160r8k" path="res://Audio/Wizrd Chap/wblip6.mp3" id="31_tbhbn"]
+[ext_resource type="AudioStream" uid="uid://dntmaemya3bnt" path="res://Audio/Wizrd Chap/wblip7.mp3" id="32_5brwk"]
+[ext_resource type="AudioStream" uid="uid://dxpu8f8x432qs" path="res://Audio/Wizrd Chap/wblip8.mp3" id="33_5exem"]
+[ext_resource type="AudioStream" uid="uid://ckohuokxmet10" path="res://Audio/Wizrd Chap/wblip9.mp3" id="34_bo87p"]
+[ext_resource type="AudioStream" uid="uid://cfwrmobrfcdhi" path="res://Audio/Wizrd Chap/wblip12.mp3" id="35_88y5c"]
+[ext_resource type="AudioStream" uid="uid://cs7y5qxkedadu" path="res://Audio/Wizrd Chap/wblip13.mp3" id="36_tr33w"]
+[ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
+[ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -72,6 +82,29 @@ colors = PackedColorArray(1, 1, 1, 1, 0.275625, 0.656354, 0.590078, 1, 0.805209,
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pv872"]
 radius = 16.0312
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u8ka0"]
+streams_count = 10
+stream_0/stream = ExtResource("29_33lwh")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("30_257kc")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("31_tbhbn")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("32_5brwk")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("33_5exem")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("34_bo87p")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("35_88y5c")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("36_tr33w")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("37_o4acj")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("38_s8otr")
+stream_9/weight = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_rbel8"]
 font_size = 36
@@ -248,7 +281,7 @@ texture = ExtResource("10_bnmwc")
 position = Vector2(300, -1750)
 texture = ExtResource("10_bnmwc")
 
-[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "continueCircle", "cauldron", "shopLabel", "hand")]
+[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "continueCircle", "cauldron", "shopLabel", "hand", "dialogueAudio")]
 position = Vector2(384, -102)
 texture = ExtResource("6_708dw")
 script = ExtResource("15_a2ub1")
@@ -259,8 +292,12 @@ rangeToPull = 150.0
 shopLabel = NodePath("../SpeechBg/Label")
 castTexture = ExtResource("16_ehh23")
 hand = NodePath("../Hand")
-introDialogue = Array[String](["Hold left click to circle above me!", "I have a shopping list I need some help with ", "Just bring the following items back here"])
+dialogueAudio = NodePath("AudioStreamPlayer2D")
+introDialogue = Array[String](["Hold left click to the circle above me!", "I have a shopping list I need some help with ", "Just bring the following items back here"])
 ShoppingLists = Array[Array]([[0, 1], [1, 2, 3]])
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WizardChill"]
+stream = SubResource("AudioStreamRandomizer_u8ka0")
 
 [node name="SpeechBg" type="Sprite2D" parent="."]
 position = Vector2(384, -403)
