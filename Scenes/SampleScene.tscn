@@ -1,10 +1,11 @@
-[gd_scene load_steps=41 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=42 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
 [ext_resource type="Script" path="res://Scripts/CamFollower.gd" id="1_jo5dm"]
 [ext_resource type="Shader" uid="uid://c8xulx435ubrn" path="res://Shaders/BooraShade.tres" id="1_o3p4r"]
 [ext_resource type="Script" path="res://Scripts/VisualController.gd" id="3_3rhbo"]
 [ext_resource type="Shader" uid="uid://csn4wra21irbj" path="res://Shaders/Colored.tres" id="4_3c85f"]
+[ext_resource type="PackedScene" uid="uid://d2d4fj46hbg6h" path="res://Prefabs/CollectionCircle.tscn" id="4_3e34h"]
 [ext_resource type="Texture2D" uid="uid://cdpjcehp0pree" path="res://Textures/Square.png" id="4_3n5cx"]
 [ext_resource type="Texture2D" uid="uid://3kmu01rvqgf" path="res://Textures/Spire BG.png" id="4_nqjia"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]
@@ -95,25 +96,6 @@ maxDisCurve = SubResource("Curve_x43gp")
 vertContraints = Vector2(-3947, -1000)
 offsetY = -300.0
 
-[node name="InventoryUI" type="Node2D" parent="." node_paths=PackedStringArray("targetFollow")]
-position = Vector2(-164, -296)
-scale = Vector2(5, 5)
-script = ExtResource("11_pd56u")
-targetFollow = NodePath("../Boora")
-targetRadius = 150.0
-speed = 1000.0
-disThreshold = 100.0
-disThreshCurve = SubResource("Curve_83mwl")
-
-[node name="InvenFill" type="Sprite2D" parent="InventoryUI"]
-material = SubResource("ShaderMaterial_awlci")
-scale = Vector2(0.032, 0.032)
-texture = ExtResource("4_3n5cx")
-
-[node name="InventoryUibg" type="Sprite2D" parent="InventoryUI"]
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("11_vlul6")
-
 [node name="CauldronBack" type="Sprite2D" parent="."]
 position = Vector2(171, -39)
 texture = ExtResource("7_lottx")
@@ -155,9 +137,39 @@ position = Vector2(-22, -3864)
 position = Vector2(171, -39)
 texture = ExtResource("8_34rap")
 
+[node name="CollectionCircle" parent="." instance=ExtResource("4_3e34h")]
+position = Vector2(383, -656)
+scale = Vector2(1, 1)
+
+[node name="CircleContinueDialogue" parent="." instance=ExtResource("4_3e34h")]
+position = Vector2(384, -656.001)
+scale = Vector2(1, 1)
+collision_layer = 0
+collision_mask = 2
+metadata/CollType = "CollContinue"
+
+[node name="InventoryUI" type="Node2D" parent="." node_paths=PackedStringArray("targetFollow")]
+position = Vector2(2.99997, -727)
+scale = Vector2(5, 5)
+script = ExtResource("11_pd56u")
+targetFollow = NodePath("../Boora")
+targetRadius = 150.0
+speed = 1000.0
+disThreshold = 100.0
+disThreshCurve = SubResource("Curve_83mwl")
+
+[node name="InvenFill" type="Sprite2D" parent="InventoryUI"]
+material = SubResource("ShaderMaterial_awlci")
+scale = Vector2(0.032, 0.032)
+texture = ExtResource("4_3n5cx")
+
+[node name="InventoryUibg" type="Sprite2D" parent="InventoryUI"]
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("11_vlul6")
+
 [node name="Boora" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_p37ti")
-position = Vector2(0, -211)
+position = Vector2(0, -728)
 scale = Vector2(5, 5)
 texture = ExtResource("1_e7dr8")
 script = ExtResource("3_3rhbo")
@@ -191,6 +203,7 @@ scale = Vector2(0.105, 0.105)
 texture = ExtResource("7_x1216")
 
 [node name="Inventory" type="Area2D" parent="Boora" node_paths=PackedStringArray("invenFill")]
+collision_layer = 3
 script = ExtResource("6_cr2bj")
 maxCapacity = 3
 invenFill = NodePath("../../InventoryUI/InvenFill")
@@ -235,20 +248,23 @@ texture = ExtResource("10_bnmwc")
 position = Vector2(300, -1750)
 texture = ExtResource("10_bnmwc")
 
-[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "cauldron", "shopLabel", "hand")]
+[node name="WizardChill" type="Sprite2D" parent="." node_paths=PackedStringArray("Inventory", "continueCircle", "cauldron", "shopLabel", "hand")]
 position = Vector2(384, -102)
 texture = ExtResource("6_708dw")
 script = ExtResource("15_a2ub1")
 Inventory = NodePath("../Boora/Inventory")
+continueCircle = NodePath("../CircleContinueDialogue")
 cauldron = NodePath("../Cauldron/CauldronTarget")
 rangeToPull = 150.0
 shopLabel = NodePath("../SpeechBg/Label")
 castTexture = ExtResource("16_ehh23")
 hand = NodePath("../Hand")
+introDialogue = Array[String](["Hold left click to circle above me!", "I have a shopping list I need some help with ", "Just bring the following items back here"])
 ShoppingLists = Array[Array]([[0, 1], [1, 2, 3]])
 
 [node name="SpeechBg" type="Sprite2D" parent="."]
-position = Vector2(333, -368)
+position = Vector2(384, -403)
+scale = Vector2(1.3625, 1.22375)
 texture = ExtResource("16_jx0wd")
 
 [node name="Label" type="Label" parent="SpeechBg"]
@@ -256,13 +272,17 @@ offset_left = -156.0
 offset_top = -79.0
 offset_right = 157.0
 offset_bottom = 81.0
-text = "test"
+text = "Hold left click to the circle above me!"
 label_settings = SubResource("LabelSettings_rbel8")
+autowrap_mode = 2
 
 [node name="Hand" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-17, -23)
-rotation = -0.240855
+position = Vector2(12, 82)
+rotation = -0.481711
+scale = Vector2(1, 1)
 texture = ExtResource("17_4ijdu")
 
+[connection signal="area_entered" from="CollectionCircle" to="WizardChill" method="OnInvetoryCollection"]
+[connection signal="area_entered" from="CircleContinueDialogue" to="WizardChill" method="OnContinueDialogue"]
 [connection signal="area_entered" from="Boora/Inventory" to="Boora/Inventory" method="_on_area_entered"]

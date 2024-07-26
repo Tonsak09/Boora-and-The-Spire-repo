@@ -5,5 +5,4 @@
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_sft7b")
-shader_parameter/Offset = Vector2(0, -0.33)
-shader_parameter/Radius = 1.0
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)

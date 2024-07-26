@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2d4fj46hbg6h"]
+
+[ext_resource type="Material" uid="uid://7xronm0euu3o" path="res://Materials/Collectible.tres" id="1_a80aj"]
+[ext_resource type="Texture2D" uid="uid://c4llb8v0ox4i1" path="res://Textures/CollectionCircle.png" id="2_5v745"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awdfl"]
+radius = 23.0868
+
+[node name="CollectionCircle" type="Area2D"]
+position = Vector2(-233, -382)
+metadata/CollType = "CollCircle"
+
+[node name="CollectionCircleSprite" type="Sprite2D" parent="."]
+material = ExtResource("1_a80aj")
+scale = Vector2(1.71, 1.71)
+texture = ExtResource("2_5v745")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_awdfl")

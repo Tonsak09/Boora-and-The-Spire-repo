@@ -33,6 +33,7 @@ stream_4/weight = 1.0
 position = Vector2(291, -1439)
 texture = ExtResource("1_jnqsk")
 offset = Vector2(0, -50)
+metadata/CollType = "CollCollect"
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
 script = ExtResource("2_353pe")

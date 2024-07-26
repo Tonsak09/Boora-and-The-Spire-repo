@@ -18,8 +18,6 @@ extends Sprite2D
 @export var visWobbleRange : Vector2
 @export var visWobbleCurve : Curve
 
-
-
 var visTime : Vector2
 var dir : Vector2
 var speedLerp : float
@@ -29,8 +27,6 @@ var speedLerp : float
 func _ready():
 	containerRect.position.x -= containerRect.size.x / 2.0
 	containerRect.position.y -= containerRect.size.y / 2.0
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
