@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dc530sk0xxg0o"]
+[gd_scene load_steps=13 format=3 uid="uid://dc530sk0xxg0o"]
 
 [ext_resource type="Texture2D" uid="uid://ganyuqw8xgqt" path="res://Textures/RiddleTrial/Skull.png" id="1_61ix2"]
 [ext_resource type="Script" path="res://Scripts/CollectionData.gd" id="2_4ut85"]
@@ -8,6 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://ykh51ma5xffu" path="res://Audio/Pullout/Pullout2.wav" id="6_f45la"]
 [ext_resource type="AudioStream" uid="uid://dr7k6sf3johyu" path="res://Audio/Pullout/Pullout4.wav" id="7_umyt0"]
 [ext_resource type="AudioStream" uid="uid://bwbiv3dutdmqa" path="res://Audio/Pullout/Pullout5.wav" id="8_mpv46"]
+
+[sub_resource type="Curve" id="Curve_pxmym"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Curve" id="Curve_okceo"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -36,6 +40,7 @@ texture = ExtResource("1_61ix2")
 offset = Vector2(0, -50)
 script = ExtResource("2_4ut85")
 collectible = 11
+bobCurve = SubResource("Curve_pxmym")
 metadata/CollType = "CollCollect"
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
@@ -50,3 +55,6 @@ shape = SubResource("RectangleShape2D_xa5gd")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_0kxvr")
+
+[connection signal="area_entered" from="Area2D" to="." method="StartWobble"]
+[connection signal="area_exited" from="Area2D" to="." method="StopWobble"]
