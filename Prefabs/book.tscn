@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ceihp2sao4egy"]
+[gd_scene load_steps=12 format=3 uid="uid://ceihp2sao4egy"]
 
 [ext_resource type="Texture2D" uid="uid://gn2hhuu1pw3t" path="res://Textures/Book.png" id="1_tsqra"]
+[ext_resource type="Script" path="res://Scripts/CollectionData.gd" id="2_jk4ij"]
 [ext_resource type="Script" path="res://Scripts/Collectible.gd" id="2_xawn5"]
 [ext_resource type="AudioStream" uid="uid://bbmf0l8yurhh6" path="res://Audio/Pullout/Pullout.wav" id="3_7jisc"]
 [ext_resource type="AudioStream" uid="uid://dh5b2ia6nus0h" path="res://Audio/Pullout/Pullout1.wav" id="4_6gi5u"]
@@ -33,11 +34,12 @@ stream_4/weight = 1.0
 position = Vector2(-340, -1047)
 texture = ExtResource("1_tsqra")
 offset = Vector2(0, -50)
+script = ExtResource("2_jk4ij")
+collectible = 5
 metadata/CollType = "CollCollect"
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
 script = ExtResource("2_xawn5")
-itemType = 5
 absorbTime = 0.3
 absorbCurve = SubResource("Curve_okceo")
 audio = NodePath("../AudioStreamPlayer2D")

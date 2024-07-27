@@ -1,10 +1,12 @@
 extends Area2D
 
-@export var itemType : Types.CollectType
 @export var absorbTime : float 
 @export var absorbCurve : Curve
 
 @export var audio : AudioStreamPlayer2D
+
+
+var itemType : Types.CollectType
 
 var isAbsorbing : bool 
 var timer : float 
@@ -18,10 +20,11 @@ var origin : Vector2
 
 func _init():
 	timer = 0
-	
-	
+
+
 func _ready():
 	origin = get_parent().global_position
+	itemType = get_parent().collectible
 
 func StartAbsorb (target : Node2D):
 	audio.play()

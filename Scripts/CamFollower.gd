@@ -8,12 +8,6 @@ extends Camera2D
 
 @export var offsetY : float
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	#offsetY = position.y - target.position.y
-	pass
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=90 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -48,6 +48,31 @@
 [ext_resource type="AudioStream" uid="uid://cs7y5qxkedadu" path="res://Audio/Wizrd Chap/wblip13.mp3" id="36_tr33w"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
+[ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
+[ext_resource type="PackedScene" uid="uid://cf7svk7jmmi6e" path="res://Prefabs/Bell.tscn" id="50_awd58"]
+[ext_resource type="PackedScene" uid="uid://4c4b4jvftg3m" path="res://Prefabs/DNA.tscn" id="51_8h16x"]
+[ext_resource type="PackedScene" uid="uid://doawr8grgi1n4" path="res://Prefabs/Double_mush.tscn" id="52_nfosh"]
+[ext_resource type="PackedScene" uid="uid://cfipqbu6x46vm" path="res://Prefabs/Harp.tscn" id="53_iwge5"]
+[ext_resource type="PackedScene" uid="uid://y23t4i3bukbg" path="res://Prefabs/Knife.tscn" id="54_1hw78"]
+[ext_resource type="PackedScene" uid="uid://dl4tcfvkqpb7j" path="res://Prefabs/Orb.tscn" id="55_laeva"]
+[ext_resource type="PackedScene" uid="uid://c8qatt0u2ayq5" path="res://Prefabs/Mag_glass.tscn" id="56_lwfta"]
+[ext_resource type="PackedScene" uid="uid://bbxrxm7yiadn4" path="res://Prefabs/Pear.tscn" id="57_dwv5f"]
+[ext_resource type="PackedScene" uid="uid://d0udturdax4sq" path="res://Prefabs/Pen_n_ink.tscn" id="59_ro5ne"]
+[ext_resource type="PackedScene" uid="uid://cq20cdbsbwu36" path="res://Prefabs/Phone.tscn" id="60_b4ptg"]
+[ext_resource type="PackedScene" uid="uid://c7cy7xkfawlse" path="res://Prefabs/Rice.tscn" id="61_q5gej"]
+[ext_resource type="PackedScene" uid="uid://bfv0ljhtanu1w" path="res://Prefabs/Scroll.tscn" id="62_xon1v"]
+[ext_resource type="PackedScene" uid="uid://dwt4043nb7oyn" path="res://Prefabs/Sizzle.tscn" id="63_pu62x"]
+[ext_resource type="PackedScene" uid="uid://dc530sk0xxg0o" path="res://Prefabs/Skull.tscn" id="64_offvn"]
+[ext_resource type="PackedScene" uid="uid://duorxti4tlj2w" path="res://Prefabs/Snake.tscn" id="65_tvk37"]
+[ext_resource type="PackedScene" uid="uid://bksl2k6kiro7t" path="res://Prefabs/Egg.tscn" id="66_1bhig"]
+[ext_resource type="PackedScene" uid="uid://cqj8t7qrx6540" path="res://Prefabs/Spid.tscn" id="66_ymssp"]
+[ext_resource type="PackedScene" uid="uid://vq3ah3u1npji" path="res://Prefabs/Star.tscn" id="67_p64vn"]
+[ext_resource type="PackedScene" uid="uid://tkt7asdqohmn" path="res://Prefabs/Stick.tscn" id="68_qw4rs"]
+[ext_resource type="PackedScene" uid="uid://d16g3bnt5pxps" path="res://Prefabs/Stickbug.tscn" id="69_osqci"]
+[ext_resource type="PackedScene" uid="uid://cdip2gvipyvpm" path="res://Prefabs/Tongue.tscn" id="70_hn03r"]
+[ext_resource type="PackedScene" uid="uid://coe05jjkb616n" path="res://Prefabs/Tooth.tscn" id="71_3x0vs"]
+[ext_resource type="PackedScene" uid="uid://dd8dli8j3u0cs" path="res://Prefabs/Web_nav.tscn" id="72_ibixo"]
+[ext_resource type="PackedScene" uid="uid://dtneu3mepq1it" path="res://Prefabs/Witch_finger.tscn" id="73_5sfhn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g7p4k"]
 shader = ExtResource("4_7hl40")
@@ -55,6 +80,9 @@ shader_parameter/Alpha = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_esgkd"]
 radius = 266.88
+
+[sub_resource type="LabelSettings" id="LabelSettings_o404s"]
+font_size = 48
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -253,19 +281,27 @@ position = Vector2(-410, -5000)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert4" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(340, -5000)
+position = Vector2(0, -5000)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert5" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(340, -4500)
+position = Vector2(0, -4500)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert6" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(340, -4000)
+position = Vector2(0, -4000)
 texture = ExtResource("10_bnmwc")
 
-[node name="ShelvesVert7" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(-410, -3500)
+[node name="ShelvesVert8" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(410, -4000)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert9" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(410, -4500)
+texture = ExtResource("10_bnmwc")
+
+[node name="ShelvesVert10" type="Sprite2D" parent="RiddleRoom"]
+position = Vector2(410, -5000)
 texture = ExtResource("10_bnmwc")
 
 [node name="Shelves" type="Sprite2D" parent="RiddleRoom"]
@@ -284,7 +320,96 @@ RoomLoader = NodePath("../..")
 posToMove = NodePath("TpPoint")
 
 [node name="TpPoint" type="Node2D" parent="RiddleRoom/ToIntroRoom"]
-position = Vector2(-842, 33)
+position = Vector2(-842, 135)
+
+[node name="Label" type="Label" parent="RiddleRoom"]
+offset_left = -545.0
+offset_top = -3128.0
+offset_right = 41.0
+offset_bottom = -2886.0
+text = "Rules that bind life
+Shell of the mind
+One sense, five types"
+label_settings = SubResource("LabelSettings_o404s")
+
+[node name="RiddleRoomItems" type="Node2D" parent="."]
+position = Vector2(20, -125)
+
+[node name="Batwing" parent="RiddleRoomItems" instance=ExtResource("49_flnyl")]
+position = Vector2(-396, -3485)
+
+[node name="Bell" parent="RiddleRoomItems" instance=ExtResource("50_awd58")]
+position = Vector2(-196, -3485)
+
+[node name="DNA" parent="RiddleRoomItems" instance=ExtResource("51_8h16x")]
+position = Vector2(-1, -3485)
+
+[node name="DoubleMush" parent="RiddleRoomItems" instance=ExtResource("52_nfosh")]
+position = Vector2(206, -3477)
+collectible = 3
+
+[node name="Egg" parent="RiddleRoomItems" instance=ExtResource("66_1bhig")]
+position = Vector2(392, -3487)
+
+[node name="Harp" parent="RiddleRoomItems" instance=ExtResource("53_iwge5")]
+position = Vector2(-396, -3357)
+
+[node name="Knife" parent="RiddleRoomItems" instance=ExtResource("54_1hw78")]
+position = Vector2(-196, -3360)
+
+[node name="Orb" parent="RiddleRoomItems" instance=ExtResource("55_laeva")]
+position = Vector2(206, -3346)
+
+[node name="MagGlass" parent="RiddleRoomItems" instance=ExtResource("56_lwfta")]
+position = Vector2(-22, -3328)
+
+[node name="Pear" parent="RiddleRoomItems" instance=ExtResource("57_dwv5f")]
+position = Vector2(412, -3336)
+
+[node name="PenNInk" parent="RiddleRoomItems" instance=ExtResource("59_ro5ne")]
+position = Vector2(-396, -3184)
+
+[node name="Phone" parent="RiddleRoomItems" instance=ExtResource("60_b4ptg")]
+position = Vector2(-196, -3184)
+
+[node name="Rice" parent="RiddleRoomItems" instance=ExtResource("61_q5gej")]
+position = Vector2(-1, -3184)
+
+[node name="Scroll" parent="RiddleRoomItems" instance=ExtResource("62_xon1v")]
+position = Vector2(206, -3176)
+
+[node name="Sizzle" parent="RiddleRoomItems" instance=ExtResource("63_pu62x")]
+position = Vector2(417, -3176)
+
+[node name="Skull" parent="RiddleRoomItems" instance=ExtResource("64_offvn")]
+position = Vector2(-396, -3056)
+
+[node name="Snake" parent="RiddleRoomItems" instance=ExtResource("65_tvk37")]
+position = Vector2(-196, -3059)
+
+[node name="Spid" parent="RiddleRoomItems" instance=ExtResource("66_ymssp")]
+position = Vector2(-1, -3053)
+
+[node name="Star" parent="RiddleRoomItems" instance=ExtResource("67_p64vn")]
+position = Vector2(206, -3045)
+
+[node name="Stick" parent="RiddleRoomItems" instance=ExtResource("68_qw4rs")]
+position = Vector2(412, -3035)
+
+[node name="Stickbug" parent="RiddleRoomItems" instance=ExtResource("69_osqci")]
+position = Vector2(-398, -2917)
+
+[node name="Tongue" parent="RiddleRoomItems" instance=ExtResource("70_hn03r")]
+position = Vector2(-198, -2917)
+
+[node name="Tooth" parent="RiddleRoomItems" instance=ExtResource("71_3x0vs")]
+position = Vector2(-3, -2917)
+
+[node name="WebNav" parent="RiddleRoomItems" instance=ExtResource("72_ibixo")]
+position = Vector2(204, -2909)
+
+[node name="WitchFinger" parent="RiddleRoomItems" instance=ExtResource("73_5sfhn")]
+position = Vector2(415, -2909)
 
 [node name="AlwaysActive" type="Node2D" parent="."]
 

@@ -1,0 +1,51 @@
+[gd_scene load_steps=12 format=3 uid="uid://dtneu3mepq1it"]
+
+[ext_resource type="Texture2D" uid="uid://ctaonmr6qo3hw" path="res://Textures/RiddleTrial/WitchFinger.png" id="1_gvy2b"]
+[ext_resource type="Script" path="res://Scripts/CollectionData.gd" id="2_wakfo"]
+[ext_resource type="Script" path="res://Scripts/Collectible.gd" id="3_3jjct"]
+[ext_resource type="AudioStream" uid="uid://bbmf0l8yurhh6" path="res://Audio/Pullout/Pullout.wav" id="4_k6ihv"]
+[ext_resource type="AudioStream" uid="uid://dh5b2ia6nus0h" path="res://Audio/Pullout/Pullout1.wav" id="5_buaoe"]
+[ext_resource type="AudioStream" uid="uid://ykh51ma5xffu" path="res://Audio/Pullout/Pullout2.wav" id="6_75i0l"]
+[ext_resource type="AudioStream" uid="uid://dr7k6sf3johyu" path="res://Audio/Pullout/Pullout4.wav" id="7_k6qgf"]
+[ext_resource type="AudioStream" uid="uid://bwbiv3dutdmqa" path="res://Audio/Pullout/Pullout5.wav" id="8_2jiyc"]
+
+[sub_resource type="Curve" id="Curve_okceo"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xa5gd"]
+size = Vector2(40, 85)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0kxvr"]
+playback_mode = 1
+streams_count = 5
+stream_0/stream = ExtResource("4_k6ihv")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_buaoe")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_75i0l")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_k6qgf")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("8_2jiyc")
+stream_4/weight = 1.0
+
+[node name="WitchFinger" type="Sprite2D"]
+position = Vector2(-2526, -1451)
+texture = ExtResource("1_gvy2b")
+offset = Vector2(0, -50)
+script = ExtResource("2_wakfo")
+metadata/CollType = "CollCollect"
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
+script = ExtResource("3_3jjct")
+absorbTime = 0.3
+absorbCurve = SubResource("Curve_okceo")
+audio = NodePath("../AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-6, -1.5)
+shape = SubResource("RectangleShape2D_xa5gd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0kxvr")

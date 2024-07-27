@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://brkqxgxvheuoh"]
+[gd_scene load_steps=12 format=3 uid="uid://brkqxgxvheuoh"]
 
 [ext_resource type="Texture2D" uid="uid://co3glheceuupb" path="res://Textures/Dice.png" id="1_7fknc"]
 [ext_resource type="Script" path="res://Scripts/Collectible.gd" id="2_ob877"]
+[ext_resource type="Script" path="res://Scripts/CollectionData.gd" id="2_vwrfs"]
 [ext_resource type="AudioStream" uid="uid://bbmf0l8yurhh6" path="res://Audio/Pullout/Pullout.wav" id="3_kc3m4"]
 [ext_resource type="AudioStream" uid="uid://dh5b2ia6nus0h" path="res://Audio/Pullout/Pullout1.wav" id="4_fx6t0"]
 [ext_resource type="AudioStream" uid="uid://ykh51ma5xffu" path="res://Audio/Pullout/Pullout2.wav" id="5_m0346"]
@@ -33,11 +34,12 @@ stream_4/weight = 1.0
 position = Vector2(303, -1196)
 texture = ExtResource("1_7fknc")
 offset = Vector2(0, -50)
+script = ExtResource("2_vwrfs")
+collectible = 2
 metadata/CollType = "CollCollect"
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
 script = ExtResource("2_ob877")
-itemType = 2
 absorbTime = 0.3
 absorbCurve = SubResource("Curve_hcntm")
 audio = NodePath("../AudioStreamPlayer2D")
