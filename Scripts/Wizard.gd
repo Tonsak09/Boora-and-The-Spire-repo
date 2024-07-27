@@ -85,7 +85,7 @@ func GenerateShoppingListInternal():
 	shopListTotal = 0
 	
 	currShoppingList = []
-	for n in 8: # Empty arrays 
+	for n in 12: # Empty arrays 
 		currShoppingList.append(0)
 		typeToCharIndex.append(-1)
 	

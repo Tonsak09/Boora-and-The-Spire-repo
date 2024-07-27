@@ -19,7 +19,6 @@ func _on_area_entered(area):
 		return;
 
 	if area.get_parent().get_meta("CollType") == "CollCollect":
-		print_debug(area.get_parent().get_meta("CollType"))
 		if items.size() < maxCapacity:
 			area.StartAbsorb(self)
 			items.append(area)

@@ -41,8 +41,6 @@ func SetInactive(room : Array[Node2D]):
 
 # Manual change of rooms 
 func SwapRoom(nextRoom : Array[Node2D]):
-	print_debug(nextRoom)
-	
 	# Move so far offscreen it doesn't even matter 
 	for room in currentRoom:
 		room.position = Vector2(99999, 0)

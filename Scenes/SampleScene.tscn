@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=94 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d2d4fj46hbg6h" path="res://Prefabs/CollectionCircle.tscn" id="4_3e34h"]
 [ext_resource type="Texture2D" uid="uid://cdpjcehp0pree" path="res://Textures/Square.png" id="4_3n5cx"]
 [ext_resource type="Shader" uid="uid://cv111g0i1u2ae" path="res://Shaders/PathCover.tres" id="4_7hl40"]
-[ext_resource type="Texture2D" uid="uid://ba57ii3ndduy5" path="res://Textures/BG/SpireBG_HiddenCoverRiddle.png" id="4_j2eu4"]
+[ext_resource type="PackedScene" uid="uid://lju227c7vuqr" path="res://Prefabs/riddle_cover.tscn" id="4_ita4v"]
 [ext_resource type="Script" path="res://Scripts/CoverHiddenPath.gd" id="5_dk4pg"]
 [ext_resource type="Texture2D" uid="uid://71qasc3h2psg" path="res://Textures/BG/SpireBG_HiddenCoverLightning.png" id="5_mee71"]
 [ext_resource type="Texture2D" uid="uid://ntwv2v662p4r" path="res://Textures/Wizard_chill.png" id="6_708dw"]
@@ -38,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://bs13kb5wfk16t" path="res://Textures/SpeechBG.png" id="16_jx0wd"]
 [ext_resource type="Texture2D" uid="uid://co1kbdow37cme" path="res://Textures/Hand.png" id="17_4ijdu"]
 [ext_resource type="Texture2D" uid="uid://el0kgwrghcl6" path="res://Textures/BG/RiddleBG.png" id="18_0801g"]
+[ext_resource type="Script" path="res://Scripts/RiddleTrial.gd" id="18_atalg"]
 [ext_resource type="AudioStream" uid="uid://bj01q710gj3uf" path="res://Audio/Wizrd Chap/wblip4.mp3" id="29_33lwh"]
 [ext_resource type="AudioStream" uid="uid://baieiqadsisch" path="res://Audio/Wizrd Chap/wblip5.mp3" id="30_257kc"]
 [ext_resource type="AudioStream" uid="uid://cxkgtwn160r8k" path="res://Audio/Wizrd Chap/wblip6.mp3" id="31_tbhbn"]
@@ -48,6 +49,7 @@
 [ext_resource type="AudioStream" uid="uid://cs7y5qxkedadu" path="res://Audio/Wizrd Chap/wblip13.mp3" id="36_tr33w"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
+[ext_resource type="Texture2D" uid="uid://bwqblq36c0xek" path="res://Textures/Tesla.png" id="48_rxitv"]
 [ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
 [ext_resource type="PackedScene" uid="uid://cf7svk7jmmi6e" path="res://Prefabs/Bell.tscn" id="50_awd58"]
 [ext_resource type="PackedScene" uid="uid://4c4b4jvftg3m" path="res://Prefabs/DNA.tscn" id="51_8h16x"]
@@ -73,12 +75,13 @@
 [ext_resource type="PackedScene" uid="uid://coe05jjkb616n" path="res://Prefabs/Tooth.tscn" id="71_3x0vs"]
 [ext_resource type="PackedScene" uid="uid://dd8dli8j3u0cs" path="res://Prefabs/Web_nav.tscn" id="72_ibixo"]
 [ext_resource type="PackedScene" uid="uid://dtneu3mepq1it" path="res://Prefabs/Witch_finger.tscn" id="73_5sfhn"]
+[ext_resource type="Texture2D" uid="uid://b3am37evle5mq" path="res://Textures/TeslaBG.png" id="75_g3ymw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7p4k"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21u7a"]
 shader = ExtResource("4_7hl40")
 shader_parameter/Alpha = 1.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_esgkd"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_7funa"]
 radius = 266.88
 
 [sub_resource type="LabelSettings" id="LabelSettings_o404s"]
@@ -156,7 +159,11 @@ font_color = Color(0.207843, 0.207843, 0.207843, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5cs4"]
 size = Vector2(1185, 2548)
 
-[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "introRoom", "riddleRoom")]
+[sub_resource type="Curve" id="Curve_fio1p"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "introRoom", "riddleRoom", "lightningRoom")]
 script = ExtResource("1_4ei66")
 cam = NodePath("AlwaysActive/Camera2D")
 Boora = NodePath("AlwaysActive/Boora")
@@ -166,6 +173,9 @@ introBooraRect = Rect2(0, -2546.5, 1000, 4850)
 riddleRoom = [NodePath("RiddleRoom")]
 riddleCamContraints = Vector2(-3947, -3800)
 riddleBooraRect = Rect2(0, -3915, 1185, 2548)
+lightningRoom = [NodePath("LightningRoom")]
+lightningCamContraints = Vector2(-3947, -3800)
+lightningBooraRect = Rect2(0, -3915, 1185, 2548)
 
 [node name="IntroBack" type="Node2D" parent="."]
 
@@ -178,25 +188,23 @@ offset = Vector2(0, -2800)
 texture = ExtResource("3_54k2k")
 offset = Vector2(0, -2800)
 
-[node name="RiddleCover" type="Sprite2D" parent="IntroBack/SpireBg" node_paths=PackedStringArray("sprite")]
-material = SubResource("ShaderMaterial_g7p4k")
-texture = ExtResource("4_j2eu4")
+[node name="RiddleCover" parent="IntroBack/SpireBg" instance=ExtResource("4_ita4v")]
+
+[node name="LightningCover" type="Sprite2D" parent="IntroBack/SpireBg" node_paths=PackedStringArray("sprite")]
+material = SubResource("ShaderMaterial_21u7a")
+texture = ExtResource("5_mee71")
 offset = Vector2(0, -2800)
 script = ExtResource("5_dk4pg")
 sprite = NodePath(".")
 animateSpeed = 2.0
 
-[node name="Area2D" type="Area2D" parent="IntroBack/SpireBg/RiddleCover"]
-position = Vector2(-534, -3469)
+[node name="Area2D" type="Area2D" parent="IntroBack/SpireBg/LightningCover"]
+position = Vector2(552, -4644)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="IntroBack/SpireBg/RiddleCover/Area2D"]
-shape = SubResource("CircleShape2D_esgkd")
-
-[node name="LightningCover" type="Sprite2D" parent="IntroBack/SpireBg"]
-texture = ExtResource("5_mee71")
-offset = Vector2(0, -2800)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IntroBack/SpireBg/LightningCover/Area2D"]
+shape = SubResource("CircleShape2D_7funa")
 
 [node name="CauldronBack" type="Sprite2D" parent="IntroBack"]
 position = Vector2(171, -39)
@@ -261,12 +269,103 @@ collision_layer = 0
 collision_mask = 2
 metadata/CollType = "CollContinue"
 
-[node name="RiddleRoom" type="Node2D" parent="."]
+[node name="ToLightningRoom" parent="IntroBack" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+position = Vector2(572, -4373)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+roomToload = 2
+posToMove = NodePath("TPPosition")
+
+[node name="TPPosition" type="Node2D" parent="IntroBack/ToLightningRoom"]
+position = Vector2(-968, -7)
+
+[node name="RiddleRoom" type="Node2D" parent="." node_paths=PackedStringArray("Inventory")]
 position = Vector2(-2462, 0)
+script = ExtResource("18_atalg")
+Inventory = NodePath("../AlwaysActive/Boora/Inventory")
 
 [node name="RiddleBg" type="Sprite2D" parent="RiddleRoom"]
 position = Vector2(0, -3906)
 texture = ExtResource("18_0801g")
+
+[node name="RiddleRoomItems" type="Node2D" parent="RiddleRoom"]
+
+[node name="Batwing" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("49_flnyl")]
+position = Vector2(-401, -3856)
+
+[node name="Bell" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("50_awd58")]
+position = Vector2(-406, -3995)
+
+[node name="DNA" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("51_8h16x")]
+position = Vector2(-413, -4360)
+
+[node name="DoubleMush" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("52_nfosh")]
+position = Vector2(415, -3996)
+
+[node name="Egg" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("66_1bhig")]
+position = Vector2(-31, -3994)
+
+[node name="Harp" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("53_iwge5")]
+position = Vector2(-3, -4366)
+
+[node name="Knife" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("54_1hw78")]
+position = Vector2(50, -3993)
+
+[node name="Orb" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("55_laeva")]
+position = Vector2(-10, -4118)
+
+[node name="MagGlass" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("56_lwfta")]
+position = Vector2(396, -4328)
+
+[node name="Pear" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("57_dwv5f")]
+position = Vector2(412, -4858)
+
+[node name="PenNInk" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("59_ro5ne")]
+position = Vector2(-392, -4497)
+
+[node name="Phone" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("60_b4ptg")]
+position = Vector2(441, -4495)
+
+[node name="Rice" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("61_q5gej")]
+position = Vector2(6, -4859)
+
+[node name="Scroll" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("62_xon1v")]
+position = Vector2(423, -3851)
+
+[node name="Sizzle" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("63_pu62x")]
+position = Vector2(-410, -5149)
+
+[node name="Skull" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("64_offvn")]
+position = Vector2(6, -4487)
+
+[node name="Snake" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("65_tvk37")]
+position = Vector2(0, -5001)
+
+[node name="Spid" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("66_ymssp")]
+position = Vector2(8, -4231)
+
+[node name="Star" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("67_p64vn")]
+position = Vector2(423, -4148)
+
+[node name="Stick" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("68_qw4rs")]
+position = Vector2(438, -5001)
+
+[node name="Stickbug" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("69_osqci")]
+position = Vector2(-418, -4873)
+
+[node name="Tongue" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("70_hn03r")]
+position = Vector2(-415, -5014)
+
+[node name="Tooth" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("71_3x0vs")]
+position = Vector2(-2, -3870)
+
+[node name="WebNav" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("72_ibixo")]
+position = Vector2(-411, -4154)
+
+[node name="WitchFinger" parent="RiddleRoom/RiddleRoomItems" instance=ExtResource("73_5sfhn")]
+position = Vector2(375, -4498)
 
 [node name="ShelvesVert" type="Sprite2D" parent="RiddleRoom"]
 position = Vector2(-410, -4000)
@@ -332,84 +431,53 @@ Shell of the mind
 One sense, five types"
 label_settings = SubResource("LabelSettings_o404s")
 
-[node name="RiddleRoomItems" type="Node2D" parent="."]
-position = Vector2(20, -125)
+[node name="LightningRoom" type="Node2D" parent="." node_paths=PackedStringArray("Inventory")]
+position = Vector2(2319, 0)
+script = ExtResource("18_atalg")
+Inventory = NodePath("../AlwaysActive/Boora/Inventory")
 
-[node name="Batwing" parent="RiddleRoomItems" instance=ExtResource("49_flnyl")]
-position = Vector2(-396, -3485)
+[node name="RiddleBg" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(0, -3906)
+texture = ExtResource("75_g3ymw")
 
-[node name="Bell" parent="RiddleRoomItems" instance=ExtResource("50_awd58")]
-position = Vector2(-196, -3485)
+[node name="Tesla" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(-40, -3488)
+texture = ExtResource("48_rxitv")
 
-[node name="DNA" parent="RiddleRoomItems" instance=ExtResource("51_8h16x")]
-position = Vector2(-1, -3485)
+[node name="ToIntroRoom" parent="LightningRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+position = Vector2(-576, -4391)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+posToMove = NodePath("TpPoint")
 
-[node name="DoubleMush" parent="RiddleRoomItems" instance=ExtResource("52_nfosh")]
-position = Vector2(206, -3477)
-collectible = 3
+[node name="TpPoint" type="Node2D" parent="LightningRoom/ToIntroRoom"]
+position = Vector2(1009, 22)
 
-[node name="Egg" parent="RiddleRoomItems" instance=ExtResource("66_1bhig")]
-position = Vector2(392, -3487)
+[node name="Tesla2" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(234, -4030)
+texture = ExtResource("48_rxitv")
 
-[node name="Harp" parent="RiddleRoomItems" instance=ExtResource("53_iwge5")]
-position = Vector2(-396, -3357)
+[node name="Tesla3" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(-389, -4004)
+texture = ExtResource("48_rxitv")
 
-[node name="Knife" parent="RiddleRoomItems" instance=ExtResource("54_1hw78")]
-position = Vector2(-196, -3360)
+[node name="Tesla4" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(433, -3460)
+texture = ExtResource("48_rxitv")
 
-[node name="Orb" parent="RiddleRoomItems" instance=ExtResource("55_laeva")]
-position = Vector2(206, -3346)
+[node name="Tesla5" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(342, -2925)
+texture = ExtResource("48_rxitv")
 
-[node name="MagGlass" parent="RiddleRoomItems" instance=ExtResource("56_lwfta")]
-position = Vector2(-22, -3328)
+[node name="Tesla6" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(-413, -2787)
+texture = ExtResource("48_rxitv")
 
-[node name="Pear" parent="RiddleRoomItems" instance=ExtResource("57_dwv5f")]
-position = Vector2(412, -3336)
-
-[node name="PenNInk" parent="RiddleRoomItems" instance=ExtResource("59_ro5ne")]
-position = Vector2(-396, -3184)
-
-[node name="Phone" parent="RiddleRoomItems" instance=ExtResource("60_b4ptg")]
-position = Vector2(-196, -3184)
-
-[node name="Rice" parent="RiddleRoomItems" instance=ExtResource("61_q5gej")]
-position = Vector2(-1, -3184)
-
-[node name="Scroll" parent="RiddleRoomItems" instance=ExtResource("62_xon1v")]
-position = Vector2(206, -3176)
-
-[node name="Sizzle" parent="RiddleRoomItems" instance=ExtResource("63_pu62x")]
-position = Vector2(417, -3176)
-
-[node name="Skull" parent="RiddleRoomItems" instance=ExtResource("64_offvn")]
-position = Vector2(-396, -3056)
-
-[node name="Snake" parent="RiddleRoomItems" instance=ExtResource("65_tvk37")]
-position = Vector2(-196, -3059)
-
-[node name="Spid" parent="RiddleRoomItems" instance=ExtResource("66_ymssp")]
-position = Vector2(-1, -3053)
-
-[node name="Star" parent="RiddleRoomItems" instance=ExtResource("67_p64vn")]
-position = Vector2(206, -3045)
-
-[node name="Stick" parent="RiddleRoomItems" instance=ExtResource("68_qw4rs")]
-position = Vector2(412, -3035)
-
-[node name="Stickbug" parent="RiddleRoomItems" instance=ExtResource("69_osqci")]
-position = Vector2(-398, -2917)
-
-[node name="Tongue" parent="RiddleRoomItems" instance=ExtResource("70_hn03r")]
-position = Vector2(-198, -2917)
-
-[node name="Tooth" parent="RiddleRoomItems" instance=ExtResource("71_3x0vs")]
-position = Vector2(-3, -2917)
-
-[node name="WebNav" parent="RiddleRoomItems" instance=ExtResource("72_ibixo")]
-position = Vector2(204, -2909)
-
-[node name="WitchFinger" parent="RiddleRoomItems" instance=ExtResource("73_5sfhn")]
-position = Vector2(415, -2909)
+[node name="Tesla7" type="Sprite2D" parent="LightningRoom"]
+position = Vector2(-493, -3311)
+texture = ExtResource("48_rxitv")
 
 [node name="AlwaysActive" type="Node2D" parent="."]
 
@@ -574,10 +642,19 @@ collision_mask = 0
 position = Vector2(0, -3915)
 shape = SubResource("RectangleShape2D_x5cs4")
 
-[connection signal="area_entered" from="IntroBack/SpireBg/RiddleCover/Area2D" to="IntroBack/SpireBg/RiddleCover" method="ShowPath"]
-[connection signal="area_exited" from="IntroBack/SpireBg/RiddleCover/Area2D" to="IntroBack/SpireBg/RiddleCover" method="HidePath"]
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(1350, -546)
+points = PackedVector2Array(100, 0, 0, 0)
+width = 40.0
+width_curve = SubResource("Curve_fio1p")
+
+[connection signal="area_entered" from="IntroBack/SpireBg/LightningCover/Area2D" to="IntroBack/SpireBg/LightningCover" method="ShowPath"]
+[connection signal="area_exited" from="IntroBack/SpireBg/LightningCover/Area2D" to="IntroBack/SpireBg/LightningCover" method="HidePath"]
 [connection signal="area_entered" from="IntroBack/ToRiddleRoom" to="IntroBack/ToRiddleRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="IntroBack/CollectionCircle" to="IntroFront/WizardChill" method="OnInvetoryCollection"]
 [connection signal="area_entered" from="IntroBack/CircleContinueDialogue" to="IntroFront/WizardChill" method="OnContinueDialogue"]
+[connection signal="area_entered" from="IntroBack/ToLightningRoom" to="IntroBack/ToLightningRoom" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="RiddleRoom/CollectionCircle" to="RiddleRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="LightningRoom/ToIntroRoom" to="LightningRoom/ToIntroRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="AlwaysActive/Boora/Inventory" to="AlwaysActive/Boora/Inventory" method="_on_area_entered"]

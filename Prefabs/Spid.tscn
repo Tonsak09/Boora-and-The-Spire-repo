@@ -35,6 +35,7 @@ position = Vector2(-2942, -1595)
 texture = ExtResource("1_n6ac7")
 offset = Vector2(0, -50)
 script = ExtResource("2_bfbut")
+collectible = 8
 metadata/CollType = "CollCollect"
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]

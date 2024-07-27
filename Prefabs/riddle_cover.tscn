@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://lju227c7vuqr"]
+
+[ext_resource type="Shader" uid="uid://cv111g0i1u2ae" path="res://Shaders/PathCover.tres" id="1_ew1on"]
+[ext_resource type="Texture2D" uid="uid://ba57ii3ndduy5" path="res://Textures/BG/SpireBG_HiddenCoverRiddle.png" id="2_biet4"]
+[ext_resource type="Script" path="res://Scripts/CoverHiddenPath.gd" id="3_yy83s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7p4k"]
+shader = ExtResource("1_ew1on")
+shader_parameter/Alpha = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_esgkd"]
+radius = 266.88
+
+[node name="RiddleCover" type="Sprite2D" node_paths=PackedStringArray("sprite")]
+material = SubResource("ShaderMaterial_g7p4k")
+texture = ExtResource("2_biet4")
+offset = Vector2(0, -2800)
+script = ExtResource("3_yy83s")
+sprite = NodePath(".")
+animateSpeed = 2.0
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-534, -3469)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_esgkd")
+
+[connection signal="area_entered" from="Area2D" to="." method="ShowPath"]
+[connection signal="area_exited" from="Area2D" to="." method="HidePath"]

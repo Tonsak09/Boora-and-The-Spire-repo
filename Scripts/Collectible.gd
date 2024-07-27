@@ -23,7 +23,7 @@ func _init():
 
 
 func _ready():
-	origin = get_parent().global_position
+	origin = get_parent().position
 	itemType = get_parent().collectible
 
 func StartAbsorb (target : Node2D):
@@ -39,7 +39,7 @@ func StartAbsorb (target : Node2D):
 func Reset():
 	isAbsorbing = false
 	timer = 0
-	get_parent().global_position = origin;
+	get_parent().position = origin;
 	monitorable = true
 
 func _process(delta):
