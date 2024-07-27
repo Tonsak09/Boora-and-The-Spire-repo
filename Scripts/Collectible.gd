@@ -40,6 +40,7 @@ func Reset():
 	isAbsorbing = false
 	timer = 0
 	get_parent().position = origin;
+	get_parent().loadedVFX.set_emitting(true)
 	monitorable = true
 
 func _process(delta):

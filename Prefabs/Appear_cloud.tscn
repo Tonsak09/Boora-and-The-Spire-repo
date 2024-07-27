@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3hjqqaundowt"]
+
+[ext_resource type="Texture2D" uid="uid://cny7yi426eq0g" path="res://Textures/BNW/ParticleBall.png" id="1_t6w7q"]
+
+[node name="AppearCloud" type="CPUParticles2D"]
+position = Vector2(31, -1858)
+emitting = false
+amount = 4
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.86
+lifetime_randomness = 0.2
+texture = ExtResource("1_t6w7q")
+emission_shape = 2
+emission_sphere_radius = 6.04
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.31
+initial_velocity_max = 115.4
+angle_min = -83.0
+angle_max = 720.0

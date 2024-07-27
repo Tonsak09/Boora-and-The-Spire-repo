@@ -4,10 +4,11 @@ extends Node2D
 var key
 
 var count : int;
+var hasSpawnedKey : bool
 
 func _ready():
 	key = load("res://Prefabs/Key.tscn")
-	pass
+	hasSpawnedKey = false
 
 func OnCheckInventor(area : Area2D):
 	for item in Inventory.items:
@@ -28,7 +29,7 @@ func OnCheckInventor(area : Area2D):
 				item.Reset()
 	Inventory.items = [] # Clear inventory 
 	
-	if count >= 3:
-		print_debug("Complete!")
+	if count >= 3 && hasSpawnedKey == false:
 		var instance = key.instantiate()
 		add_child(instance)
+		hasSpawnedKey = true

@@ -11,11 +11,20 @@ var bobIncrease : bool
 
 var wobbleLimits = Vector2(-.1, .1)
 var wobbleSpeed = 5
-var wobbleLerp = 0
+var wobbleLerp = 0.5
 var wobbleIncrease : bool
 var canWobble : bool
 
+var vfx 
+var loadedVFX
+
 func _ready():
+	vfx = load("res://Prefabs/Appear_cloud.tscn")
+	loadedVFX = vfx.instantiate()
+	add_child(loadedVFX)
+	loadedVFX.position = Vector2(0,0)
+	loadedVFX.set_emitting(true)
+	
 	origin = position;
 	canWobble = false
 
@@ -57,4 +66,5 @@ func StartWobble(area : Area2D):
 
 func StopWobble(area : Area2D):
 	canWobble = false
+	wobbleLerp = 0.5
 	rotation = 0
