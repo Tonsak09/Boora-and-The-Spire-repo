@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=103 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -81,6 +81,7 @@
 [ext_resource type="PackedScene" uid="uid://dd8dli8j3u0cs" path="res://Prefabs/Web_nav.tscn" id="72_ibixo"]
 [ext_resource type="PackedScene" uid="uid://dtneu3mepq1it" path="res://Prefabs/Witch_finger.tscn" id="73_5sfhn"]
 [ext_resource type="Texture2D" uid="uid://dul6y7ton82dx" path="res://Textures/BNW/DialogueBG.png" id="79_kllpa"]
+[ext_resource type="Texture2D" uid="uid://2018ijmetl1i" path="res://Textures/BNW/KeyRoomBG.png" id="82_86jjb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21u7a"]
 shader = ExtResource("4_7hl40")
@@ -95,11 +96,13 @@ point_count = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_hb5o4"]
 font = ExtResource("23_jb544")
-font_size = 36
+font_size = 48
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_o404s"]
+font = ExtResource("23_jb544")
 font_size = 48
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -181,7 +184,7 @@ size = Vector2(1185, 2548)
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
 point_count = 2
 
-[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "introRoom", "riddleRoom", "lightningRoom")]
+[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "introRoom", "riddleRoom", "lightningRoom", "keyRoom")]
 script = ExtResource("1_4ei66")
 cam = NodePath("AlwaysActive/Camera2D")
 Boora = NodePath("AlwaysActive/Boora")
@@ -194,6 +197,9 @@ riddleBooraRect = Rect2(0, -3915, 1185, 2548)
 lightningRoom = [NodePath("LightningRoom")]
 lightningCamContraints = Vector2(-3947, -3800)
 lightningBooraRect = Rect2(0, -3915, 1185, 2548)
+keyRoom = [NodePath("KeyRoom")]
+keyCamContraints = Vector2(-3947, -300)
+keyBooraRect = Rect2(0, -3915, 1185, 1274)
 
 [node name="IntroBack" type="Node2D" parent="."]
 
@@ -203,6 +209,7 @@ texture = ExtResource("2_amw88")
 offset = Vector2(0, -2800)
 
 [node name="LinesWithPath" type="Sprite2D" parent="IntroBack/SpireBg"]
+visible = false
 texture = ExtResource("3_54k2k")
 offset = Vector2(0, -2800)
 
@@ -288,17 +295,17 @@ posToMove = NodePath("TPPosition")
 position = Vector2(964, -144)
 
 [node name="CollectionCircle" parent="IntroBack" instance=ExtResource("4_3e34h")]
-position = Vector2(-114, -314.999)
+position = Vector2(-115, -405.999)
 
 [node name="CircleContinueDialogue" parent="IntroBack" instance=ExtResource("4_3e34h")]
-position = Vector2(-113, -315)
+position = Vector2(-114, -406)
 metadata/CollType = "CollContinue"
 
 [node name="Label" type="Label" parent="IntroBack/CircleContinueDialogue"]
-offset_left = -80.0
-offset_top = 103.0
-offset_right = 79.0
-offset_bottom = 153.0
+offset_left = -98.0
+offset_top = 101.0
+offset_right = 92.0
+offset_bottom = 159.0
 text = "Continue
 "
 label_settings = SubResource("LabelSettings_hb5o4")
@@ -313,6 +320,16 @@ posToMove = NodePath("TPPosition")
 
 [node name="TPPosition" type="Node2D" parent="IntroBack/ToLightningRoom"]
 position = Vector2(-968, -7)
+
+[node name="ToToKeyRoom" parent="IntroBack" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+position = Vector2(-1, -5033)
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+roomToload = 3
+posToMove = NodePath("TPPosition")
+
+[node name="TPPosition" type="Node2D" parent="IntroBack/ToToKeyRoom"]
+position = Vector2(0, 1506)
 
 [node name="RiddleRoom" type="Node2D" parent="." node_paths=PackedStringArray("Inventory")]
 position = Vector2(-2462, 0)
@@ -441,7 +458,7 @@ position = Vector2(374, -2802)
 texture = ExtResource("9_puqg4")
 
 [node name="CollectionCircle" parent="RiddleRoom" instance=ExtResource("4_3e34h")]
-position = Vector2(-8, -2775)
+position = Vector2(-299, -2805)
 
 [node name="ToIntroRoom" parent="RiddleRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
 position = Vector2(575, -3331)
@@ -453,19 +470,19 @@ posToMove = NodePath("TpPoint")
 position = Vector2(-842, 135)
 
 [node name="Label" type="Label" parent="RiddleRoom"]
-offset_left = -545.0
-offset_top = -3128.0
-offset_right = 41.0
-offset_bottom = -2886.0
+offset_left = -577.0
+offset_top = -3167.0
+offset_right = 9.0
+offset_bottom = -2925.0
 text = "Rules that bind life
 Shell of the mind
 One sense, five types"
 label_settings = SubResource("LabelSettings_o404s")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="LightningRoom" type="Node2D" parent="." node_paths=PackedStringArray("Inventory")]
+[node name="LightningRoom" type="Node2D" parent="."]
 position = Vector2(2319, 0)
-script = ExtResource("18_atalg")
-Inventory = NodePath("../AlwaysActive/Boora/Inventory")
 
 [node name="RiddleBg" type="Sprite2D" parent="LightningRoom"]
 position = Vector2(0, -3906)
@@ -507,6 +524,22 @@ texture = ExtResource("48_rxitv")
 [node name="Tesla7" type="Sprite2D" parent="LightningRoom"]
 position = Vector2(-493, -3311)
 texture = ExtResource("48_rxitv")
+
+[node name="KeyRoom" type="Node2D" parent="."]
+position = Vector2(4514, 0)
+
+[node name="KeyBG" type="Sprite2D" parent="KeyRoom"]
+position = Vector2(0, -3915)
+texture = ExtResource("82_86jjb")
+
+[node name="ToIntro" parent="KeyRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+position = Vector2(-1, -3360)
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+posToMove = NodePath("TPPosition")
+
+[node name="TPPosition" type="Node2D" parent="KeyRoom/ToIntro"]
+position = Vector2(0, -1477)
 
 [node name="AlwaysActive" type="Node2D" parent="."]
 
@@ -692,7 +725,9 @@ width_curve = SubResource("Curve_fio1p")
 [connection signal="area_entered" from="IntroBack/CollectionCircle" to="IntroFront/WizardChill" method="OnInvetoryCollection"]
 [connection signal="area_entered" from="IntroBack/CircleContinueDialogue" to="IntroFront/WizardChill" method="OnContinueDialogue"]
 [connection signal="area_entered" from="IntroBack/ToLightningRoom" to="IntroBack/ToLightningRoom" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="IntroBack/ToToKeyRoom" to="IntroBack/ToToKeyRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="RiddleRoom/CollectionCircle" to="RiddleRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="LightningRoom/ToIntroRoom" to="LightningRoom/ToIntroRoom" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="KeyRoom/ToIntro" to="KeyRoom/ToIntro" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="AlwaysActive/Boora/Inventory" to="AlwaysActive/Boora/Inventory" method="_on_area_entered"]

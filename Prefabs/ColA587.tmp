@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2d4fj46hbg6h"]
+[gd_scene load_steps=5 format=3 uid="uid://d2d4fj46hbg6h"]
 
 [ext_resource type="Material" uid="uid://7xronm0euu3o" path="res://Materials/Collectible.tres" id="1_a80aj"]
 [ext_resource type="Script" path="res://Scripts/CollectionCircle.gd" id="1_gepnx"]
@@ -7,17 +7,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_awdfl"]
 radius = 23.0868
 
-[sub_resource type="Curve" id="Curve_084ts"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8kcrc"]
-radius = 208.166
-
 [node name="CollectionCircle" type="Area2D"]
 position = Vector2(-233, -382)
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("1_gepnx")
 metadata/CollType = "CollCircle"
 
 [node name="CollectionCircleSprite" type="Sprite2D" parent="."]
@@ -27,15 +21,6 @@ texture = ExtResource("2_5v745")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_awdfl")
-
-[node name="WobbleDetector" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
-collision_layer = 0
-script = ExtResource("1_gepnx")
-sprite = NodePath("../CollectionCircleSprite")
-wobCurve = SubResource("Curve_084ts")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WobbleDetector"]
-shape = SubResource("CircleShape2D_8kcrc")
 
 [connection signal="area_entered" from="." to="." method="StartWobble"]
 [connection signal="area_exited" from="." to="." method="StopWobble"]
