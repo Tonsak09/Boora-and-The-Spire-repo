@@ -15,7 +15,7 @@ extends Node2D
 @export var lightningCamContraints : Vector2
 @export var lightningBooraRect : Rect2
 
-@export var keyRoom : Array[Node2D] 		# 3 
+@export var keyRoom : Array[Node2D] 		# 3
 @export var keyCamContraints : Vector2
 @export var keyBooraRect : Rect2
 
@@ -54,6 +54,7 @@ func SwapRoom(nextRoom : Array[Node2D]):
 func SwapConstraints(camConstraints : Vector2, booraContraints : Rect2):
 	cam.vertContraints = camConstraints
 	Boora.SetContainer(booraContraints)
+	
 
 func SwapRoomIndex(room : int, pos : Vector2):
 	match room:
@@ -73,3 +74,22 @@ func SwapRoomIndex(room : int, pos : Vector2):
 			SwapRoom(bossRoom)
 			SwapConstraints(bossCamContraints, bossBooraRect)
 	Boora.global_position = pos;
+	cam.position = Vector2(0, pos.y)
+
+func SwapRoomJustIndex(room : int):
+	match room:
+		0:
+			SwapRoom(introRoom)
+			SwapConstraints(introCamContraints, introBooraRect)
+		1:
+			SwapRoom(riddleRoom)
+			SwapConstraints(riddleCamContraints, riddleBooraRect)
+		2:
+			SwapRoom(lightningRoom)
+			SwapConstraints(lightningCamContraints, lightningBooraRect)
+		3:
+			SwapRoom(keyRoom)
+			SwapConstraints(keyCamContraints, keyBooraRect)
+		4:
+			SwapRoom(bossRoom)
+			SwapConstraints(bossCamContraints, bossBooraRect)

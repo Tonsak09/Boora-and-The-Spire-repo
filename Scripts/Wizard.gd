@@ -45,7 +45,6 @@ func OnInvetoryCollection(area):
 		item.StartAbsorb(cauldron) # Animate to cauldron 
 		currShoppingList[item.itemType] = currShoppingList[item.itemType] - 1
 		var index = typeToCharIndex[item.itemType]
-		print_debug(currShoppingList[item.itemType])
 		if index != -1 && currShoppingList[item.itemType] + 1 > 0: # Does item exist on shpping list 
 			shopLabel.text[index] = str(int(shopLabel.text[index + 2]) - currShoppingList[item.itemType]) 
 			shopListTotal = max(shopListTotal - 1, 0)
@@ -85,7 +84,7 @@ func GenerateShoppingListInternal():
 	shopListTotal = 0
 	
 	currShoppingList = []
-	for n in 12: # Empty arrays 
+	for n in 14: # Empty arrays 
 		currShoppingList.append(0)
 		typeToCharIndex.append(-1)
 	

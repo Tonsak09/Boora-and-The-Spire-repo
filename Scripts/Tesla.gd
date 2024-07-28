@@ -21,9 +21,9 @@ func _ready():
 	var dis = (connection.position - position).length()
 	dir = (connection.position - position).normalized()
 	perp = dir.rotated(PI / 2)
-
+	
 	for n in segementCount - 1:
-		segements.push_back(position + dir * (dis / segementCount) * (n + 1))
+		segements.push_back(dir * (dis / segementCount) * (n + 1) )
 	
 	SendToLineRenderer()
 
@@ -40,9 +40,9 @@ func _process(delta):
 func SendToLineRenderer():
 	var points : Array[Vector2]
 	
-	points.push_back(position)
+	points.push_back(Vector2(0,0))
 	for point in segements:
 		points.push_back(point + perp * rng.randf_range(offsetPerpRange.x, offsetPerpRange.y))
-	points.push_back(connection.position)
+	points.push_back(connection.position - position)
 	
 	lineRenderer.points = points

@@ -70,3 +70,4 @@ func SetContainer(container : Rect2):
 	containerRect.position.y = container.position.y - container.size.y / 2.0
 	
 	containerRect.size = container.size
+

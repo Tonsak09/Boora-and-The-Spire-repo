@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=120 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -84,13 +84,10 @@
 [ext_resource type="PackedScene" uid="uid://dwt4043nb7oyn" path="res://Prefabs/Sizzle.tscn" id="63_pu62x"]
 [ext_resource type="PackedScene" uid="uid://dc530sk0xxg0o" path="res://Prefabs/Skull.tscn" id="64_offvn"]
 [ext_resource type="PackedScene" uid="uid://duorxti4tlj2w" path="res://Prefabs/Snake.tscn" id="65_tvk37"]
-[ext_resource type="Script" path="res://Scripts/KeyRoom.gd" id="65_uogqu"]
 [ext_resource type="PackedScene" uid="uid://bksl2k6kiro7t" path="res://Prefabs/Egg.tscn" id="66_1bhig"]
-[ext_resource type="Texture2D" uid="uid://bgc551xl13ge0" path="res://Textures/BNW/GateOpen.png" id="66_w5ywv"]
 [ext_resource type="PackedScene" uid="uid://cqj8t7qrx6540" path="res://Prefabs/Spid.tscn" id="66_ymssp"]
 [ext_resource type="PackedScene" uid="uid://vq3ah3u1npji" path="res://Prefabs/Star.tscn" id="67_p64vn"]
 [ext_resource type="PackedScene" uid="uid://tkt7asdqohmn" path="res://Prefabs/Stick.tscn" id="68_qw4rs"]
-[ext_resource type="Script" path="res://Scripts/CollectionCircle.gd" id="69_0p0fn"]
 [ext_resource type="PackedScene" uid="uid://d16g3bnt5pxps" path="res://Prefabs/Stickbug.tscn" id="69_osqci"]
 [ext_resource type="PackedScene" uid="uid://cdip2gvipyvpm" path="res://Prefabs/Tongue.tscn" id="70_hn03r"]
 [ext_resource type="PackedScene" uid="uid://coe05jjkb616n" path="res://Prefabs/Tooth.tscn" id="71_3x0vs"]
@@ -147,10 +144,6 @@ stream_4/weight = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1osge"]
 size = Vector2(498, 84)
-
-[sub_resource type="Curve" id="Curve_uelrk"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -526,10 +519,9 @@ label_settings = SubResource("LabelSettings_o404s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LightningRoom" type="Node2D" parent="." node_paths=PackedStringArray("crown")]
+[node name="LightningRoom" type="Node2D" parent="."]
 position = Vector2(2319, 0)
 script = ExtResource("53_tux8o")
-crown = NodePath("Crown")
 
 [node name="RiddleBg" type="Sprite2D" parent="LightningRoom"]
 position = Vector2(0, -3906)
@@ -540,7 +532,7 @@ position = Vector2(0, -5059)
 texture = ExtResource("53_f7kx2")
 offset = Vector2(0, -50)
 script = ExtResource("54_86gaq")
-collectible = 12
+collectible = 8
 bobCurve = SubResource("Curve_u5neu")
 metadata/CollType = "CollCollect"
 
@@ -620,25 +612,16 @@ script = ExtResource("54_s5pqb")
 position = Vector2(239, -32)
 shape = SubResource("RectangleShape2D_1osge")
 
-[node name="KeyRoom" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "gate", "leftKey", "rightKey")]
+[node name="KeyRoom" type="Node2D" parent="."]
 position = Vector2(4514, 0)
-script = ExtResource("65_uogqu")
-Boora = NodePath("../AlwaysActive/Boora")
-gate = NodePath("GateClosed")
-openGate = ExtResource("66_w5ywv")
-leftKey = NodePath("CollectionCircle")
-rightKey = NodePath("CollectionCircle2")
 
 [node name="KeyBG" type="Sprite2D" parent="KeyRoom"]
 position = Vector2(0, -3915)
 texture = ExtResource("82_86jjb")
 
-[node name="GateClosed" type="Sprite2D" parent="KeyRoom" node_paths=PackedStringArray("sprite")]
+[node name="GateClosed" type="Sprite2D" parent="KeyRoom"]
 position = Vector2(0, -4300)
 texture = ExtResource("55_unfr4")
-script = ExtResource("69_0p0fn")
-sprite = NodePath(".")
-wobCurve = SubResource("Curve_uelrk")
 
 [node name="CollectionCircle" parent="KeyRoom" instance=ExtResource("4_3e34h")]
 position = Vector2(-350, -4300)
@@ -846,10 +829,7 @@ shape = SubResource("RectangleShape2D_x5cs4")
 [connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="LightningRoom/Crown/Area2D" to="LightningRoom/Crown" method="StartWobble"]
 [connection signal="area_exited" from="LightningRoom/Crown/Area2D" to="LightningRoom/Crown" method="StopWobble"]
-[connection signal="area_entered" from="LightningRoom/CollectionCircle" to="LightningRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="LightningRoom/ToIntroRoom" to="LightningRoom/ToIntroRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="LightningRoom/Area2D" to="LightningRoom/Area2D" method="ResetBoora"]
-[connection signal="area_entered" from="KeyRoom/CollectionCircle" to="KeyRoom" method="OnCheckInventor"]
-[connection signal="area_entered" from="KeyRoom/CollectionCircle2" to="KeyRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="KeyRoom/ToIntro" to="KeyRoom/ToIntro" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="AlwaysActive/Boora/Inventory" to="AlwaysActive/Boora/Inventory" method="_on_area_entered"]

@@ -39,7 +39,7 @@ position = Vector2(406, -2774)
 texture = ExtResource("1_7862q")
 offset = Vector2(0, -50)
 script = ExtResource("2_jwwlt")
-collectible = 8
+collectible = 13
 bobCurve = SubResource("Curve_joe22")
 metadata/CollType = "CollCollect"
 

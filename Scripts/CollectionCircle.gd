@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 @export var sprite : Sprite2D
 @export var wobCurve : Curve
 
@@ -7,6 +7,7 @@ var wobbleSpeed = 1
 var wobbleLerp = 0.5
 var wobbleIncrease : bool
 var canWobble : bool
+
 
 
 func _init():

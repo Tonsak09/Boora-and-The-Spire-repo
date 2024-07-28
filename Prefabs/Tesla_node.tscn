@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cahh0sopw4lc3"]
+
+[ext_resource type="Script" path="res://Scripts/Tesla.gd" id="1_3gbfh"]
+[ext_resource type="Texture2D" uid="uid://bwqblq36c0xek" path="res://Textures/Tesla.png" id="2_vgfgj"]
+
+[sub_resource type="Curve" id="Curve_h2ywj"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="TeslaNode" type="Line2D" node_paths=PackedStringArray("lineRenderer")]
+position = Vector2(-40, -3488)
+width = 40.0
+width_curve = SubResource("Curve_h2ywj")
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("1_3gbfh")
+lineRenderer = NodePath(".")
+timeChange = 0.1
+segementCount = 4
+offsetPerpRange = Vector2(-50, 50)
+
+[node name="Tesla" type="Sprite2D" parent="."]
+texture = ExtResource("2_vgfgj")

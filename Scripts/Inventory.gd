@@ -8,8 +8,13 @@ extends Area2D
 
 var canCollect : bool
 
+var startPos : Vector2
+
 func _init():
-		canCollect = false;
+	canCollect = false
+
+func _ready():
+	startPos = get_parent().position
 
 func _on_area_entered(area):
 	if !canCollect:
@@ -29,3 +34,10 @@ func _on_area_entered(area):
 func _process(delta):
 	var interp = (float(items.size()) / float(maxCapacity))
 	invenFill.material.set_shader_parameter("Color", invenGrad.sample(interp))
+
+func ResetBoora():
+	#get_parent().position = startPos
+	
+	for item in items:
+		item.Reset()
+	items = []
