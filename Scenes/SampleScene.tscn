@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=106 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -61,8 +61,11 @@
 [ext_resource type="PackedScene" uid="uid://doawr8grgi1n4" path="res://Prefabs/Double_mush.tscn" id="52_nfosh"]
 [ext_resource type="PackedScene" uid="uid://cfipqbu6x46vm" path="res://Prefabs/Harp.tscn" id="53_iwge5"]
 [ext_resource type="PackedScene" uid="uid://y23t4i3bukbg" path="res://Prefabs/Knife.tscn" id="54_1hw78"]
+[ext_resource type="Script" path="res://Scripts/Tesla.gd" id="54_68uqo"]
 [ext_resource type="PackedScene" uid="uid://dl4tcfvkqpb7j" path="res://Prefabs/Orb.tscn" id="55_laeva"]
+[ext_resource type="Texture2D" uid="uid://bio77kthkfn1s" path="res://Textures/BNW/GateClosed.png" id="55_unfr4"]
 [ext_resource type="PackedScene" uid="uid://c8qatt0u2ayq5" path="res://Prefabs/Mag_glass.tscn" id="56_lwfta"]
+[ext_resource type="Texture2D" uid="uid://bstlqyyy50lsi" path="res://Textures/BNW/KeyHole.png" id="56_xwobk"]
 [ext_resource type="PackedScene" uid="uid://bbxrxm7yiadn4" path="res://Prefabs/Pear.tscn" id="57_dwv5f"]
 [ext_resource type="PackedScene" uid="uid://d0udturdax4sq" path="res://Prefabs/Pen_n_ink.tscn" id="59_ro5ne"]
 [ext_resource type="PackedScene" uid="uid://cq20cdbsbwu36" path="res://Prefabs/Phone.tscn" id="60_b4ptg"]
@@ -103,6 +106,10 @@ font_color = Color(0, 0, 0, 1)
 font = ExtResource("23_jb544")
 font_size = 48
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_fio1p"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
+point_count = 2
 
 [sub_resource type="Curve" id="Curve_x43gp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -180,10 +187,6 @@ font_color = Color(0.207843, 0.207843, 0.207843, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5cs4"]
 size = Vector2(1185, 2548)
 
-[sub_resource type="Curve" id="Curve_fio1p"]
-_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
-point_count = 2
-
 [node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "introRoom", "riddleRoom", "lightningRoom", "keyRoom")]
 script = ExtResource("1_4ei66")
 cam = NodePath("AlwaysActive/Camera2D")
@@ -244,7 +247,7 @@ position = Vector2(0, 146)
 [node name="ItemsParent" type="Node2D" parent="IntroBack"]
 
 [node name="Book" parent="IntroBack/ItemsParent" instance=ExtResource("8_a6jq7")]
-position = Vector2(-338, -1058)
+position = Vector2(-290, -1621)
 bobCurve = SubResource("Curve_e03si")
 
 [node name="Dice" parent="IntroBack/ItemsParent" instance=ExtResource("9_ytf70")]
@@ -312,14 +315,15 @@ label_settings = SubResource("LabelSettings_hb5o4")
 horizontal_alignment = 1
 
 [node name="ToLightningRoom" parent="IntroBack" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
-position = Vector2(572, -4373)
+visible = false
+position = Vector2(591, -4373)
 script = ExtResource("12_gdmuw")
 RoomLoader = NodePath("../..")
 roomToload = 2
 posToMove = NodePath("TPPosition")
 
 [node name="TPPosition" type="Node2D" parent="IntroBack/ToLightningRoom"]
-position = Vector2(-968, -7)
+position = Vector2(-981, -526)
 
 [node name="ToToKeyRoom" parent="IntroBack" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
 position = Vector2(-1, -5033)
@@ -488,18 +492,32 @@ position = Vector2(2319, 0)
 position = Vector2(0, -3906)
 texture = ExtResource("24_57agy")
 
-[node name="Tesla" type="Sprite2D" parent="LightningRoom"]
+[node name="TeslaNode" type="Node2D" parent="LightningRoom" node_paths=PackedStringArray("lineRenderer", "connection")]
 position = Vector2(-40, -3488)
+script = ExtResource("54_68uqo")
+lineRenderer = NodePath("Line2D")
+connection = NodePath("../Tesla2")
+timeChange = 0.1
+segementCount = 4
+offsetPerpRange = Vector2(-100, 100)
+
+[node name="Line2D" type="Line2D" parent="LightningRoom/TeslaNode"]
+position = Vector2(40, 3488)
+width = 40.0
+width_curve = SubResource("Curve_fio1p")
+default_color = Color(0, 0, 0, 1)
+
+[node name="Tesla" type="Sprite2D" parent="LightningRoom/TeslaNode"]
 texture = ExtResource("48_rxitv")
 
 [node name="ToIntroRoom" parent="LightningRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
-position = Vector2(-576, -4391)
+position = Vector2(-551, -4893)
 script = ExtResource("12_gdmuw")
 RoomLoader = NodePath("../..")
 posToMove = NodePath("TpPoint")
 
 [node name="TpPoint" type="Node2D" parent="LightningRoom/ToIntroRoom"]
-position = Vector2(1009, 22)
+position = Vector2(1009, 538)
 
 [node name="Tesla2" type="Sprite2D" parent="LightningRoom"]
 position = Vector2(234, -4030)
@@ -531,6 +549,24 @@ position = Vector2(4514, 0)
 [node name="KeyBG" type="Sprite2D" parent="KeyRoom"]
 position = Vector2(0, -3915)
 texture = ExtResource("82_86jjb")
+
+[node name="GateClosed" type="Sprite2D" parent="KeyRoom"]
+position = Vector2(0, -4300)
+texture = ExtResource("55_unfr4")
+
+[node name="CollectionCircle" parent="KeyRoom" instance=ExtResource("4_3e34h")]
+position = Vector2(-350, -4300)
+
+[node name="KeyHole" type="Sprite2D" parent="KeyRoom/CollectionCircle"]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("56_xwobk")
+
+[node name="CollectionCircle2" parent="KeyRoom" instance=ExtResource("4_3e34h")]
+position = Vector2(350, -4300)
+
+[node name="KeyHole" type="Sprite2D" parent="KeyRoom/CollectionCircle2"]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("56_xwobk")
 
 [node name="ToIntro" parent="KeyRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
 position = Vector2(-1, -3360)
@@ -712,12 +748,6 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -3915)
 shape = SubResource("RectangleShape2D_x5cs4")
-
-[node name="Line2D" type="Line2D" parent="."]
-position = Vector2(1350, -546)
-points = PackedVector2Array(100, 0, 0, 0)
-width = 40.0
-width_curve = SubResource("Curve_fio1p")
 
 [connection signal="area_entered" from="IntroBack/SpireBg/LightningCover/Area2D" to="IntroBack/SpireBg/LightningCover" method="ShowPath"]
 [connection signal="area_exited" from="IntroBack/SpireBg/LightningCover/Area2D" to="IntroBack/SpireBg/LightningCover" method="HidePath"]
