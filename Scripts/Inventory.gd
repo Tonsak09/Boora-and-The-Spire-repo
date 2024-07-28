@@ -14,10 +14,13 @@ func _init():
 func _on_area_entered(area):
 	if !canCollect:
 		return;
-
+	
 	if area.has_meta("CollType"):
 		return;
-
+	
+	if area.isAbsorbing:
+		return
+	
 	if area.get_parent().get_meta("CollType") == "CollCollect":
 		if items.size() < maxCapacity:
 			area.StartAbsorb(self)

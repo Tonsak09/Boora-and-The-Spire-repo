@@ -17,7 +17,6 @@ var startPos : Vector2 # Start for animation interp
 var origin : Vector2
 
 
-
 func _init():
 	timer = 0
 
