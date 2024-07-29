@@ -1,4 +1,4 @@
-[gd_scene load_steps=149 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=151 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -49,6 +49,7 @@
 [ext_resource type="AudioStream" uid="uid://cfwrmobrfcdhi" path="res://Audio/Wizrd Chap/wblip12.mp3" id="35_88y5c"]
 [ext_resource type="AudioStream" uid="uid://cs7y5qxkedadu" path="res://Audio/Wizrd Chap/wblip13.mp3" id="36_tr33w"]
 [ext_resource type="Texture2D" uid="uid://ckuwygvmm2428" path="res://Textures/BossF.PNG" id="37_1vfri"]
+[ext_resource type="Script" path="res://Scripts/BossEncounter.gd" id="37_hbuot"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
 [ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
@@ -97,6 +98,7 @@
 [ext_resource type="PackedScene" uid="uid://dtneu3mepq1it" path="res://Prefabs/Witch_finger.tscn" id="73_5sfhn"]
 [ext_resource type="AudioStream" uid="uid://c0holqaigqeg" path="res://Audio/Unlock/Unlock3.wav" id="73_7f215"]
 [ext_resource type="AudioStream" uid="uid://b1gnttuek4cmb" path="res://Audio/Unlock/Unlock.wav" id="74_xqqd5"]
+[ext_resource type="PackedScene" uid="uid://b3hjqqaundowt" path="res://Prefabs/Appear_cloud.tscn" id="77_tse7w"]
 [ext_resource type="Texture2D" uid="uid://dul6y7ton82dx" path="res://Textures/BNW/DialogueBG.png" id="79_kllpa"]
 [ext_resource type="Texture2D" uid="uid://byw7y7vu6qfx5" path="res://Textures/Pupil.png" id="80_5g7hj"]
 [ext_resource type="Script" path="res://Scripts/LookAt.gd" id="80_5h1fe"]
@@ -716,10 +718,9 @@ shape = SubResource("RectangleShape2D_sv2v3")
 position = Vector2(0, -4138)
 script = null
 
-[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("crown")]
+[node name="BossArena" type="Node2D" parent="."]
 position = Vector2(-4777, 0)
-script = ExtResource("53_tux8o")
-crown = NodePath("../LightningRoom/Crown")
+script = ExtResource("37_hbuot")
 
 [node name="ArenaBg" type="Sprite2D" parent="BossArena"]
 position = Vector2(0, -3906)
@@ -878,6 +879,9 @@ speed = 1000.0
 disThreshold = 100.0
 disThreshCurve = SubResource("Curve_1lhmf")
 
+[node name="AppearCloud" parent="AlwaysActive/FollowPoint" instance=ExtResource("77_tse7w")]
+position = Vector2(0, 0)
+
 [node name="FollowPoint2" type="Node2D" parent="AlwaysActive" node_paths=PackedStringArray("targetFollow")]
 script = ExtResource("11_pd56u")
 targetFollow = NodePath("../FollowPoint")
@@ -886,6 +890,9 @@ speed = 1000.0
 disThreshold = 100.0
 disThreshCurve = SubResource("Curve_1lhmf")
 
+[node name="AppearCloud" parent="AlwaysActive/FollowPoint2" instance=ExtResource("77_tse7w")]
+position = Vector2(0, 0)
+
 [node name="FollowPoint3" type="Node2D" parent="AlwaysActive" node_paths=PackedStringArray("targetFollow")]
 script = ExtResource("11_pd56u")
 targetFollow = NodePath("../FollowPoint2")
@@ -893,6 +900,9 @@ targetRadius = 50.0
 speed = 1000.0
 disThreshold = 100.0
 disThreshCurve = SubResource("Curve_1lhmf")
+
+[node name="AppearCloud" parent="AlwaysActive/FollowPoint3" instance=ExtResource("77_tse7w")]
+position = Vector2(0, 0)
 
 [node name="Boora" type="Sprite2D" parent="AlwaysActive"]
 visibility_layer = 2
@@ -950,13 +960,14 @@ rotation = -0.0785398
 scale = Vector2(0.952381, 0.952381)
 texture = ExtResource("80_5g7hj")
 
-[node name="Inventory" type="Area2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("invenFill", "followPoints", "audioReset")]
+[node name="Inventory" type="Area2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("invenFill", "followPoints", "followVFX", "audioReset")]
 collision_layer = 3
 script = ExtResource("6_cr2bj")
 maxCapacity = 3
 invenFill = NodePath("../../InventoryUI/InvenFill")
 invenGrad = SubResource("Gradient_2ha8c")
 followPoints = [NodePath("../../FollowPoint"), NodePath("../../FollowPoint2"), NodePath("../../FollowPoint3")]
+followVFX = [NodePath("../../FollowPoint/AppearCloud"), NodePath("../../FollowPoint2/AppearCloud"), NodePath("../../FollowPoint3/AppearCloud")]
 audioReset = NodePath("../ResetNoise")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AlwaysActive/Boora/Inventory"]
@@ -965,13 +976,11 @@ shape = SubResource("CircleShape2D_pv872")
 [node name="AudioListener2D" type="AudioListener2D" parent="AlwaysActive/Boora"]
 
 [node name="WarnArea" type="Area2D" parent="AlwaysActive/Boora"]
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AlwaysActive/Boora/WarnArea"]
 shape = SubResource("CircleShape2D_bouno")
 
 [node name="MusicManager" type="Node2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("musicStreamers", "connectorToBoss")]
-scale = Vector2(1, 1)
 script = ExtResource("85_lu63q")
 musicStreamers = [NodePath("MusicPiano"), NodePath("BossMusic")]
 connectorToBoss = NodePath("../../../KeyRoom/ToBoss")

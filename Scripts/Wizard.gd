@@ -42,6 +42,7 @@ func OnInvetoryCollection(area):
 		return;
 	
 	for item in Inventory.items:
+		Inventory.PlayChainVFX()
 		item.StartAbsorb(cauldron) # Animate to cauldron 
 		currShoppingList[item.itemType] = currShoppingList[item.itemType] - 1
 		var index = typeToCharIndex[item.itemType]
