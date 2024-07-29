@@ -416,6 +416,7 @@ texture = ExtResource("82_86jjb")
 
 [node name="GateClosed" type="Sprite2D" parent="KeyRoom" node_paths=PackedStringArray("sprite")]
 position = Vector2(0, -4300)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("55_unfr4")
 script = ExtResource("69_0p0fn")
 sprite = NodePath(".")
