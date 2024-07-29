@@ -2,6 +2,7 @@ extends Node2D
 
 @export var cam : Camera2D
 @export var Boora : Node2D
+@export var transitor : Node2D
 
 @export var introRoom : Array[Node2D]		# 0
 @export var introCamContraints : Vector2
@@ -25,6 +26,11 @@ extends Node2D
 
 var currentRoom : Array[Node2D]
 
+var holdRoom : int
+var holdPos : Vector2
+
+func _init():
+	holdRoom = -1
 
 func _ready():
 	SetInactive(introRoom)
@@ -34,6 +40,14 @@ func _ready():
 	SetInactive(bossRoom)
 	
 	SwapRoom(introRoom)
+
+func _process(delta):
+	if holdRoom == -1:
+		return
+	
+	if transitor.doneAnim:
+		SwapPosAfterTrans(holdRoom, holdPos)
+		holdRoom = -1
 
 func SetInactive(room : Array[Node2D]):
 	for item in room:
@@ -57,6 +71,13 @@ func SwapConstraints(camConstraints : Vector2, booraContraints : Rect2):
 	
 
 func SwapRoomIndex(room : int, pos : Vector2):
+	holdRoom = room
+	holdPos = pos
+	
+	transitor.TransitionOut()
+	Boora.canMove = false
+
+func SwapPosAfterTrans(room : int, pos : Vector2):
 	match room:
 		0:
 			SwapRoom(introRoom)
@@ -75,21 +96,6 @@ func SwapRoomIndex(room : int, pos : Vector2):
 			SwapConstraints(bossCamContraints, bossBooraRect)
 	Boora.global_position = pos;
 	cam.position = Vector2(0, pos.y)
-
-func SwapRoomJustIndex(room : int):
-	match room:
-		0:
-			SwapRoom(introRoom)
-			SwapConstraints(introCamContraints, introBooraRect)
-		1:
-			SwapRoom(riddleRoom)
-			SwapConstraints(riddleCamContraints, riddleBooraRect)
-		2:
-			SwapRoom(lightningRoom)
-			SwapConstraints(lightningCamContraints, lightningBooraRect)
-		3:
-			SwapRoom(keyRoom)
-			SwapConstraints(keyCamContraints, keyBooraRect)
-		4:
-			SwapRoom(bossRoom)
-			SwapConstraints(bossCamContraints, bossBooraRect)
+	
+	transitor.TransitionIn()
+	Boora.canMove = true

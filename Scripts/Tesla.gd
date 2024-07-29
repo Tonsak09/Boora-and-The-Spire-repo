@@ -8,15 +8,24 @@ extends Node2D
 
 @export var offsetPerpRange : Vector2
 
-@export var segements : Array[Vector2]
+@export var hitBox : Area2D
+@export var timeActive : float
+@export var timeUnactive : float
+
+
+var segements : Array[Vector2]
 var dir : Vector2
 var perp : Vector2
 
 var rng = RandomNumberGenerator.new()
-var timer : float
+var timerSeg : float
+var timerActive : float
+
+var isActive : bool
 
 func _ready():
-	timer = 0.0
+	timerSeg = 0
+	timerActive = 0
 	
 	var dis = (connection.position - position).length()
 	dir = (connection.position - position).normalized()
@@ -30,12 +39,34 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	timer += delta
-	
-	if timer >= timeChange:
-		SendToLineRenderer()
-		timer = 0
+	SegAnim(delta)
+	CycleActive(delta)
 
+func SegAnim(delta):
+	
+	if isActive == false:
+		lineRenderer.points = []
+		return
+	
+	timerSeg += delta
+	if timerSeg >= timeChange:
+		SendToLineRenderer()
+		timerSeg = 0
+
+func CycleActive(delta):
+	timerActive += delta 
+	if isActive:
+		if timerActive >= timeActive:
+			# Set hitbox off
+			timerActive = 0
+			isActive = false
+			hitBox.canHit = false
+	else:
+		if timerActive >= timeUnactive:
+			# Set hitbox on
+			timerActive = 0
+			isActive = true
+			hitBox.canHit = true
 
 func SendToLineRenderer():
 	var points : Array[Vector2]

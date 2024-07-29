@@ -22,10 +22,12 @@ var visTime : Vector2
 var dir : Vector2
 var speedLerp : float
 
+var canMove : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SetContainer(containerRect)
+	canMove = true
 	#containerRect.position.x -= containerRect.size.x / 2.0
 	#containerRect.position.y -= containerRect.size.y / 2.0
 
@@ -40,6 +42,10 @@ func _process(delta):
 	Movement(delta)
 
 func Movement(delta):
+	
+	if canMove == false:
+		return
+	
 	# Mouse in viewport coordinates.
 	if Input.is_mouse_button_pressed( 1 ):
 		speedLerp = clamp(speedLerp + speedUpRate * delta, 0, 1)
