@@ -8,6 +8,8 @@ extends Node2D
 @export var leftKey : Node2D
 @export var rightKey : Node2D
 
+@export var audio : AudioStreamPlayer2D
+
 var key
 var count : int;
 var hasSpawnedKey : bool
@@ -18,11 +20,19 @@ func _ready():
 	gate.canWobble = false
 
 func OnCheckInventor(area : Area2D):
+	var oneCollected = false
 	for item in area.items:
 		match item.itemType:
 			Types.CollectType.KEY:
-				item.get_parent().queue_free()
-				CollectKey()
+				
+				# Don't take both keys if two in inventory 
+				if !oneCollected:
+					oneCollected = true
+					item.get_parent().queue_free()
+					audio.play()
+					CollectKey()
+				else: 
+					item.Reset()
 			_:
 				item.Reset()
 	area.items = [] # Clear inventory 

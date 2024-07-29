@@ -6,6 +6,8 @@ extends Area2D
 @export var invenFill : Sprite2D
 @export var invenGrad : Gradient
 
+@export var followPoints : Array[Node2D]
+
 var canCollect : bool
 
 var startPos : Vector2
@@ -28,7 +30,7 @@ func _on_area_entered(area):
 	
 	if area.get_parent().get_meta("CollType") == "CollCollect":
 		if items.size() < maxCapacity:
-			area.StartAbsorb(self)
+			area.StartAbsorb(followPoints[items.size()])
 			items.append(area)
 
 func _process(delta):

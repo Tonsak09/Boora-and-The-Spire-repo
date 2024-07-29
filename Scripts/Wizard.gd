@@ -55,11 +55,12 @@ func OnInvetoryCollection(area):
 		# Check if shopping list is complete 
 		if(shopListTotal == 0):
 			currList += 1
-			
+			dialogueAudio.play()
 			if currList >= ShoppingLists.size(): # End game? 
 				hand.visible = true;
 				texture = castTexture;
 				shopLabel.text = "Thank you! Now feel free to find the secrets!"
+				
 			else: # Next list 
 				GenerateShoppingListInternal()
 
@@ -71,6 +72,7 @@ func OnContinueDialogue(area):
 		Inventory.canCollect = true
 		state = WizardState.TUTORIAL_SHOPPING
 		continueCircle.queue_free()
+		dialogueAudio.play()
 	else:
 		shopLabel.text = introDialogue[introIndex]
 		dialogueAudio.play()
