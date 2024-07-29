@@ -2,6 +2,7 @@ extends Sprite2D
 
 @export var Inventory : Area2D
 @export var continueCircle : Node2D
+@export var collectCirc : Node2D
 @export var cauldron : Node2D
 @export var rangeToPull : float
 
@@ -60,7 +61,8 @@ func OnInvetoryCollection(area):
 			if currList >= ShoppingLists.size(): # End game? 
 				hand.visible = true;
 				texture = castTexture;
-				shopLabel.text = "Thank you! Now feel free to find the secrets!"
+				collectCirc.queue_free()
+				shopLabel.text = "Thank you! Go forth a discover the secrets of The Spire"
 				
 			else: # Next list 
 				GenerateShoppingListInternal()

@@ -1030,12 +1030,13 @@ texture = ExtResource("10_bnmwc")
 position = Vector2(300, -1750)
 texture = ExtResource("10_bnmwc")
 
-[node name="WizardChill" type="Sprite2D" parent="IntroFront" node_paths=PackedStringArray("Inventory", "continueCircle", "cauldron", "shopLabel", "hand", "dialogueAudio")]
+[node name="WizardChill" type="Sprite2D" parent="IntroFront" node_paths=PackedStringArray("Inventory", "continueCircle", "collectCirc", "cauldron", "shopLabel", "hand", "dialogueAudio")]
 position = Vector2(384, -102)
 texture = ExtResource("6_708dw")
 script = ExtResource("15_a2ub1")
 Inventory = NodePath("../../AlwaysActive/Boora/Inventory")
 continueCircle = NodePath("../../IntroBack/CircleContinueDialogue")
+collectCirc = NodePath("../../IntroBack/CollectionCircle")
 cauldron = NodePath("../../IntroBack/Cauldron/CauldronTarget")
 rangeToPull = 150.0
 shopLabel = NodePath("Node2D/Label")
