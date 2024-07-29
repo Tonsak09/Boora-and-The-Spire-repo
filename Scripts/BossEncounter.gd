@@ -49,9 +49,9 @@ func _process(delta):
 		BossStates.CHARGE:
 			Charge(delta)
 		BossStates.STUNNED:
-			Stunned()
+			Stunned(delta)
 		BossStates.RECOVER:
-			Recover()
+			Recover(delta)
 		BossStates.DEFEAT:
 			Defeat()
 
@@ -126,14 +126,34 @@ func Charge(delta):
 			points[currPoint].global_position + Vector2(0, backDis), 
 			points[currPoint].global_position + 
 			Vector2(0, chargeDis), cLerp)
-		print_debug(cLerp)
 		timer += delta
 
-func Stunned():
-	pass
+func Stunned(delta):
+	if stateTimer >= stunTime:
+		stateTimer = 0
+		timer = 0
+		state = BossStates.RECOVER
+		return
+	
+	stateTimer += delta
 
-func Recover():
-	pass
+func Recover(delta):
+	boss.global_position = points[currPoint].global_position
+	#state = BossStates.TARGET
+	
+	var rLerp = recoverCurve.sample(timer / recoverTime)
+	
+	if rLerp >= 1:
+		boss.global_position = points[currPoint].global_position
+		timer = 0
+		state = BossStates.TARGET
+		return
+		
+	boss.global_position = lerp(
+		points[currPoint].global_position + Vector2(0, chargeDis), 
+		points[currPoint].global_position, rLerp)
+		
+	timer += delta
 
 func Defeat():
 	pass

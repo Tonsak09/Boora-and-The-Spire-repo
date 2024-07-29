@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=158 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -208,7 +208,11 @@ _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_qm8no"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_h646k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_e03si"]
@@ -737,15 +741,19 @@ position = Vector2(-4777, 0)
 script = ExtResource("37_hbuot")
 Boora = NodePath("../AlwaysActive/Boora")
 boss = NodePath("Boss")
+targetingTime = 3.0
 moveTime = 0.5
 moveCurve = SubResource("Curve_ef67r")
 points = [NodePath("BossChargePoints/BossChargePoint"), NodePath("BossChargePoints/BossChargePoint2"), NodePath("BossChargePoints/BossChargePoint3")]
-backTime = 1.0
+backTime = 0.5
 backCurve = SubResource("Curve_l1a3b")
 backDis = -200.0
-chargeTime = 4.0
+chargeTime = 1.0
 chargeCurve = SubResource("Curve_qm8no")
 chargeDis = 2000.0
+stunTime = 1.0
+recoverTime = 1.0
+recoverCurve = SubResource("Curve_h646k")
 
 [node name="ArenaBg" type="Sprite2D" parent="BossArena"]
 position = Vector2(0, -3906)
