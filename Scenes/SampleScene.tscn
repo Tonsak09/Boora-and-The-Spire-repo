@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=152 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -52,6 +52,7 @@
 [ext_resource type="Script" path="res://Scripts/BossEncounter.gd" id="37_hbuot"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
+[ext_resource type="Script" path="res://Scripts/Chain.gd" id="39_hhsst"]
 [ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
 [ext_resource type="PackedScene" uid="uid://cf7svk7jmmi6e" path="res://Prefabs/Bell.tscn" id="50_awd58"]
 [ext_resource type="PackedScene" uid="uid://4c4b4jvftg3m" path="res://Prefabs/DNA.tscn" id="51_8h16x"]
@@ -726,10 +727,16 @@ script = ExtResource("37_hbuot")
 position = Vector2(0, -3906)
 texture = ExtResource("24_57agy")
 
-[node name="BossF" type="Sprite2D" parent="BossArena"]
-position = Vector2(-264, -4735)
+[node name="Boss" type="Node2D" parent="BossArena"]
+position = Vector2(0, -4814)
+
+[node name="BossSprite" type="Sprite2D" parent="BossArena/Boss"]
+position = Vector2(-22, -227)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("37_1vfri")
+
+[node name="Chain" type="Node2D" parent="BossArena/Boss"]
+script = ExtResource("39_hhsst")
 
 [node name="ItemsParent" type="Node2D" parent="."]
 
