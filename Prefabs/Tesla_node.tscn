@@ -18,7 +18,7 @@ timeChange = 0.1
 segementCount = 4
 offsetPerpRange = Vector2(-50, 50)
 timeActive = 1.0
-timeUnactive = 0.5
+timeUnactive = 0.9
 
 [node name="Tesla" type="Sprite2D" parent="."]
 texture = ExtResource("2_vgfgj")
