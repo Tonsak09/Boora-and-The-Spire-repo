@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=149 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -48,6 +48,7 @@
 [ext_resource type="AudioStream" uid="uid://ckohuokxmet10" path="res://Audio/Wizrd Chap/wblip9.mp3" id="34_bo87p"]
 [ext_resource type="AudioStream" uid="uid://cfwrmobrfcdhi" path="res://Audio/Wizrd Chap/wblip12.mp3" id="35_88y5c"]
 [ext_resource type="AudioStream" uid="uid://cs7y5qxkedadu" path="res://Audio/Wizrd Chap/wblip13.mp3" id="36_tr33w"]
+[ext_resource type="Texture2D" uid="uid://ckuwygvmm2428" path="res://Textures/BossF.PNG" id="37_1vfri"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
 [ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
@@ -97,10 +98,14 @@
 [ext_resource type="AudioStream" uid="uid://c0holqaigqeg" path="res://Audio/Unlock/Unlock3.wav" id="73_7f215"]
 [ext_resource type="AudioStream" uid="uid://b1gnttuek4cmb" path="res://Audio/Unlock/Unlock.wav" id="74_xqqd5"]
 [ext_resource type="Texture2D" uid="uid://dul6y7ton82dx" path="res://Textures/BNW/DialogueBG.png" id="79_kllpa"]
+[ext_resource type="Texture2D" uid="uid://byw7y7vu6qfx5" path="res://Textures/Pupil.png" id="80_5g7hj"]
+[ext_resource type="Script" path="res://Scripts/LookAt.gd" id="80_5h1fe"]
 [ext_resource type="Texture2D" uid="uid://2018ijmetl1i" path="res://Textures/BNW/KeyRoomBG.png" id="82_86jjb"]
 [ext_resource type="AudioStream" uid="uid://wpc4iimcaap4" path="res://Audio/Watata/Wata1.wav" id="83_0cjwv"]
 [ext_resource type="AudioStream" uid="uid://rp3k1ptid4s3" path="res://Audio/Watata/Wata2.wav" id="84_cksqy"]
+[ext_resource type="Script" path="res://Scripts/MusicManager.gd" id="85_lu63q"]
 [ext_resource type="AudioStream" uid="uid://bvn0pptp7ncaa" path="res://Audio/Watata/Wata3.wav" id="85_wniy6"]
+[ext_resource type="AudioStream" uid="uid://j5xnk7blqeyt" path="res://Audio/Music/sb_fateandfortune.mp3" id="86_780bm"]
 [ext_resource type="AudioStream" uid="uid://bwumynb1hc0uc" path="res://Audio/Watata/Wata.wav" id="86_nqwot"]
 [ext_resource type="Texture2D" uid="uid://crxyqq7hrl0bn" path="res://Textures/BNW/SawBottom.png" id="99_0dfi5"]
 [ext_resource type="Script" path="res://Scripts/Transitions.gd" id="99_m08yi"]
@@ -720,6 +725,11 @@ crown = NodePath("../LightningRoom/Crown")
 position = Vector2(0, -3906)
 texture = ExtResource("24_57agy")
 
+[node name="BossF" type="Sprite2D" parent="BossArena"]
+position = Vector2(-264, -4735)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("37_1vfri")
+
 [node name="ItemsParent" type="Node2D" parent="."]
 
 [node name="IntroItems" type="Node2D" parent="ItemsParent"]
@@ -915,10 +925,30 @@ rotation = -0.39968
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("6_gnmrq")
 
+[node name="Node2D" type="Node2D" parent="AlwaysActive/Boora/EyeRoot/EyeA" node_paths=PackedStringArray("pupil")]
+script = ExtResource("80_5h1fe")
+pupil = NodePath("Pupil")
+mag = 5.0
+
+[node name="Pupil" type="Sprite2D" parent="AlwaysActive/Boora/EyeRoot/EyeA/Node2D"]
+rotation = 0.39968
+scale = Vector2(0.952381, 0.952381)
+texture = ExtResource("80_5g7hj")
+
 [node name="EyeB" type="Sprite2D" parent="AlwaysActive/Boora/EyeRoot"]
 position = Vector2(8.6, -7.4)
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("7_x1216")
+
+[node name="Node2D" type="Node2D" parent="AlwaysActive/Boora/EyeRoot/EyeB" node_paths=PackedStringArray("pupil")]
+script = ExtResource("80_5h1fe")
+pupil = NodePath("Pupil")
+mag = 5.0
+
+[node name="Pupil" type="Sprite2D" parent="AlwaysActive/Boora/EyeRoot/EyeB/Node2D"]
+rotation = -0.0785398
+scale = Vector2(0.952381, 0.952381)
+texture = ExtResource("80_5g7hj")
 
 [node name="Inventory" type="Area2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("invenFill", "followPoints", "audioReset")]
 collision_layer = 3
@@ -940,10 +970,21 @@ scale = Vector2(1, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AlwaysActive/Boora/WarnArea"]
 shape = SubResource("CircleShape2D_bouno")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AlwaysActive/Boora"]
+[node name="MusicManager" type="Node2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("musicStreamers", "connectorToBoss")]
+scale = Vector2(1, 1)
+script = ExtResource("85_lu63q")
+musicStreamers = [NodePath("MusicPiano"), NodePath("BossMusic")]
+connectorToBoss = NodePath("../../../KeyRoom/ToBoss")
+transitionTime = 5.0
+
+[node name="MusicPiano" type="AudioStreamPlayer2D" parent="AlwaysActive/Boora/MusicManager"]
 stream = ExtResource("10_g3scv")
 volume_db = -2.0
 autoplay = true
+
+[node name="BossMusic" type="AudioStreamPlayer2D" parent="AlwaysActive/Boora/MusicManager"]
+stream = ExtResource("86_780bm")
+volume_db = -2.0
 
 [node name="ResetNoise" type="AudioStreamPlayer2D" parent="AlwaysActive/Boora"]
 stream = SubResource("AudioStreamRandomizer_opmd1")
@@ -1086,6 +1127,7 @@ texture = ExtResource("100_vbwel")
 [connection signal="area_entered" from="KeyRoom/CollectionCircle2" to="KeyRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="KeyRoom/ToIntro" to="KeyRoom/ToIntro" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="KeyRoom/ToBoss" to="KeyRoom/ToBoss" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="KeyRoom/ToBoss" to="AlwaysActive/Boora/MusicManager" method="SwapToBoss"]
 [connection signal="area_entered" from="RiddleRoom/CollectionCircle" to="RiddleRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="LightningRoom/Crown/Area2D" to="LightningRoom/Crown" method="StartWobble"]
