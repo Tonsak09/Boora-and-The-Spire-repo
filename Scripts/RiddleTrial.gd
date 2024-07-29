@@ -1,7 +1,9 @@
 extends Node2D
 
 @export var Inventory : Area2D
-@export var target : Node2D
+@export var itemsParent : Node2D
+@export var collectCirc : Node2D
+@export var audioCompelte : AudioStreamPlayer2D
 var key
 
 var count : int;
@@ -32,5 +34,7 @@ func OnCheckInventor(area : Area2D):
 	
 	if count >= 3 && hasSpawnedKey == false:
 		var instance = key.instantiate()
-		add_child(instance)
+		itemsParent.add_child(instance)
 		hasSpawnedKey = true
+		collectCirc.queue_free()
+		audioCompelte.play()

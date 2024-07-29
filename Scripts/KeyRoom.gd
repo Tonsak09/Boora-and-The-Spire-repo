@@ -3,6 +3,7 @@ extends Node2D
 @export var Boora : Node2D
 
 @export var gate : Sprite2D
+@export var connector : Node2D
 @export var openGate : Texture2D
 
 @export var leftKey : Node2D
@@ -10,12 +11,10 @@ extends Node2D
 
 @export var audio : AudioStreamPlayer2D
 
-var key
 var count : int;
 var hasSpawnedKey : bool
 
 func _ready():
-	key = load("res://Prefabs/Key.tscn")
 	hasSpawnedKey = false
 	gate.canWobble = false
 
@@ -39,6 +38,7 @@ func OnCheckInventor(area : Area2D):
 	
 	if count >= 2 && hasSpawnedKey == false:
 		gate.texture = openGate;
+		connector.canGo = true
 		gate.canWobble = true
 
 func CollectKey():

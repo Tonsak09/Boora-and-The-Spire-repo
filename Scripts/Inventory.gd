@@ -7,6 +7,7 @@ extends Area2D
 @export var invenGrad : Gradient
 
 @export var followPoints : Array[Node2D]
+@export var audioReset : AudioStreamPlayer2D
 
 var canCollect : bool
 
@@ -39,7 +40,7 @@ func _process(delta):
 
 func ResetBoora():
 	#get_parent().position = startPos
-	
+	audioReset.play()
 	for item in items:
 		item.Reset()
 	items = []

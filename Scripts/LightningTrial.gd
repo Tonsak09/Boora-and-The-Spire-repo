@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var crown : Node2D
+@export var collectCirc : Node2D
+@export var audioComplete : AudioStreamPlayer2D
 
 var key
 var hasSpawnedKey : bool
@@ -22,6 +24,8 @@ func OnCheckInventor(area : Area2D):
 				add_child(instance)
 				hasSpawnedKey = true
 				item.get_parent().queue_free()
+				collectCirc.queue_free()
+				audioComplete.play()
 			_:
 				item.Reset()
 	area.items = [] # Clear inventory 

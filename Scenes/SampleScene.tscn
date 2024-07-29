@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=144 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -98,6 +98,10 @@
 [ext_resource type="AudioStream" uid="uid://b1gnttuek4cmb" path="res://Audio/Unlock/Unlock.wav" id="74_xqqd5"]
 [ext_resource type="Texture2D" uid="uid://dul6y7ton82dx" path="res://Textures/BNW/DialogueBG.png" id="79_kllpa"]
 [ext_resource type="Texture2D" uid="uid://2018ijmetl1i" path="res://Textures/BNW/KeyRoomBG.png" id="82_86jjb"]
+[ext_resource type="AudioStream" uid="uid://wpc4iimcaap4" path="res://Audio/Watata/Wata1.wav" id="83_0cjwv"]
+[ext_resource type="AudioStream" uid="uid://rp3k1ptid4s3" path="res://Audio/Watata/Wata2.wav" id="84_cksqy"]
+[ext_resource type="AudioStream" uid="uid://bvn0pptp7ncaa" path="res://Audio/Watata/Wata3.wav" id="85_wniy6"]
+[ext_resource type="AudioStream" uid="uid://bwumynb1hc0uc" path="res://Audio/Watata/Wata.wav" id="86_nqwot"]
 [ext_resource type="Texture2D" uid="uid://crxyqq7hrl0bn" path="res://Textures/BNW/SawBottom.png" id="99_0dfi5"]
 [ext_resource type="Script" path="res://Scripts/Transitions.gd" id="99_m08yi"]
 [ext_resource type="Texture2D" uid="uid://bdrdye3gto6yf" path="res://Textures/BNW/SawTop.png" id="100_itytm"]
@@ -136,6 +140,8 @@ font_size = 48
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d2k80"]
+streams_count = 1
+stream_0/weight = 1.0
 
 [sub_resource type="Curve" id="Curve_u5neu"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -232,6 +238,17 @@ radius = 16.0312
 [sub_resource type="CircleShape2D" id="CircleShape2D_bouno"]
 radius = 59.6084
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_opmd1"]
+streams_count = 4
+stream_0/stream = ExtResource("83_0cjwv")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("84_cksqy")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("85_wniy6")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("86_nqwot")
+stream_3/weight = 1.0
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u8ka0"]
 streams_count = 10
 stream_0/stream = ExtResource("29_33lwh")
@@ -275,7 +292,7 @@ point_count = 2
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
 point_count = 2
 
-[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "inventory", "transitor", "introRoom", "riddleRoom", "lightningRoom", "keyRoom")]
+[node name="RoomManager" type="Node2D" node_paths=PackedStringArray("cam", "Boora", "inventory", "transitor", "introRoom", "riddleRoom", "lightningRoom", "keyRoom", "bossRoom")]
 script = ExtResource("1_4ei66")
 cam = NodePath("Camera2D")
 Boora = NodePath("AlwaysActive/Boora")
@@ -293,6 +310,9 @@ lightningBooraRect = Rect2(0, -3915, 1185, 2548)
 keyRoom = [NodePath("KeyRoom")]
 keyCamContraints = Vector2(-3947, -300)
 keyBooraRect = Rect2(0, -3915, 1185, 1274)
+bossRoom = [NodePath("BossArena")]
+bossCamContraints = Vector2(-3947, -3800)
+bossBooraRect = Rect2(0, -3915, 1185, 2548)
 
 [node name="IntroBack" type="Node2D" parent="."]
 
@@ -324,19 +344,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroBack/SpireBg/LightningCover/Area2D"]
 shape = SubResource("CircleShape2D_7funa")
 
-[node name="CauldronBack" type="Sprite2D" parent="IntroBack"]
-position = Vector2(171, -39)
-texture = ExtResource("7_lottx")
-
 [node name="Cauldron" type="Node2D" parent="IntroBack"]
 position = Vector2(171, -39)
 
 [node name="CauldronTarget" type="Node2D" parent="IntroBack/Cauldron"]
 position = Vector2(0, 146)
-
-[node name="CauldronFront" type="Sprite2D" parent="IntroBack"]
-position = Vector2(171, -39)
-texture = ExtResource("8_34rap")
 
 [node name="ToRiddleRoom" parent="IntroBack" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
 visible = false
@@ -387,11 +399,12 @@ posToMove = NodePath("TPPosition")
 [node name="TPPosition" type="Node2D" parent="IntroBack/ToToKeyRoom"]
 position = Vector2(0, 1506)
 
-[node name="KeyRoom" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "gate", "leftKey", "rightKey", "audio")]
+[node name="KeyRoom" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "gate", "connector", "leftKey", "rightKey", "audio")]
 position = Vector2(4514, 0)
 script = ExtResource("65_uogqu")
 Boora = NodePath("../AlwaysActive/Boora")
 gate = NodePath("GateClosed")
+connector = NodePath("ToBoss")
 openGate = ExtResource("66_w5ywv")
 leftKey = NodePath("CollectionCircle")
 rightKey = NodePath("CollectionCircle2")
@@ -431,14 +444,33 @@ posToMove = NodePath("TPPosition")
 [node name="TPPosition" type="Node2D" parent="KeyRoom/ToIntro"]
 position = Vector2(0, -1477)
 
+[node name="ToBoss" parent="KeyRoom" node_paths=PackedStringArray("RoomLoader", "posToMove") instance=ExtResource("4_3e34h")]
+visible = false
+position = Vector2(-1, -4299)
+script = ExtResource("12_gdmuw")
+RoomLoader = NodePath("../..")
+roomToload = 4
+posToMove = NodePath("TPPosition")
+canGo = false
+
+[node name="TPPosition" type="Node2D" parent="KeyRoom/ToBoss"]
+position = Vector2(0, 1499)
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="KeyRoom"]
 position = Vector2(0, -4304)
 stream = SubResource("AudioStreamRandomizer_1famp")
 
-[node name="RiddleRoom" type="Node2D" parent="." node_paths=PackedStringArray("Inventory")]
+[node name="RiddleRoom" type="Node2D" parent="." node_paths=PackedStringArray("Inventory", "itemsParent", "collectCirc", "audioCompelte")]
 position = Vector2(-2462, 0)
 script = ExtResource("18_atalg")
 Inventory = NodePath("../AlwaysActive/Boora/Inventory")
+itemsParent = NodePath("../ItemsParent")
+collectCirc = NodePath("CollectionCircle")
+audioCompelte = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RiddleRoom"]
+position = Vector2(0, -4304)
+stream = SubResource("AudioStreamRandomizer_1famp")
 
 [node name="RiddleBg" type="Sprite2D" parent="RiddleRoom"]
 position = Vector2(0, -3906)
@@ -508,10 +540,16 @@ label_settings = SubResource("LabelSettings_o404s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LightningRoom" type="Node2D" parent="." node_paths=PackedStringArray("crown")]
+[node name="LightningRoom" type="Node2D" parent="." node_paths=PackedStringArray("crown", "collectCirc", "audioComplete")]
 position = Vector2(2319, 0)
 script = ExtResource("53_tux8o")
 crown = NodePath("Crown")
+collectCirc = NodePath("CollectionCircle")
+audioComplete = NodePath("AudioStreamPlayer2D2")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="LightningRoom"]
+position = Vector2(0, -4304)
+stream = SubResource("AudioStreamRandomizer_1famp")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="LightningRoom"]
 stream = SubResource("AudioStreamRandomizer_d2k80")
@@ -672,9 +710,22 @@ shape = SubResource("RectangleShape2D_sv2v3")
 position = Vector2(0, -4138)
 script = null
 
+[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("crown")]
+position = Vector2(-4777, 0)
+script = ExtResource("53_tux8o")
+crown = NodePath("../LightningRoom/Crown")
+
+[node name="ArenaBg" type="Sprite2D" parent="BossArena"]
+position = Vector2(0, -3906)
+texture = ExtResource("24_57agy")
+
 [node name="ItemsParent" type="Node2D" parent="."]
 
 [node name="IntroItems" type="Node2D" parent="ItemsParent"]
+
+[node name="CauldronBack" type="Sprite2D" parent="ItemsParent/IntroItems"]
+position = Vector2(171, -39)
+texture = ExtResource("7_lottx")
 
 [node name="Book" parent="ItemsParent/IntroItems" instance=ExtResource("8_a6jq7")]
 position = Vector2(-290, -1621)
@@ -704,6 +755,10 @@ position = Vector2(101, -3866)
 
 [node name="Book2" parent="ItemsParent/IntroItems" instance=ExtResource("8_a6jq7")]
 position = Vector2(-1, -3880)
+
+[node name="CauldronFront" type="Sprite2D" parent="ItemsParent/IntroItems"]
+position = Vector2(171, -39)
+texture = ExtResource("8_34rap")
 
 [node name="RiddleRoomItems" type="Node2D" parent="ItemsParent"]
 
@@ -864,13 +919,14 @@ position = Vector2(8.6, -7.4)
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("7_x1216")
 
-[node name="Inventory" type="Area2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("invenFill", "followPoints")]
+[node name="Inventory" type="Area2D" parent="AlwaysActive/Boora" node_paths=PackedStringArray("invenFill", "followPoints", "audioReset")]
 collision_layer = 3
 script = ExtResource("6_cr2bj")
 maxCapacity = 3
 invenFill = NodePath("../../InventoryUI/InvenFill")
 invenGrad = SubResource("Gradient_2ha8c")
 followPoints = [NodePath("../../FollowPoint"), NodePath("../../FollowPoint2"), NodePath("../../FollowPoint3")]
+audioReset = NodePath("../ResetNoise")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AlwaysActive/Boora/Inventory"]
 shape = SubResource("CircleShape2D_pv872")
@@ -887,6 +943,9 @@ shape = SubResource("CircleShape2D_bouno")
 stream = ExtResource("10_g3scv")
 volume_db = -2.0
 autoplay = true
+
+[node name="ResetNoise" type="AudioStreamPlayer2D" parent="AlwaysActive/Boora"]
+stream = SubResource("AudioStreamRandomizer_opmd1")
 
 [node name="IntroFront" type="Node2D" parent="."]
 
@@ -1025,6 +1084,7 @@ texture = ExtResource("100_vbwel")
 [connection signal="area_entered" from="KeyRoom/CollectionCircle" to="KeyRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="KeyRoom/CollectionCircle2" to="KeyRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="KeyRoom/ToIntro" to="KeyRoom/ToIntro" method="OnCollLoadRoom"]
+[connection signal="area_entered" from="KeyRoom/ToBoss" to="KeyRoom/ToBoss" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="RiddleRoom/CollectionCircle" to="RiddleRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="LightningRoom/Crown/Area2D" to="LightningRoom/Crown" method="StartWobble"]
