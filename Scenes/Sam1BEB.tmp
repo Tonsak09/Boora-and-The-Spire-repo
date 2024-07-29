@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=155 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -53,8 +53,6 @@
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
 [ext_resource type="Script" path="res://Scripts/Chain.gd" id="39_hhsst"]
-[ext_resource type="Script" path="res://Scripts/LookAtTarget.gd" id="40_cmil3"]
-[ext_resource type="Texture2D" uid="uid://dqcnphdlrp75t" path="res://Textures/BossF_Pupil.png" id="40_vyxnq"]
 [ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
 [ext_resource type="PackedScene" uid="uid://cf7svk7jmmi6e" path="res://Prefabs/Bell.tscn" id="50_awd58"]
 [ext_resource type="PackedScene" uid="uid://4c4b4jvftg3m" path="res://Prefabs/DNA.tscn" id="51_8h16x"]
@@ -761,32 +759,6 @@ texture = ExtResource("37_1vfri")
 
 [node name="Chain" type="Node2D" parent="BossArena/Boss"]
 script = ExtResource("39_hhsst")
-
-[node name="Eye" type="Node2D" parent="BossArena/Boss" node_paths=PackedStringArray("target", "head")]
-position = Vector2(27, -355)
-script = ExtResource("40_cmil3")
-target = NodePath("../../../AlwaysActive/Boora")
-head = NodePath("BossFPupil")
-mag = 10.0
-
-[node name="BossFPupil" type="Sprite2D" parent="BossArena/Boss/Eye"]
-position = Vector2(0, 10)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("40_vyxnq")
-offset = Vector2(-16.27, 11.995)
-
-[node name="Eye2" type="Node2D" parent="BossArena/Boss" node_paths=PackedStringArray("target", "head")]
-position = Vector2(-128, -307)
-script = ExtResource("40_cmil3")
-target = NodePath("../../../AlwaysActive/Boora")
-head = NodePath("BossFPupil")
-mag = 10.0
-
-[node name="BossFPupil" type="Sprite2D" parent="BossArena/Boss/Eye2"]
-position = Vector2(0, 10)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("40_vyxnq")
-offset = Vector2(-16.27, 11.995)
 
 [node name="BossChargePoints" type="Node2D" parent="BossArena"]
 position = Vector2(0, 181)
