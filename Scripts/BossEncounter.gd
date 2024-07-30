@@ -7,6 +7,10 @@ extends Node2D
 @export var itemsParent : Node2D
 @export var arena : Node2D
 
+# Intro 
+@export var introTime : float 
+@export var introScaCurve : Curve 
+
 # Target 
 @export var targetingTime : float # Time in target mode 
 @export var moveTime : float
@@ -55,7 +59,7 @@ var bufferTimer : float
 var count : int
 var startPosBeforeDragged : Vector2
 
-enum BossStates {TARGET, CHARGE, STUNNED, RECOVER, DEFEAT, IDLE}
+enum BossStates {INTRO, TARGET, CHARGE, STUNNED, RECOVER, DEFEAT, IDLE}
 
 func _ready():
 	voidCharge = load("res://Prefabs/Void_spawner.tscn")
@@ -68,20 +72,11 @@ func _process(delta):
 	if !isActive:
 		return
 	
-	if bufferCount > 0:
-		bufferTimer += delta
-		if bufferTimer >= bufferTimer:
-			bufferCount -= 1
-			count += 1
-			bufferTimer = 0
-	
-	if count >= 3 && ((state != BossStates.DEFEAT) && (state != BossStates.IDLE)):
-		print_debug("Adding damage")
-		startPosBeforeDragged = boss.global_position
-		timer = 0
-		state = BossStates.DEFEAT
+	DamageManage(delta)
 	
 	match state:
+		BossStates.INTRO:
+			Intro(delta)
 		BossStates.TARGET:
 			bosSprite.texture = chillTexture
 			Target(delta)
@@ -100,11 +95,26 @@ func _process(delta):
 		BossStates.IDLE:
 			return
 
+func DamageManage(delta):
+	if bufferCount > 0:
+		bufferTimer += delta
+		if bufferTimer >= bufferTimer:
+			bufferCount -= 1
+			count += 1
+			bufferTimer = 0
+	
+	if count >= 3 && ((state != BossStates.DEFEAT) && (state != BossStates.IDLE)):
+		startPosBeforeDragged = boss.global_position
+		timer = 0
+		state = BossStates.DEFEAT
+
+# 
+func Intro(delta):
+	pass
+
 # Tracks the player on a horizontal line 
 func Target(delta):
 	stateTimer += delta
-	
-	
 	
 	# Shifting to new spot 
 	if isMoving:

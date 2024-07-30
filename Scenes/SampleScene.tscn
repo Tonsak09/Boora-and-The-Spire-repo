@@ -513,15 +513,15 @@ position = Vector2(0, -3906)
 texture = ExtResource("24_57agy")
 
 [node name="ShelvesVert" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(-410, -4000)
+position = Vector2(-450, -4000)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert2" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(-410, -4500)
+position = Vector2(-450, -4500)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert3" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(-410, -5000)
+position = Vector2(-450, -5000)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert4" type="Sprite2D" parent="RiddleRoom"]
@@ -537,15 +537,15 @@ position = Vector2(0, -4000)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert8" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(410, -4000)
+position = Vector2(450, -4000)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert9" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(410, -4500)
+position = Vector2(450, -4500)
 texture = ExtResource("10_bnmwc")
 
 [node name="ShelvesVert10" type="Sprite2D" parent="RiddleRoom"]
-position = Vector2(410, -5000)
+position = Vector2(450, -5000)
 texture = ExtResource("10_bnmwc")
 
 [node name="Shelves" type="Sprite2D" parent="RiddleRoom"]
@@ -867,16 +867,16 @@ texture = ExtResource("8_34rap")
 [node name="RiddleRoomItems" type="Node2D" parent="ItemsParent"]
 
 [node name="Batwing" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("49_flnyl")]
-position = Vector2(-401, -3856)
+position = Vector2(-450, -3856)
 
 [node name="Bell" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("50_awd58")]
-position = Vector2(-406, -3995)
+position = Vector2(-446, -3995)
 
 [node name="DNA" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("51_8h16x")]
-position = Vector2(-413, -4360)
+position = Vector2(-450, -4363)
 
 [node name="DoubleMush" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("52_nfosh")]
-position = Vector2(415, -3996)
+position = Vector2(453, -3996)
 
 [node name="Egg" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("66_1bhig")]
 position = Vector2(-31, -3994)
@@ -891,25 +891,25 @@ position = Vector2(50, -3993)
 position = Vector2(-10, -4118)
 
 [node name="MagGlass" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("56_lwfta")]
-position = Vector2(396, -4328)
+position = Vector2(448, -4342)
 
 [node name="Pear" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("57_dwv5f")]
-position = Vector2(412, -4858)
+position = Vector2(460, -4858)
 
 [node name="PenNInk" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("59_ro5ne")]
-position = Vector2(-392, -4497)
+position = Vector2(-449, -4497)
 
 [node name="Phone" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("60_b4ptg")]
-position = Vector2(441, -4495)
+position = Vector2(492, -4498)
 
 [node name="Rice" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("61_q5gej")]
 position = Vector2(6, -4859)
 
 [node name="Scroll" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("62_xon1v")]
-position = Vector2(423, -3851)
+position = Vector2(453, -3850)
 
 [node name="Sizzle" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("63_pu62x")]
-position = Vector2(-410, -5149)
+position = Vector2(-454, -5154)
 
 [node name="Skull" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("64_offvn")]
 position = Vector2(6, -4487)
@@ -921,25 +921,25 @@ position = Vector2(0, -5001)
 position = Vector2(8, -4231)
 
 [node name="Star" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("67_p64vn")]
-position = Vector2(423, -4148)
+position = Vector2(456, -4149)
 
 [node name="Stick" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("68_qw4rs")]
 position = Vector2(438, -5001)
 
 [node name="Stickbug" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("69_osqci")]
-position = Vector2(-418, -4873)
+position = Vector2(-456, -4873)
 
 [node name="Tongue" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("70_hn03r")]
-position = Vector2(-415, -5014)
+position = Vector2(-453, -5001)
 
 [node name="Tooth" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("71_3x0vs")]
 position = Vector2(-2, -3870)
 
 [node name="WebNav" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("72_ibixo")]
-position = Vector2(-411, -4154)
+position = Vector2(-448, -4154)
 
 [node name="WitchFinger" parent="ItemsParent/RiddleRoomItems" instance=ExtResource("73_5sfhn")]
-position = Vector2(375, -4498)
+position = Vector2(422, -4496)
 
 [node name="AlwaysActive" type="Node2D" parent="."]
 

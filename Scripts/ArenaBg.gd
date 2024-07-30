@@ -30,4 +30,5 @@ func ResetShaker():
 	isShaking = false
 
 func ShakeArena():
+	ResetShaker()
 	isShaking = true
