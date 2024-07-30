@@ -5,6 +5,7 @@ extends Node2D
 @export var boss : Node2D
 @export var chainOrigin : Node2D
 @export var itemsParent : Node2D
+@export var arena : Node2D
 
 # Target 
 @export var targetingTime : float # Time in target mode 
@@ -38,6 +39,9 @@ var isMoveBack : bool
 @export var state : BossStates
 @export var isActive : bool
 
+@export var bosSprite : Sprite2D
+@export var chillTexture : Texture2D
+@export var attacTexture : Texture2D
 
 
 var voidCharge
@@ -46,6 +50,8 @@ var hitFX
 var timer : float 
 var stateTimer : float
 
+var bufferCount : int # Holds onto damage until FX is done 
+var bufferTimer : float
 var count : int
 var startPosBeforeDragged : Vector2
 
@@ -54,30 +60,51 @@ enum BossStates {TARGET, CHARGE, STUNNED, RECOVER, DEFEAT, IDLE}
 func _ready():
 	voidCharge = load("res://Prefabs/Void_spawner.tscn")
 	hitFX = load("res://Prefabs/Hit_fx.tscn")
+	
+	bufferTimer = 1.5
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !isActive:
 		return
 	
+	if bufferCount > 0:
+		bufferTimer += delta
+		if bufferTimer >= bufferTimer:
+			bufferCount -= 1
+			count += 1
+			bufferTimer = 0
+	
+	if count >= 3 && ((state != BossStates.DEFEAT) && (state != BossStates.IDLE)):
+		print_debug("Adding damage")
+		startPosBeforeDragged = boss.global_position
+		timer = 0
+		state = BossStates.DEFEAT
+	
 	match state:
 		BossStates.TARGET:
+			bosSprite.texture = chillTexture
 			Target(delta)
 		BossStates.CHARGE:
+			bosSprite.texture = attacTexture
 			Charge(delta)
 		BossStates.STUNNED:
+			bosSprite.texture = attacTexture
 			Stunned(delta)
 		BossStates.RECOVER:
+			bosSprite.texture = attacTexture
 			Recover(delta)
 		BossStates.DEFEAT:
+			bosSprite.texture = chillTexture
 			Defeat(delta)
 		BossStates.IDLE:
 			return
-			
 
 # Tracks the player on a horizontal line 
 func Target(delta):
 	stateTimer += delta
+	
+	
 	
 	# Shifting to new spot 
 	if isMoving:
@@ -139,6 +166,7 @@ func Charge(delta):
 			boss.global_position = points[currPoint].global_position + Vector2(0, chargeDis)
 			timer = 0
 			isMoveBack = true
+			arena.ShakeArena()
 			state = BossStates.STUNNED
 			
 			SpawnVoidCharge()
@@ -212,21 +240,17 @@ func GetVoidCharge(area : Area2D):
 	for item in inventory.items:
 		match item.itemType:
 			Types.CollectType.KEY:
-				item.StartAbsorb(boss)
+				#item.StartAbsorb(boss)
+				item.get_parent().queue_free() 
 				
 				instance = hitFX.instantiate()
 				instance.global_position = boss.global_position
 				chainOrigin.add_child(instance)
 				
-				count += 1
+				bufferCount += 1
 			_:
 				item.Reset()
 	inventory.items = [] # Clear inventory 
-	
-	if count >= 3:
-		startPosBeforeDragged = boss.global_position
-		timer = 0
-		state = BossStates.DEFEAT
 
 func ActivateBoss(area : Area2D):
 	isActive = true

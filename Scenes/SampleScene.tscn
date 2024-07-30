@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=162 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -52,8 +52,10 @@
 [ext_resource type="Script" path="res://Scripts/BossEncounter.gd" id="37_hbuot"]
 [ext_resource type="AudioStream" uid="uid://k6wsc3kl4ygl" path="res://Audio/Wizrd Chap/wblip14.mp3" id="37_o4acj"]
 [ext_resource type="AudioStream" uid="uid://c0j357beqbgvk" path="res://Audio/Wizrd Chap/wblip15.mp3" id="38_s8otr"]
+[ext_resource type="Texture2D" uid="uid://cu20skle7soci" path="res://Textures/BossD.PNG" id="39_48xi3"]
 [ext_resource type="Script" path="res://Scripts/Chain.gd" id="39_hhsst"]
 [ext_resource type="Script" path="res://Scripts/LookAtTarget.gd" id="40_cmil3"]
+[ext_resource type="Script" path="res://Scripts/ArenaBg.gd" id="40_lsjgk"]
 [ext_resource type="Texture2D" uid="uid://dqcnphdlrp75t" path="res://Textures/BossF_Pupil.png" id="40_vyxnq"]
 [ext_resource type="PackedScene" uid="uid://dmwsdd6bg5p42" path="res://Prefabs/Batwing.tscn" id="49_flnyl"]
 [ext_resource type="PackedScene" uid="uid://cf7svk7jmmi6e" path="res://Prefabs/Bell.tscn" id="50_awd58"]
@@ -217,6 +219,10 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_jxh7c"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_83ep2"]
+_data = [Vector2(0, 1), 0.0, -1.82947, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_e03si"]
@@ -740,7 +746,7 @@ shape = SubResource("RectangleShape2D_sv2v3")
 position = Vector2(0, -4138)
 script = null
 
-[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "inventory", "boss", "chainOrigin", "itemsParent", "points")]
+[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "inventory", "boss", "chainOrigin", "itemsParent", "arena", "points", "bosSprite")]
 position = Vector2(-4777, 0)
 script = ExtResource("37_hbuot")
 Boora = NodePath("../AlwaysActive/Boora")
@@ -748,6 +754,7 @@ inventory = NodePath("../AlwaysActive/Boora/Inventory")
 boss = NodePath("../BossFront/Boss")
 chainOrigin = NodePath("ChainOrigin")
 itemsParent = NodePath("../ItemsParent")
+arena = NodePath("ArenaBg")
 targetingTime = 3.0
 moveTime = 0.5
 moveCurve = SubResource("Curve_ef67r")
@@ -763,10 +770,18 @@ recoverTime = 1.0
 recoverCurve = SubResource("Curve_h646k")
 draggedTime = 1.0
 draggedCurve = SubResource("Curve_jxh7c")
+bosSprite = NodePath("../BossFront/Boss/BossSprite")
+chillTexture = ExtResource("37_1vfri")
+attacTexture = ExtResource("39_48xi3")
 
 [node name="ArenaBg" type="Sprite2D" parent="BossArena"]
 position = Vector2(0, -3906)
 texture = ExtResource("24_57agy")
+script = ExtResource("40_lsjgk")
+shakeTime = 2.0
+shakeMag = 100.0
+shakeSpeed = 20.0
+shakeFalloffCurve = SubResource("Curve_83ep2")
 
 [node name="ChainOrigin" type="Node2D" parent="BossArena"]
 position = Vector2(0, -5050)
@@ -774,8 +789,8 @@ position = Vector2(0, -5050)
 [node name="Chain" type="Node2D" parent="BossArena" node_paths=PackedStringArray("chain", "target", "origin")]
 position = Vector2(0, -5052)
 script = ExtResource("39_hhsst")
-chain = [NodePath("CollectionCircle"), NodePath("CollectionCircle2"), NodePath("CollectionCircle3")]
-target = NodePath("../../BossFront/Boss")
+chain = [NodePath("CollectionCircle"), NodePath("CollectionCircle2"), NodePath("CollectionCircle3"), NodePath("CollectionCircle4"), NodePath("CollectionCircle5"), NodePath("CollectionCircle6")]
+target = NodePath("../../BossFront/Boss/ChainTarget")
 origin = NodePath("../ChainOrigin")
 
 [node name="CollectionCircle" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
@@ -785,6 +800,15 @@ position = Vector2(0, -1)
 position = Vector2(0, -1)
 
 [node name="CollectionCircle3" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
+position = Vector2(0, -1)
+
+[node name="CollectionCircle4" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
+position = Vector2(0, -1)
+
+[node name="CollectionCircle5" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
+position = Vector2(0, -1)
+
+[node name="CollectionCircle6" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
 position = Vector2(0, -1)
 
 [node name="BossChargePoints" type="Node2D" parent="BossArena"]
@@ -1147,10 +1171,13 @@ texture = ExtResource("17_4ijdu")
 [node name="Boss" type="Node2D" parent="BossFront"]
 position = Vector2(-4350, -4800)
 
+[node name="ChainTarget" type="Node2D" parent="BossFront/Boss"]
+position = Vector2(0, -397)
+
 [node name="BossSprite" type="Sprite2D" parent="BossFront/Boss"]
 position = Vector2(-22, -227)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("37_1vfri")
+texture = ExtResource("39_48xi3")
 
 [node name="Eye" type="Node2D" parent="BossFront/Boss" node_paths=PackedStringArray("target", "head")]
 position = Vector2(28, -348)
@@ -1260,4 +1287,7 @@ texture = ExtResource("100_vbwel")
 [connection signal="area_entered" from="BossArena/Chain/CollectionCircle" to="BossArena" method="GetVoidCharge"]
 [connection signal="area_entered" from="BossArena/Chain/CollectionCircle2" to="BossArena" method="GetVoidCharge"]
 [connection signal="area_entered" from="BossArena/Chain/CollectionCircle3" to="BossArena" method="GetVoidCharge"]
+[connection signal="area_entered" from="BossArena/Chain/CollectionCircle4" to="BossArena" method="GetVoidCharge"]
+[connection signal="area_entered" from="BossArena/Chain/CollectionCircle5" to="BossArena" method="GetVoidCharge"]
+[connection signal="area_entered" from="BossArena/Chain/CollectionCircle6" to="BossArena" method="GetVoidCharge"]
 [connection signal="area_entered" from="AlwaysActive/Boora/Inventory" to="AlwaysActive/Boora/Inventory" method="_on_area_entered"]
