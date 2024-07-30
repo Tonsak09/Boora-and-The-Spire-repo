@@ -736,11 +736,13 @@ shape = SubResource("RectangleShape2D_sv2v3")
 position = Vector2(0, -4138)
 script = null
 
-[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "boss", "points")]
+[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "inventory", "boss", "itemsParent", "points")]
 position = Vector2(-4777, 0)
 script = ExtResource("37_hbuot")
 Boora = NodePath("../AlwaysActive/Boora")
+inventory = NodePath("../AlwaysActive/Boora/Inventory")
 boss = NodePath("Boss")
+itemsParent = NodePath("../ItemsParent")
 targetingTime = 3.0
 moveTime = 0.5
 moveCurve = SubResource("Curve_ef67r")
@@ -759,6 +761,25 @@ recoverCurve = SubResource("Curve_h646k")
 position = Vector2(0, -3906)
 texture = ExtResource("24_57agy")
 
+[node name="ChainOrigin" type="Node2D" parent="BossArena"]
+position = Vector2(0, -5050)
+
+[node name="Chain" type="Node2D" parent="BossArena" node_paths=PackedStringArray("chain", "target", "origin")]
+position = Vector2(0, -5052)
+script = ExtResource("39_hhsst")
+chain = [NodePath("CollectionCircle"), NodePath("CollectionCircle2"), NodePath("CollectionCircle3")]
+target = NodePath("../Boss")
+origin = NodePath("../ChainOrigin")
+
+[node name="CollectionCircle" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
+position = Vector2(0, -1)
+
+[node name="CollectionCircle2" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
+position = Vector2(0, -1)
+
+[node name="CollectionCircle3" parent="BossArena/Chain" instance=ExtResource("4_3e34h")]
+position = Vector2(0, -1)
+
 [node name="Boss" type="Node2D" parent="BossArena"]
 position = Vector2(427, -4800)
 
@@ -766,9 +787,6 @@ position = Vector2(427, -4800)
 position = Vector2(-22, -227)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("37_1vfri")
-
-[node name="Chain" type="Node2D" parent="BossArena/Boss"]
-script = ExtResource("39_hhsst")
 
 [node name="Eye" type="Node2D" parent="BossArena/Boss" node_paths=PackedStringArray("target", "head")]
 position = Vector2(27, -355)
@@ -1229,4 +1247,7 @@ texture = ExtResource("100_vbwel")
 [connection signal="area_entered" from="LightningRoom/TeslaNode2/Area2D" to="LightningRoom/TeslaNode2/Area2D" method="ResetBoora"]
 [connection signal="area_entered" from="LightningRoom/TeslaNode3/Area2D" to="LightningRoom/TeslaNode3/Area2D" method="ResetBoora"]
 [connection signal="area_entered" from="LightningRoom/TeslaNode/Area2D" to="LightningRoom/TeslaNode/Area2D" method="ResetBoora"]
+[connection signal="area_entered" from="BossArena/Chain/CollectionCircle" to="BossArena" method="GetVoidCharge"]
+[connection signal="area_entered" from="BossArena/Chain/CollectionCircle2" to="BossArena" method="GetVoidCharge"]
+[connection signal="area_entered" from="BossArena/Chain/CollectionCircle3" to="BossArena" method="GetVoidCharge"]
 [connection signal="area_entered" from="AlwaysActive/Boora/Inventory" to="AlwaysActive/Boora/Inventory" method="_on_area_entered"]

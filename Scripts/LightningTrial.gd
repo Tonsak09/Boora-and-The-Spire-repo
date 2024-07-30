@@ -16,6 +16,7 @@ func _ready():
 	keyPos = crown.position
 
 func OnCheckInventor(area : Area2D):
+	area.PlayChainVFX()
 	for item in area.items:
 		match item.itemType:
 			Types.CollectType.CROWN:

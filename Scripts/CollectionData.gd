@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 @export var collectible : Types.CollectType
 @export var bobHeight = -10

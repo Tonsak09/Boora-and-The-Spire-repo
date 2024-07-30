@@ -19,6 +19,7 @@ func _ready():
 	gate.canWobble = false
 
 func OnCheckInventor(area : Area2D):
+	area.PlayChainVFX()
 	var oneCollected = false
 	for item in area.items:
 		match item.itemType:
@@ -37,7 +38,7 @@ func OnCheckInventor(area : Area2D):
 	area.items = [] # Clear inventory 
 	
 	if count >= 2 && hasSpawnedKey == false:
-		gate.texture = openGate;
+		gate.texture = openGate
 		connector.canGo = true
 		gate.canWobble = true
 

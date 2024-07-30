@@ -1,7 +1,9 @@
 extends Node2D
 
 @export var Boora : Node2D
+@export var inventory : Area2D
 @export var boss : Node2D
+@export var itemsParent : Node2D
 
 # Target 
 @export var targetingTime : float # Time in target mode 
@@ -31,12 +33,17 @@ var isMoveBack : bool
 @export var state : BossStates
 @export var isActive : bool
 
+var voidCharge
 
 var timer : float 
 var stateTimer : float
 
+var count : int
+
 enum BossStates {TARGET, CHARGE, STUNNED, RECOVER, DEFEAT}
 
+func _ready():
+	voidCharge = load("res://Prefabs/Void_spawner.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -56,7 +63,6 @@ func _process(delta):
 			Defeat()
 
 func Target(delta):
-	
 	stateTimer += delta
 	
 	# Shifting to new spot 
@@ -120,6 +126,9 @@ func Charge(delta):
 			timer = 0
 			isMoveBack = true
 			state = BossStates.STUNNED
+			
+			SpawnVoidCharge()
+			
 			return
 		
 		boss.global_position = lerp(
@@ -157,3 +166,23 @@ func Recover(delta):
 
 func Defeat():
 	pass
+
+func SpawnVoidCharge():
+	var instance = voidCharge.instantiate()
+	add_child(instance)
+	instance.position = boss.position
+
+func GetVoidCharge(area : Area2D):
+	inventory.PlayChainVFX()
+	for item in inventory.items:
+		match item.itemType:
+			Types.CollectType.KEY:
+				item.StartAbsorb(boss)
+				#item.get_parent().queue_free()
+				count += 1
+			_:
+				item.Reset()
+	inventory.items = [] # Clear inventory 
+	
+	if count >= 3:
+		state = BossStates.DEFEAT

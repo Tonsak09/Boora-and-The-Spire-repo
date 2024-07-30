@@ -1,0 +1,70 @@
+[gd_scene load_steps=14 format=3 uid="uid://cd1ydv6cqle8e"]
+
+[ext_resource type="Script" path="res://Scripts/CollectionData.gd" id="1_5ag2n"]
+[ext_resource type="Script" path="res://Scripts/Collectible.gd" id="2_u1up7"]
+[ext_resource type="AudioStream" uid="uid://bbmf0l8yurhh6" path="res://Audio/Pullout/Pullout.wav" id="3_nw1qv"]
+[ext_resource type="AudioStream" uid="uid://dh5b2ia6nus0h" path="res://Audio/Pullout/Pullout1.wav" id="4_k3gkv"]
+[ext_resource type="AudioStream" uid="uid://ykh51ma5xffu" path="res://Audio/Pullout/Pullout2.wav" id="5_1j8cr"]
+[ext_resource type="AudioStream" uid="uid://dr7k6sf3johyu" path="res://Audio/Pullout/Pullout4.wav" id="6_86ui4"]
+[ext_resource type="AudioStream" uid="uid://bwbiv3dutdmqa" path="res://Audio/Pullout/Pullout5.wav" id="7_hwqa4"]
+[ext_resource type="Script" path="res://Scripts/VoidChargePulsate.gd" id="8_br0wk"]
+[ext_resource type="Texture2D" uid="uid://d153peydflnnd" path="res://Textures/VoidCharge.png" id="9_1hct8"]
+
+[sub_resource type="Curve" id="Curve_e03si"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ajh3i"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bv5nv"]
+radius = 59.26
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_s41fd"]
+playback_mode = 1
+streams_count = 5
+stream_0/stream = ExtResource("3_nw1qv")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_k3gkv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_1j8cr")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("6_86ui4")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("7_hwqa4")
+stream_4/weight = 1.0
+
+[node name="VoidCharge" type="Node2D"]
+script = ExtResource("1_5ag2n")
+collectible = 13
+bobCurve = SubResource("Curve_e03si")
+metadata/CollType = "CollCollect"
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("audio")]
+script = ExtResource("2_u1up7")
+absorbTime = 0.3
+absorbCurve = SubResource("Curve_ajh3i")
+audio = NodePath("../AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bv5nv")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_s41fd")
+
+[node name="VoidChargePulsate" type="Node2D" parent="." node_paths=PackedStringArray("partA", "partB")]
+script = ExtResource("8_br0wk")
+partA = NodePath("VoidCharge2")
+partB = NodePath("VoidCharge3")
+pulsateSpeed = 4.0
+
+[node name="VoidCharge2" type="Sprite2D" parent="VoidChargePulsate"]
+texture = ExtResource("9_1hct8")
+
+[node name="VoidCharge3" type="Sprite2D" parent="VoidChargePulsate"]
+rotation = 1.5708
+texture = ExtResource("9_1hct8")
+
+[connection signal="area_entered" from="Area2D" to="." method="StartWobble"]
+[connection signal="area_exited" from="Area2D" to="." method="StopWobble"]

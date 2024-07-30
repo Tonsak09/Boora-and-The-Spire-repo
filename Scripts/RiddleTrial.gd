@@ -14,6 +14,7 @@ func _ready():
 	hasSpawnedKey = false
 
 func OnCheckInventor(area : Area2D):
+	area.PlayChainVFX()
 	for item in Inventory.items:
 		match item.itemType:
 			Types.CollectType.DNA:
