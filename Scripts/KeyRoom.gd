@@ -21,6 +21,9 @@ func _ready():
 func OnCheckInventor(area : Area2D):
 	area.PlayChainVFX()
 	var oneCollected = false
+	var twoKeys = false
+	var holdKey
+	
 	for item in area.items:
 		match item.itemType:
 			Types.CollectType.KEY:
@@ -32,10 +35,18 @@ func OnCheckInventor(area : Area2D):
 					audio.play()
 					CollectKey()
 				else: 
-					item.Reset()
+					holdKey = item
+					twoKeys = true
+					#item.Reset()
 			_:
 				item.Reset()
-	area.items = [] # Clear inventory 
+	
+	
+	if twoKeys:
+		area.items = [holdKey] # Don't remove other key 
+	else:
+		area.items = [] # Clear inventory 
+	
 	
 	if count >= 2 && hasSpawnedKey == false:
 		gate.texture = openGate

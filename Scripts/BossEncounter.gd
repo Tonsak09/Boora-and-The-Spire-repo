@@ -3,6 +3,7 @@ extends Node2D
 @export var Boora : Node2D
 @export var inventory : Area2D
 @export var boss : Node2D
+@export var chainOrigin : Node2D
 @export var itemsParent : Node2D
 
 # Target 
@@ -30,25 +31,34 @@ var isMoveBack : bool
 @export var recoverTime : float
 @export var recoverCurve : Curve 
 
+# Defeat 
+@export var draggedTime : float
+@export var draggedCurve : Curve
+
 @export var state : BossStates
 @export var isActive : bool
 
+
+
 var voidCharge
+var hitFX
 
 var timer : float 
 var stateTimer : float
 
 var count : int
+var startPosBeforeDragged : Vector2
 
-enum BossStates {TARGET, CHARGE, STUNNED, RECOVER, DEFEAT}
+enum BossStates {TARGET, CHARGE, STUNNED, RECOVER, DEFEAT, IDLE}
 
 func _ready():
 	voidCharge = load("res://Prefabs/Void_spawner.tscn")
+	hitFX = load("res://Prefabs/Hit_fx.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !isActive:
-		false
+		return
 	
 	match state:
 		BossStates.TARGET:
@@ -60,8 +70,12 @@ func _process(delta):
 		BossStates.RECOVER:
 			Recover(delta)
 		BossStates.DEFEAT:
-			Defeat()
+			Defeat(delta)
+		BossStates.IDLE:
+			return
+			
 
+# Tracks the player on a horizontal line 
 func Target(delta):
 	stateTimer += delta
 	
@@ -100,8 +114,8 @@ func Target(delta):
 		holdPos = boss.global_position
 		currPoint = holdIndex
 		isMoving = true
-	
 
+# Charges forward towards the player in a column 
 func Charge(delta):
 	if isMoveBack:
 		var bLerp = backCurve.sample(timer / backTime)
@@ -137,6 +151,7 @@ func Charge(delta):
 			Vector2(0, chargeDis), cLerp)
 		timer += delta
 
+# Reached the end of a charge. Pauses before returning 
 func Stunned(delta):
 	if stateTimer >= stunTime:
 		stateTimer = 0
@@ -146,6 +161,7 @@ func Stunned(delta):
 	
 	stateTimer += delta
 
+# Returns back to the targetting line 
 func Recover(delta):
 	boss.global_position = points[currPoint].global_position
 	#state = BossStates.TARGET
@@ -164,9 +180,26 @@ func Recover(delta):
 		
 	timer += delta
 
-func Defeat():
-	pass
+# Gets dragged back into the pit. Good riddance! 
+func Defeat(delta):
+	boss.global_position = points[currPoint].global_position
+	
+	var dLerp = draggedCurve.sample(timer / draggedTime)
+	
+	if dLerp >= 1:
+		boss.global_position = chainOrigin.global_position
+		timer = 0
+		state = BossStates.IDLE
+		boss.queue_free() # Destory boss object 
+		return
+	
+	boss.global_position = lerp(
+		startPosBeforeDragged, 
+		chainOrigin.global_position, dLerp)
+	
+	timer += delta
 
+# Creates a void charge collectible on the boss's position 
 func SpawnVoidCharge():
 	var instance = voidCharge.instantiate()
 	add_child(instance)
@@ -174,15 +207,26 @@ func SpawnVoidCharge():
 
 func GetVoidCharge(area : Area2D):
 	inventory.PlayChainVFX()
+	var instance 
+	
 	for item in inventory.items:
 		match item.itemType:
 			Types.CollectType.KEY:
 				item.StartAbsorb(boss)
-				#item.get_parent().queue_free()
+				
+				instance = hitFX.instantiate()
+				instance.global_position = boss.global_position
+				chainOrigin.add_child(instance)
+				
 				count += 1
 			_:
 				item.Reset()
 	inventory.items = [] # Clear inventory 
 	
 	if count >= 3:
+		startPosBeforeDragged = boss.global_position
+		timer = 0
 		state = BossStates.DEFEAT
+
+func ActivateBoss(area : Area2D):
+	isActive = true

@@ -44,7 +44,10 @@ func Reset():
 
 func _process(delta):
 	if isAbsorbing:
+		if !is_instance_valid(target):
+			get_parent().queue_free()
+			return
+		
 		timer += delta
 		var lerp = clamp(timer / absorbTime, 0, 1) 
 		get_parent().global_position = lerp(startPos, target.global_position, lerp) 
-

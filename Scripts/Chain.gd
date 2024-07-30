@@ -11,6 +11,10 @@ func _ready():
 
 func _process(delta):
 	
+	if !is_instance_valid(target):
+		queue_free()
+		return
+	
 	var diff = (target.global_position - origin.global_position)
 	var dir = diff.normalized()
 	var dis = diff.length()

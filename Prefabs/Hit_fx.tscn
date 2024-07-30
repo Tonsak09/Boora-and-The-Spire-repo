@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b61u20i0364ob"]
+
+[ext_resource type="Texture2D" uid="uid://d153peydflnnd" path="res://Textures/VoidCharge.png" id="1_x50lq"]
+[ext_resource type="Script" path="res://Scripts/HitFX.gd" id="2_7j0tp"]
+
+[sub_resource type="Curve" id="Curve_r7oyx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[node name="HitFX" type="CPUParticles2D"]
+amount = 20
+lifetime = 0.7
+explosiveness = 0.12
+lifetime_randomness = 0.19
+texture = ExtResource("1_x50lq")
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 123.46
+initial_velocity_max = 185.19
+angular_velocity_min = -373.33
+angular_velocity_max = 142.22
+scale_amount_min = 0.1
+scale_amount_max = 0.7
+script = ExtResource("2_7j0tp")
+moveTime = 1.0
+moveCurve = SubResource("Curve_r7oyx")
