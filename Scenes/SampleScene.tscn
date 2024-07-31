@@ -1324,6 +1324,7 @@ transInTime = 0.5
 transInCurve = SubResource("Curve_ah1om")
 closedTop = Vector2(0, -600)
 closedBot = Vector2(0, -2000)
+pauseBeforeOpen = 2.0
 
 [node name="Saw" type="Node2D" parent="Camera2D/Transitions"]
 
