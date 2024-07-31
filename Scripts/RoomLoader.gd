@@ -51,8 +51,8 @@ func _process(delta):
 		holdRoom = -1
 
 func SetInactive(room : Array[Node2D]):
-	for item in room:
-		item.position = Vector2(9999,9999)
+	for i in room.size():
+		room[i].position = Vector2(9999 * (i + 1),9999)
 
 # Manual change of rooms 
 func SwapRoom(nextRoom : Array[Node2D]):
