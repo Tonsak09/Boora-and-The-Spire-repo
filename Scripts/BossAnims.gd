@@ -6,6 +6,8 @@ extends Node2D
 @export var scaleOutTime : float 
 @export var scaleOutCurve : Curve
 
+@export var finalVid : VideoStreamPlayer
+
 var isAnim : bool
 var scaleIn : bool
 
@@ -31,6 +33,7 @@ func _process(delta):
 		scale = lerp(Vector2(1,1), Vector2(0,0), scaleOutCurve.sample(timer / scaleOutTime))
 		
 		if timer >= scaleOutTime:
+			finalVid.play()
 			queue_free()
 	
 	timer += delta

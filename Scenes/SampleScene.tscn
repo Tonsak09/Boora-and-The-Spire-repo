@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=169 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -144,6 +144,9 @@ point_count = 2
 [sub_resource type="Curve" id="Curve_83ep2"]
 _data = [Vector2(0, 1), 0.0, -1.82947, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_oioxu"]
+file = "res://Video/Get-Stick-Bugged-lol.ogv"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21u7a"]
 shader = ExtResource("4_7hl40")
@@ -407,6 +410,14 @@ shakeTime = 2.0
 shakeMag = 100.0
 shakeSpeed = 25.0
 shakeFalloffCurve = SubResource("Curve_83ep2")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="BossArena"]
+offset_left = -645.0
+offset_top = -4412.0
+offset_right = 635.0
+offset_bottom = -3692.0
+stream = SubResource("VideoStreamTheora_oioxu")
+loop = true
 
 [node name="ChainOrigin" type="Node2D" parent="BossArena"]
 position = Vector2(0, -5050)
@@ -1193,13 +1204,14 @@ texture = ExtResource("17_4ijdu")
 
 [node name="BossFront" type="Node2D" parent="."]
 
-[node name="Boss" type="Node2D" parent="BossFront"]
+[node name="Boss" type="Node2D" parent="BossFront" node_paths=PackedStringArray("finalVid")]
 position = Vector2(-4350, -4800)
 script = ExtResource("113_blpvv")
 scaleInTime = 2.0
 scaleInCurve = SubResource("Curve_iqbh7")
 scaleOutTime = 1.0
 scaleOutCurve = SubResource("Curve_liwrm")
+finalVid = NodePath("../../BossArena/VideoStreamPlayer")
 
 [node name="ChainTarget" type="Node2D" parent="BossFront/Boss"]
 position = Vector2(0, -397)
@@ -1349,8 +1361,8 @@ texture = ExtResource("100_vbwel")
 [connection signal="area_entered" from="KeyRoom/CollectionCircle" to="KeyRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="KeyRoom/CollectionCircle2" to="KeyRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="KeyRoom/ToIntro" to="KeyRoom/ToIntro" method="OnCollLoadRoom"]
-[connection signal="area_entered" from="KeyRoom/ToBoss" to="KeyRoom/ToBoss" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="KeyRoom/ToBoss" to="BossArena" method="ActivateBoss"]
+[connection signal="area_entered" from="KeyRoom/ToBoss" to="KeyRoom/ToBoss" method="OnCollLoadRoom"]
 [connection signal="area_entered" from="KeyRoom/ToBoss" to="AlwaysActive/Boora/MusicManager" method="SwapToBoss"]
 [connection signal="area_entered" from="RiddleRoom/CollectionCircle" to="RiddleRoom" method="OnCheckInventor"]
 [connection signal="area_entered" from="RiddleRoom/ToIntroRoom" to="RiddleRoom/ToIntroRoom" method="OnCollLoadRoom"]
