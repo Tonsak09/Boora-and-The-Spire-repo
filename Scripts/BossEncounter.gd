@@ -7,6 +7,9 @@ extends Node2D
 @export var itemsParent : Node2D
 @export var arena : Node2D
 
+@export var crashAudioPlayer : AudioStreamPlayer2D
+@export var damageAudioplayer : AudioStreamPlayer2D
+
 # Intro 
 @export var introTime : float 
 
@@ -48,6 +51,7 @@ var isMoveBack : bool
 @export var chillEyeSet : Node2D
 @export var attacTexture : Texture2D
 @export var attacEyeSet : Node2D
+
 
 var voidCharge
 var hitFX
@@ -107,8 +111,9 @@ func DamageManage(delta):
 			count += 1
 			bufferTimer = 0
 			bossVisuals.ShakeArena()
+			damageAudioplayer.play()
 	
-	if count >= 3 && ((state != BossStates.DEFEAT) && (state != BossStates.IDLE)):
+	if count >= 4 && ((state != BossStates.DEFEAT) && (state != BossStates.IDLE)):
 		startPosBeforeDragged = boss.global_position
 		bufferTimer = 0
 		state = BossStates.DEFEAT
@@ -189,6 +194,7 @@ func Charge(delta):
 			arena.ShakeArena()
 			state = BossStates.STUNNED
 			
+			crashAudioPlayer.play()
 			SpawnVoidCharge()
 			
 			return

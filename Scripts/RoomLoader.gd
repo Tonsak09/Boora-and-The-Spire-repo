@@ -96,7 +96,6 @@ func SwapPosAfterTrans(room : int, pos : Vector2):
 			SwapRoom(bossRoom)
 			SwapConstraints(bossCamContraints, bossBooraRect)
 	Boora.global_position = pos;
-	print_debug(inventory.followPoints)
 	for point in inventory.followPoints:
 		point.global_position = pos
 	cam.position = Vector2(0, pos.y)

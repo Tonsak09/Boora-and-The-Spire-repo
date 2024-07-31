@@ -1,4 +1,4 @@
-[gd_scene load_steps=169 format=3 uid="uid://bpqe01fd77dlr"]
+[gd_scene load_steps=176 format=3 uid="uid://bpqe01fd77dlr"]
 
 [ext_resource type="Script" path="res://Scripts/RoomLoader.gd" id="1_4ei66"]
 [ext_resource type="Texture2D" uid="uid://cj3th4gsp2g3q" path="res://Textures/icon.svg" id="1_e7dr8"]
@@ -26,14 +26,19 @@
 [ext_resource type="PackedScene" uid="uid://brkqxgxvheuoh" path="res://Prefabs/dice.tscn" id="9_ytf70"]
 [ext_resource type="PackedScene" uid="uid://bviaa64t3ly36" path="res://Prefabs/crystal.tscn" id="10_5bxhk"]
 [ext_resource type="Texture2D" uid="uid://d1ppabnfq1g6c" path="res://Textures/ShelvesVert.png" id="10_bnmwc"]
+[ext_resource type="AudioStream" uid="uid://bx8dbn2hqlb00" path="res://Audio/Cauldron/Cauldron2.wav" id="10_dcymp"]
 [ext_resource type="AudioStream" uid="uid://d2s5c51n1yuup" path="res://Audio/Music/sb_cobalt_pianoonly.mp3" id="10_g3scv"]
 [ext_resource type="PackedScene" uid="uid://co3ywbx7x8oeb" path="res://Prefabs/mushroom.tscn" id="11_koneu"]
+[ext_resource type="AudioStream" uid="uid://p6x2bd1pmj04" path="res://Audio/Cauldron/Cauldron3.wav" id="11_n8mq3"]
 [ext_resource type="Script" path="res://Scripts/InventoryUI.gd" id="11_pd56u"]
 [ext_resource type="Texture2D" uid="uid://c6sl7umujsqpf" path="res://Textures/InventoryUIBG.png" id="11_vlul6"]
 [ext_resource type="Script" path="res://Scripts/RoomConnector.gd" id="12_gdmuw"]
 [ext_resource type="Texture2D" uid="uid://qpaihxwof5fl" path="res://Textures/BNW/Dice.png" id="12_ouv1r"]
 [ext_resource type="PackedScene" uid="uid://d7ihts1mgxrl" path="res://Prefabs/bottle.tscn" id="12_sav4g"]
+[ext_resource type="AudioStream" uid="uid://cwyvyetbs7onh" path="res://Audio/Cauldron/Cauldron4.wav" id="12_xdtwm"]
 [ext_resource type="PackedScene" uid="uid://blw0n7w1lrq4y" path="res://Prefabs/rock_golem.tscn" id="13_p7ug6"]
+[ext_resource type="AudioStream" uid="uid://cskf4afy1ivp" path="res://Audio/Cauldron/Cauldron5.wav" id="13_uwehd"]
+[ext_resource type="AudioStream" uid="uid://bwurkbriot1va" path="res://Audio/Cauldron/Cauldron6.wav" id="14_vb4yr"]
 [ext_resource type="Script" path="res://Scripts/Wizard.gd" id="15_a2ub1"]
 [ext_resource type="Texture2D" uid="uid://d4jbqa1ashcw3" path="res://Textures/Wizard_cast.png" id="16_ehh23"]
 [ext_resource type="Texture2D" uid="uid://co1kbdow37cme" path="res://Textures/Hand.png" id="17_4ijdu"]
@@ -115,6 +120,7 @@
 [ext_resource type="AudioStream" uid="uid://bvn0pptp7ncaa" path="res://Audio/Watata/Wata3.wav" id="85_wniy6"]
 [ext_resource type="AudioStream" uid="uid://j5xnk7blqeyt" path="res://Audio/Music/sb_fateandfortune.mp3" id="86_780bm"]
 [ext_resource type="AudioStream" uid="uid://bwumynb1hc0uc" path="res://Audio/Watata/Wata.wav" id="86_nqwot"]
+[ext_resource type="AudioStream" uid="uid://cvk8y217t6lc3" path="res://Audio/BooraRing.mp3" id="94_fmkod"]
 [ext_resource type="Texture2D" uid="uid://crxyqq7hrl0bn" path="res://Textures/BNW/SawBottom.png" id="99_0dfi5"]
 [ext_resource type="Script" path="res://Scripts/Transitions.gd" id="99_m08yi"]
 [ext_resource type="Texture2D" uid="uid://bdrdye3gto6yf" path="res://Textures/BNW/SawTop.png" id="100_itytm"]
@@ -148,6 +154,30 @@ point_count = 2
 [sub_resource type="VideoStreamTheora" id="VideoStreamTheora_oioxu"]
 file = "res://Video/Get-Stick-Bugged-lol.ogv"
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yj76a"]
+streams_count = 5
+stream_0/stream = ExtResource("10_dcymp")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("11_n8mq3")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("12_xdtwm")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("13_uwehd")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("14_vb4yr")
+stream_4/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1famp"]
+streams_count = 4
+stream_0/stream = ExtResource("71_q7w3l")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("72_d53hh")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("73_7f215")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("74_xqqd5")
+stream_3/weight = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21u7a"]
 shader = ExtResource("4_7hl40")
 shader_parameter/Alpha = 1.0
@@ -163,17 +193,6 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="Curve" id="Curve_uelrk"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1famp"]
-streams_count = 4
-stream_0/stream = ExtResource("71_q7w3l")
-stream_0/weight = 1.0
-stream_1/stream = ExtResource("72_d53hh")
-stream_1/weight = 1.0
-stream_2/stream = ExtResource("73_7f215")
-stream_2/weight = 1.0
-stream_3/stream = ExtResource("74_xqqd5")
-stream_3/weight = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_o404s"]
 font = ExtResource("23_jb544")
@@ -370,7 +389,7 @@ bossRoom = [NodePath("BossArena"), NodePath("BossFront")]
 bossCamContraints = Vector2(-3947, -3800)
 bossBooraRect = Rect2(0, -3915, 1185, 2548)
 
-[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "inventory", "boss", "chainOrigin", "itemsParent", "arena", "points", "bossVisuals", "bosSprite", "chillEyeSet", "attacEyeSet")]
+[node name="BossArena" type="Node2D" parent="." node_paths=PackedStringArray("Boora", "inventory", "boss", "chainOrigin", "itemsParent", "arena", "crashAudioPlayer", "damageAudioplayer", "points", "bossVisuals", "bosSprite", "chillEyeSet", "attacEyeSet")]
 position = Vector2(-4777, 0)
 script = ExtResource("37_hbuot")
 Boora = NodePath("../AlwaysActive/Boora")
@@ -379,6 +398,8 @@ boss = NodePath("../BossFront/Boss")
 chainOrigin = NodePath("ChainOrigin")
 itemsParent = NodePath("../ItemsParent")
 arena = NodePath("ArenaBg")
+crashAudioPlayer = NodePath("Crash")
+damageAudioplayer = NodePath("Damage")
 introTime = 2.5
 targetingTime = 3.0
 moveTime = 0.5
@@ -462,6 +483,16 @@ position = Vector2(427, -4800)
 
 [node name="BossChargePoint3" type="Node2D" parent="BossArena/BossChargePoints"]
 position = Vector2(-427, -4800)
+
+[node name="Crash" type="AudioStreamPlayer2D" parent="BossArena"]
+position = Vector2(0, -3161)
+stream = SubResource("AudioStreamRandomizer_yj76a")
+
+[node name="Damage" type="AudioStreamPlayer2D" parent="BossArena"]
+position = Vector2(0, -3376)
+stream = SubResource("AudioStreamRandomizer_1famp")
+volume_db = 10.0
+max_distance = 10000.0
 
 [node name="IntroBack" type="Node2D" parent="."]
 
@@ -1123,6 +1154,12 @@ autoplay = true
 stream = ExtResource("86_780bm")
 volume_db = -2.0
 
+[node name="Intro" type="AudioStreamPlayer2D" parent="AlwaysActive/Boora"]
+position = Vector2(0, -103.256)
+scale = Vector2(0.2, 0.2)
+stream = ExtResource("94_fmkod")
+autoplay = true
+
 [node name="ResetNoise" type="AudioStreamPlayer2D" parent="AlwaysActive/Boora"]
 stream = SubResource("AudioStreamRandomizer_opmd1")
 
@@ -1176,7 +1213,7 @@ ShoppingLists = Array[Array]([[0, 1], [1, 2, 3]])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="IntroFront/WizardChill"]
 stream = SubResource("AudioStreamRandomizer_u8ka0")
-volume_db = 1.0
+volume_db = 10.0
 
 [node name="Node2D" type="Node2D" parent="IntroFront/WizardChill"]
 
@@ -1204,13 +1241,14 @@ texture = ExtResource("17_4ijdu")
 
 [node name="BossFront" type="Node2D" parent="."]
 
-[node name="Boss" type="Node2D" parent="BossFront" node_paths=PackedStringArray("finalVid")]
+[node name="Boss" type="Node2D" parent="BossFront" node_paths=PackedStringArray("bossMusic", "finalVid")]
 position = Vector2(-4350, -4800)
 script = ExtResource("113_blpvv")
 scaleInTime = 2.0
 scaleInCurve = SubResource("Curve_iqbh7")
 scaleOutTime = 1.0
 scaleOutCurve = SubResource("Curve_liwrm")
+bossMusic = NodePath("../../AlwaysActive/Boora/MusicManager/BossMusic")
 finalVid = NodePath("../../BossArena/VideoStreamPlayer")
 
 [node name="ChainTarget" type="Node2D" parent="BossFront/Boss"]
