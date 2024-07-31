@@ -632,6 +632,7 @@ script = ExtResource("12_gdmuw")
 RoomLoader = NodePath("../..")
 roomToload = 4
 posToMove = NodePath("TPPosition")
+canGo = false
 
 [node name="TPPosition" type="Node2D" parent="KeyRoom/ToBoss"]
 position = Vector2(0, 1499)
@@ -1241,13 +1242,14 @@ texture = ExtResource("17_4ijdu")
 
 [node name="BossFront" type="Node2D" parent="."]
 
-[node name="Boss" type="Node2D" parent="BossFront" node_paths=PackedStringArray("bossMusic", "finalVid")]
+[node name="Boss" type="Node2D" parent="BossFront" node_paths=PackedStringArray("bossArena", "bossMusic", "finalVid")]
 position = Vector2(-4350, -4800)
 script = ExtResource("113_blpvv")
 scaleInTime = 2.0
 scaleInCurve = SubResource("Curve_iqbh7")
 scaleOutTime = 1.0
 scaleOutCurve = SubResource("Curve_liwrm")
+bossArena = NodePath("../../BossArena")
 bossMusic = NodePath("../../AlwaysActive/Boora/MusicManager/BossMusic")
 finalVid = NodePath("../../BossArena/VideoStreamPlayer")
 

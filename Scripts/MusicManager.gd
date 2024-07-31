@@ -32,6 +32,9 @@ func SwapToBoss(area : Area2D):
 		SwapTune(1)
 
 func SwapTune(index : int):
+	if index == next:
+		return
+	
 	next = index
 	trans = true
 	musicStreamers[next].volume_db = -80

@@ -291,6 +291,7 @@ func GetVoidCharge(area : Area2D):
 
 func ActivateBoss(area : Area2D):
 	isActive = true
+	boss.bossMusic.play()
 
 # Resets boss on hitting Boora 
 func ResetBoss(area : Area2D):
@@ -298,3 +299,4 @@ func ResetBoss(area : Area2D):
 	count = 0
 	bufferCount = 0
 	state = BossStates.TARGET
+	boss.bossMusic.stop()

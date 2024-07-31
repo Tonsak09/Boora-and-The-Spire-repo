@@ -6,6 +6,7 @@ extends Node2D
 @export var scaleOutTime : float 
 @export var scaleOutCurve : Curve
 
+@export var bossArena : Node2D
 @export var bossMusic : AudioStreamPlayer2D
 @export var finalVid : VideoStreamPlayer
 
@@ -14,9 +15,12 @@ var scaleIn : bool
 
 var timer : float 
 
+var myFinalMessage
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	isAnim = false
+	myFinalMessage = load("res://Prefabs/End_message.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,7 +39,11 @@ func _process(delta):
 		
 		if timer >= scaleOutTime:
 			bossMusic.stop()
-			finalVid.play()
+			#finalVid.play()
+			
+			var instance = myFinalMessage.instantiate()
+			bossArena.add_child(instance)
+			
 			queue_free()
 	
 	timer += delta

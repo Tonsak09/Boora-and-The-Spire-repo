@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://cq88i3nma32q7"]
+
+[ext_resource type="Script" path="res://Scripts/Videoplay.gd" id="1_h5w73"]
+[ext_resource type="Shader" uid="uid://cdnfw8sl5ivu3" path="res://Shaders/Collectible.tres" id="2_4tdb6"]
+[ext_resource type="Texture2D" uid="uid://c4llb8v0ox4i1" path="res://Textures/CollectionCircle.png" id="3_sys8a"]
+[ext_resource type="Script" path="res://Scripts/CollectionCircle.gd" id="4_kcslx"]
+[ext_resource type="VideoStream" path="res://Video/ThankYouBoora.ogv" id="5_3r3ny"]
+[ext_resource type="FontFile" uid="uid://d37i8mrh2ouji" path="res://Fonts/Itim-Regular.ttf" id="6_xb3hm"]
+[ext_resource type="AudioStream" uid="uid://dajmful8ggu2g" path="res://Audio/Music/sb_skyscrapersamba_eq_lessdrums.mp3" id="7_nryim"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_35p1l"]
+resource_local_to_scene = true
+shader = ExtResource("2_4tdb6")
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awdfl"]
+radius = 23.0868
+
+[sub_resource type="Curve" id="Curve_084ts"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8kcrc"]
+radius = 208.166
+
+[sub_resource type="LabelSettings" id="LabelSettings_o404s"]
+font = ExtResource("6_xb3hm")
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[node name="End Message" type="Area2D" node_paths=PackedStringArray("videoThanks", "musicPlayer", "textDis")]
+position = Vector2(0, -4411)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_h5w73")
+videoThanks = NodePath("VideoStreamPlayer")
+musicPlayer = NodePath("AudioStreamPlayer2D")
+textDis = NodePath("Label")
+metadata/CollType = "CollCircle"
+
+[node name="CollectionCircleSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_35p1l")
+scale = Vector2(1.71, 1.71)
+texture = ExtResource("3_sys8a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_awdfl")
+
+[node name="WobbleDetector" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
+collision_layer = 0
+script = ExtResource("4_kcslx")
+sprite = NodePath("../CollectionCircleSprite")
+wobCurve = SubResource("Curve_084ts")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WobbleDetector"]
+shape = SubResource("CircleShape2D_8kcrc")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_top = 276.0
+offset_right = 960.0
+offset_bottom = 1364.0
+grow_horizontal = 2
+stream = ExtResource("5_3r3ny")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_nryim")
+max_distance = 10000.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -316.0
+offset_top = 89.0
+offset_right = 322.0
+offset_bottom = 331.0
+text = "Play Thank You from the Devs"
+label_settings = SubResource("LabelSettings_o404s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="." to="." method="StartWobble"]
+[connection signal="area_entered" from="." to="." method="OnPlay"]
+[connection signal="area_exited" from="." to="." method="StopWobble"]
